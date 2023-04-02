@@ -1,0 +1,23 @@
+ALL TRIGGERS - TIMES AND ALL
+
+createAthleteSheetIfNotExists
+- Time-driven, day timer, midnight to 1am
+
+generateGoonsRecapSheet
+- time-driven, day timer, 8pm-9pm
+
+getMyActivities
+- time-driven, day timer, 6pm-7pm
+
+clearGoonsRecapSheet
+- time-driven, week timer, every monday, midnight to 1am
+
+getGoonsRuns
+- time-driven, day timer, 10am-11am
+- time-driven, day timer, 7pm-8pm
+
+updateAthleteSheets
+- time-driven, day timer, 8pm-9pm
+
+clearOldActivities
+- time-driven, week timer, every monday, midnight-1am
