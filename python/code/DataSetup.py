@@ -28,12 +28,12 @@ def run_script(spreadsheet, sheet_name):
     # Acquiring the sheet activities and writing the data to a CSV file
     goons_sheet = sheet.worksheet(sheet_name)
     activities_df = pandas.DataFrame(goons_sheet.get_values("A2:P1000"), columns=goons_sheet.get_values("A1:P1"))
-    activities_df.to_csv(f"python\data\{sheet_name.upper()}_ACTIVITIES.csv", index=False, sep=",")
+    activities_df.to_csv(f"..\data\{sheet_name.upper()}_ACTIVITIES.csv", index=False, sep=",")
 
     print('Finished the script at {}'.format(datetime.datetime.now())) # Closing print
 
 # Schedule the script to run every day at 8:00 PM
-schedule.every().day.at("20:00:00").do(run_script("Strava API and Sheets Integration using Apps Script", "GOONS"))
+schedule.every().day.at("20:00:00").do(run_script, "Strava API and Sheets Integration using Apps Script", "GOONS")
 
 while True:
     # Run the scheduler
