@@ -32,10 +32,13 @@ def run_script(spreadsheet, sheet_name):
 
     print('Finished the script at {}'.format(datetime.datetime.now())) # Closing print
 
-# Schedule the script to run every day at 8:00 PM
-schedule.every().day.at("20:00:00").do(run_script, "Strava API and Sheets Integration using Apps Script", "GOONS")
+run_script("Strava API and Sheets Integration using Apps Script", "GOONS")
 
-while True:
-    # Run the scheduler
-    schedule.run_pending()
-    time.sleep(1)
+# Schedule the script to run every day at 8:00 PM
+# TODO: Schedule isn't really working, will have to look into it. Some connection issue.
+# schedule.every().day.at("20:00:00").do(run_script, "Strava API and Sheets Integration using Apps Script", "GOONS")
+
+# while True:
+#     # Run the scheduler
+#     schedule.run_pending()
+#     time.sleep(1)
