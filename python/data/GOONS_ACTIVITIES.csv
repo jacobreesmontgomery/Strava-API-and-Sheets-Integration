@@ -1,6 +1,15 @@
 ATHLETE,ACTIVITY ID,RUN,MOVING TIME,DISTANCE,PACE,FULL DATE,TIME,DAY,MONTH,DATE,YEAR,SPM AVG,HR AVG,WKT TYPE,DESCRIPTION
+PATRICK L,8880586851,Easy Run + Strides ,00:55:02,6.10,00:09:05,4/12/2023,5:41:01 PM,WED,4,12,2023,163,151.2,0,
+MARK M,8879833326,Afternoon Run,00:57:01,8.03,00:07:08,4/12/2023,2:15:45 PM,WED,4,12,2023,NA,145.3,,
+PAIGE O,8879786070,Shaky ,00:23:03,3.02,00:07:48,4/12/2023,1:07:20 PM,WED,4,12,2023,182.6,155.2,0,"Fatigue finally caught up to me, hopefully an easier couple days will help get things get moving again"
+PATRICK L,8874878248,Easy TM Run,00:50:04,5.02,00:10:07,4/11/2023,6:58:56 PM,TUE,4,11,2023,166.2,122.5,0,
+ME,8874120820,Afternoon Run,00:28:03,2.85,00:10:02,4/11/2023,4:22:10 PM,TUE,4,11,2023,141,131.2,,
+PAIGE O,8874667411,Felt Garbo,00:38:05,5.01,00:07:46,4/11/2023,1:04:05 PM,TUE,4,11,2023,183.2,154.9,0,
+MARK M,8872004439,Morning Run,01:30:00,13.01,00:06:55,4/11/2023,9:00:39 AM,TUE,4,11,2023,NA,159.3,0,30 min tempo with Sean allergies hit hard and I dropped back a bit but started to get back on pace at the end
+DAVID L,8872858452,Morning Run,00:43:00,4.46,00:09:40,4/11/2023,7:14:08 AM,TUE,4,11,2023,157.8,156.4,0,"Been neglecting my beauty sleep, felt it today.  4x hill strides at the end"
 MARK M,8868100058,Afternoon Run,01:01:00,8.37,00:07:18,4/10/2023,2:15:58 PM,MON,4,10,2023,NA,143.8,,
 DAVID L,8862907360,Wore My Easter Shorts,01:06:05,7.40,00:09:03,4/9/2023,6:21:57 PM,SUN,4,9,2023,160.2,169.8,2,I have already experienced three sugar crashes today and I consider those rookie numbers. Felt good.
+ME,8861981511,Afternoon Run,00:30:01,3.12,00:09:42,4/9/2023,2:20:25 PM,SUN,4,9,2023,146.8,133.3,,
 PAIGE O,8861534949,Highest mileage week ever ,01:53:01,15.02,00:07:33,4/9/2023,10:40:53 AM,SUN,4,9,2023,188,155.8,0,
 PATRICK L,8860938466,Now this is a recovery run...when your not recovered..whew,01:02:02,6.35,00:09:48,4/9/2023,10:38:04 AM,SUN,4,9,2023,162.6,141.9,0,
 MARK M,8862725101,4 weeks out,00:35:03,4.30,00:08:18,4/9/2023,8:34:22 AM,SUN,4,9,2023,NA,133.5,0,Lots of school and miles to get in before the big day
@@ -11,6 +20,7 @@ PAIGE O,8855546699,"TEMPO: 2x3M T w/ 2'R, 2-3'R, 4x150m strides on 90"""" cycles
 MARK M,8855375563,Montour Trail,02:15:02,20.01,00:06:46,4/8/2023,9:28:35 AM,SAT,4,8,2023,NA,151.5,0,First time on this trail
 PAIGE O,8850203564,Multitasking ,00:53:03,7.02,00:07:38,4/7/2023,3:58:21 PM,FRI,4,7,2023,185.6,148.9,0,While the children played soccer
 MARK M,8853827618,Afternoon Run,01:19:04,11.01,00:07:14,4/7/2023,1:04:56 PM,FRI,4,7,2023,NA,144.5,,
+ME,8849394444,Lunch Run,00:29:03,2.77,00:10:39,4/7/2023,12:41:54 PM,FRI,4,7,2023,137.6,118.8,,
 PATRICK L,8848537650,"Warm Up + INTERVALS: 1M @ goal MP, 2'R, 3x(1k @ 10k, 200j, 400 @ 5k-3k) w/ 90""""R, 1M @ goal MP + Cooldown ",01:02:02,8.05,00:07:45,4/7/2023,9:57:43 AM,FRI,4,7,2023,177.2,154.4,3,"Solid workout. Had to hold myself back. No idea how my 1ks were not registered at goal. Looked at watch while time and not over 6:25 at all... Some inconsistentcy there. 
 
 Goal: 1M's in 6:50-7:00, 1k's in 3:56-3:59 (6:20-25/mi), 400s in 1:32-34 (6:08-16/mi)
@@ -22,6 +32,7 @@ PATRICK L,8845200632,Easy TM Run,00:56:04,6.04,00:09:23,4/6/2023,7:30:48 PM,TH
 PAIGE O,8843390044,Jog,00:56:02,7.02,00:08:02,4/6/2023,10:45:36 AM,THU,4,6,2023,184.8,149.1,0,
 MARK M,8842522035,Morning Run,01:00:03,8.04,00:07:32,4/6/2023,9:00:27 AM,THU,4,6,2023,NA,149.3,0,Fun in the mist w Sean
 DAVID L,8841876405,We’re So Back,00:56:00,5.81,00:09:39,4/6/2023,6:50:30 AM,THU,4,6,2023,155.8,169,0,"& so’s the humidity!  Last 2 days have felt surprisingly good coming off of 3 weeks of 50-0-0.  First 3 months of 2023 were hectic in every way, proud of what I managed anyway.  Now it’s time to buckle down."
+ME,8839071277,Afternoon Run,00:35:03,2.69,00:13:13,4/5/2023,3:53:50 PM,WED,4,5,2023,123,112.2,,
 MARK M,8837838430,Shitty tempo and shitty speed work,01:12:04,10.20,00:07:08,4/5/2023,11:13:10 AM,WED,4,5,2023,NA,157.7,0,"20 min tempo 3x(3,2,1) 1 j btw reps 4 j btw sets. Allergy induced coughing made this shitty. Hoping the trees relax soon"
 PAIGE O,8837811532,INTERVALS: 8x1k/90 R,01:13:01,9.01,00:08:08,4/5/2023,11:07:48 AM,WED,4,5,2023,187.6,151.3,3,"2 mile WU, (4:04, 4:06, 4:03, 4:03, 4:02, 4:00, 3:52, 3:45), CD to 9"
 DAVID L,8841909579,Morning Run,00:47:03,5.00,00:09:31,4/5/2023,6:45:00 AM,WED,4,5,2023,NA,NA,0,Felt… good?  I guess all that walking on vacation kept me in decent shape.
@@ -31,17 +42,18 @@ PAIGE O,8831948108,Lovey day,01:02:03,8.02,00:07:48,4/4/2023,11:54:02 AM,TUE,4
 PATRICK L,8829470768,Easy TM Run,00:40:02,4.03,00:10:01,4/4/2023,5:16:11 AM,TUE,4,4,2023,165.8,118.7,0,Just trying to fit it in where I can... This gonna be highest volume week training and the craziest work schedule... Good mix
 PATRICK L,8828027218,Easy TM Run,00:30:01,3.02,00:10:01,4/3/2023,8:09:24 PM,MON,4,3,2023,164.4,117.4,0,Big week... Just taking advantage of little time I do have today..
 MARK M,8827111177,Afternoon Run,01:07:04,8.50,00:07:57,4/3/2023,3:29:33 PM,MON,4,3,2023,NA,135.3,0,Legs are fried. New shoes
-PAIGE O,8821969049,Afternoon Run,00:43:01,5.52,00:07:51,4/2/2023,4:30:54 PM,SUN,4,2,2023,185.8,153.1,,
+PAIGE O,8821969049,High miles!,00:43:01,5.52,00:07:51,4/2/2023,4:30:54 PM,SUN,4,2,2023,185.8,153.1,0,
 MARK M,8821692803,Morning Run,00:51:00,8.00,00:06:23,4/2/2023,10:45:00 AM,SUN,4,2,2023,NA,NA,,Missing mileage
 PATRICK L,8820209739,Recovery Run + Strides,01:06:01,8.05,00:08:13,4/2/2023,10:20:05 AM,SUN,4,2,2023,169.6,145.9,0,"Surprised how good I felt, considering race yesterday. Fitness getting locked in!"
 MARK M,8821674890,LR w Chris and Conor,01:04:05,10.00,00:06:30,4/2/2023,9:39:08 AM,SUN,4,2,2023,NA,171.9,0,"3x(1mi tempo,2 mi MP) watch died early on went off feel for the rest. Having Conor for this was extremely helpful"
+ME,8819214951,Morning Run,00:29:04,2.71,00:10:58,4/2/2023,8:38:50 AM,SUN,4,2,2023,135.4,123.3,,
 PAIGE O,8814587272,"LR WKT: 15-17 total w/ 5-6M WU, [2M @ HMP, 4M @ MP, 2M @ HMP], 2-3M CD",02:00:02,16.44,00:07:20,4/1/2023,9:22:42 AM,SAT,4,1,2023,188.8,163.7,3,"Super great to have George along with this! A bit harder then anticipated but it’s completed.
 
 Spilt: HMP - 6:40, 6:47
 MP - 6:59, 6:54, 6:58, 7:04
 HMP: 6:45, 6:40"
 PATRICK L,8813468374,2023 Capital 10 Miler: 14 Overall/ 3 Age,01:05:05,9.88,00:06:40,4/1/2023,9:00:41 AM,SAT,4,1,2023,183.8,174.4,1,1:05:56 Official: Hit in goal range. Not my day though! Just didn't have it in me to hit best possible outcome. Still happy though. 
-PATRICK L,8813018917,Pre Run WarmUp Run,00:21:02,2.06,00:10:23,4/1/2023,8:23:58 AM,SAT,4,1,2023,168,144.6,,
+PATRICK L,8813018917,Pre Run WarmUp Run,00:21:02,2.06,00:10:23,4/1/2023,8:23:58 AM,SAT,4,1,2023,168,144.6,0,
 PATRICK L,8809606333,Easy Run,00:44:02,5.10,00:08:42,3/31/2023,2:53:37 PM,FRI,3,31,2023,168.4,147.5,0,Felt real good today...the little tapering for the Capital 10 is def in full effect. 
 PAIGE O,8809650013,Easy/ rainy effort ,01:09:01,9.01,00:07:41,3/31/2023,12:46:27 PM,FRI,3,31,2023,185.6,156.3,0,Strides to end
 MARK M,8808849917,Lunch Run,00:56:03,7.46,00:07:35,3/31/2023,11:30:46 AM,FRI,3,31,2023,NA,155.8,0,Big LR workout tomorrow
@@ -70,7 +82,7 @@ PATRICK L,8775653199,Easy goes it!,01:25:02,9.16,00:09:19,3/25/2023,10:47:09 A
 MARK M,8774974087,Morning Run,01:55:04,15.06,00:07:42,3/25/2023,8:46:41 AM,SAT,3,25,2023,NA,160.1,0,Got raggy out of retirement for this one
 PATRICK L,8770976056,"WarmUp + 10-MILER PREP: 2M, 1M, 2M, 1M, 800, (ADDED 1M T) w/ 2'R bw reps Run +Cooldown ",01:23:04,11.04,00:07:36,3/24/2023,2:48:22 PM,FRI,3,24,2023,177.2,156,3,"Targeted 6:40-6-50 2M / 6:30-6:40 1M. Didn't hit exact targets but pretty much maintained range all miles. As the workout went on, felt better. Damn do I hate the first 15 minutes of workouts!! Some gastro distress from eating lunch not too long before... Pushed through. "
 PAIGE O,8770993267,"TEMPO: 3M, 1M, 2M w/ 2'R bw reps",01:12:02,10.01,00:07:14,3/24/2023,12:39:50 PM,FRI,3,24,2023,188,169,3,"2 mile WU, 3 mile (6:38, 6:36, 6:31), 1 mile (6:22), 2 mile (6:34, 6:21), CD to 10"
-TIMMY B,8769892942,Pre-Meet ,00:15:00,2.00,00:07:31,3/24/2023,12:09:12 PM,FRI,3,24,2023,167.4,148.5,,Race Sunday
+TIMMY B,8769892942,Pre-Meet ,00:15:00,2.00,00:07:31,3/24/2023,12:09:12 PM,FRI,3,24,2023,167.4,148.5,0,Race Sunday
 MARK M,8769277576,Morning Run,01:00:04,8.03,00:07:34,3/24/2023,9:01:45 AM,FRI,3,24,2023,NA,161,,
 PATRICK L,8767054815,TM Run,01:00:03,6.01,00:10:05,3/23/2023,8:25:41 PM,THU,3,23,2023,164.6,117.4,0,
 PAIGE O,8767153485,WPU bc it rained when I was free,00:45:05,6.02,00:07:38,3/23/2023,7:34:55 PM,THU,3,23,2023,179.2,155,0,Impromptu porch date after
@@ -114,208 +126,501 @@ PAIGE O,8714569416,Hopefully not many more of these,00:54:02,7.01,00:07:46,3/14/
 MARK M,8713102140,Morning Run,00:57:04,7.51,00:07:42,3/14/2023,10:06:22 AM,TUE,3,14,2023,NA,143.4,0,Pretty slick not a fun run
 MARK M,8709957388,Went to practice,01:08:02,9.19,00:07:27,3/13/2023,5:27:28 PM,MON,3,13,2023,NA,162,0,Nice to see some of the guys again
 TIMMY B,8709792506,Afternoon Run,00:54:05,7.02,00:07:49,3/13/2023,5:03:29 PM,MON,3,13,2023,NA,170.4,,
-PAIGE O,8704817536,Afternoon Run,00:55:00,7.01,07:51:00,3/12/2023,3:49:13 PM,SUN,3,12,2023,185,151.9,,I should probably run somewhere else
-MARK M,8704521206,8 weeks out,00:32:03,4.01,08:06:00,3/12/2023,2:59:55 PM,SUN,3,12,2023,NA,131.4,,Feeling good very excited for the next two months
-PATRICK L,8704022440,Long TM Run insanity!!,03:12:01,21.09,09:07:00,3/12/2023,10:32:31 AM,SUN,3,12,2023,168.4,157.5,2,Sometimes it's about development of your mental toughness..lol. I've been on TM all week recovering and just wanted to prove to myself I could last 20miles on TM. Safe to say my post tib strain is all good. Zero issues!! Another week in the book...not expected week but a week!
-TIMMY B,8702412114,Long Run Workout ft. Isaac ,01:35:02,15.12,06:19:00,3/12/2023,8:05:35 AM,SUN,3,12,2023,175.2,161.9,,"4x(Mile @hmp, 1 mile moderate)"
-PAIGE O,8698680933,LR workout ,01:52:05,15.16,07:27:00,3/11/2023,2:32:01 PM,SAT,3,11,2023,188.8,160.8,,"4 mile WU, 4 x 1 mile threshold (6:52, 6:52, 6:42, 6:42), 1 mile @ 7:30, 3 mile CD
+PAIGE O,8704817536,Afternoon Run,00:55:00,7.01,00:07:51,3/12/2023,3:49:13 PM,SUN,3,12,2023,185,151.9,0,I should probably run somewhere else
+MARK M,8704521206,8 weeks out,00:32:03,4.01,00:08:06,3/12/2023,2:59:55 PM,SUN,3,12,2023,NA,131.4,0,Feeling good very excited for the next two months
+PATRICK L,8704022440,Long TM Run insanity!!,03:12:01,21.09,00:09:07,3/12/2023,10:32:31 AM,SUN,3,12,2023,168.4,157.5,2,Sometimes it's about development of your mental toughness..lol. I've been on TM all week recovering and just wanted to prove to myself I could last 20miles on TM. Safe to say my post tib strain is all good. Zero issues!! Another week in the book...not expected week but a week!
+TIMMY B,8702412114,Long Run Workout ft. Isaac ,01:35:02,15.12,00:06:19,3/12/2023,8:05:35 AM,SUN,3,12,2023,175.2,161.9,0,"4x(Mile @hmp, 1 mile moderate)"
+PAIGE O,8698680933,LR workout ,01:52:05,15.16,00:07:27,3/11/2023,2:32:01 PM,SAT,3,11,2023,188.8,160.8,0,"4 mile WU, 4 x 1 mile threshold (6:52, 6:52, 6:42, 6:42), 1 mile @ 7:30, 3 mile CD
 
 Owen had a bit quicker on the first two, the cool down was easily the hardest part of this but this def went by quick."
-PATRICK L,8697184911,Easy TM ,01:40:05,10.28,09:49:00,3/11/2023,9:29:09 AM,SAT,3,11,2023,166,118.2,,Keeping it on the mill. First run that felt back to normal. Gonna take it outside tomorrow. Encouraging progress 
-MARK M,8696540326,Morning Run,02:09:03,18.02,07:12:00,3/11/2023,7:20:51 AM,SAT,3,11,2023,NA,150,,"Wanted a trexler loop but it was too muddy 
+PATRICK L,8697184911,Easy TM ,01:40:05,10.28,00:09:49,3/11/2023,9:29:09 AM,SAT,3,11,2023,166,118.2,0,Keeping it on the mill. First run that felt back to normal. Gonna take it outside tomorrow. Encouraging progress 
+MARK M,8696540326,Morning Run,02:09:03,18.02,00:07:12,3/11/2023,7:20:51 AM,SAT,3,11,2023,NA,150,0,"Wanted a trexler loop but it was too muddy 
 Stuck to the roads for an out and back felt really solid"
-TIMMY B,8693022845,Afternoon Run,00:30:03,4.00,07:37:00,3/10/2023,4:59:14 PM,FRI,3,10,2023,170,145.6,,
-PATRICK L,8692542129,Easy TM Run,01:09:00,7.03,09:50:00,3/10/2023,1:50:52 PM,FRI,3,10,2023,167.4,123.6,,Trying to control as much as I can to ensure recovery. Keeping it on treadmill to keep it flat. No pain or tightness today. We'll keep progressing mileage... Shoot for 9-10 tomorrow
-MARK M,8691618545,Morning Run,01:02:01,9.56,06:31:00,3/10/2023,10:10:52 AM,FRI,3,10,2023,NA,166.6,,"30 min tempo 5.23 mi 5:44 pace
+TIMMY B,8693022845,Afternoon Run,00:30:03,4.00,00:07:37,3/10/2023,4:59:14 PM,FRI,3,10,2023,170,145.6,,
+PATRICK L,8692542129,Easy TM Run,01:09:00,7.03,00:09:50,3/10/2023,1:50:52 PM,FRI,3,10,2023,167.4,123.6,0,Trying to control as much as I can to ensure recovery. Keeping it on treadmill to keep it flat. No pain or tightness today. We'll keep progressing mileage... Shoot for 9-10 tomorrow
+MARK M,8691618545,Morning Run,01:02:01,9.56,00:06:31,3/10/2023,10:10:52 AM,FRI,3,10,2023,NA,166.6,0,"30 min tempo 5.23 mi 5:44 pace
 A bit slower than I wanted but not upset with it"
-PATRICK L,8688828439,Keeping it easy TM Run,00:56:05,5.83,09:46:00,3/9/2023,6:41:35 PM,THU,3,9,2023,165.2,118.9,,Strain is getting better. Gotta keep it easy. Will keep pushing distance with each run
-PAIGE O,8692742624,Huge accomplishment ,01:04:02,8.15,07:55:00,3/9/2023,5:33:32 PM,THU,3,9,2023,185,159.2,,
-MARK M,8686884939,Lunch Run,01:02:05,8.32,07:33:00,3/9/2023,11:13:34 AM,THU,3,9,2023,NA,175.3,,"HR has been broken all week kinda annoying 
+PATRICK L,8688828439,Keeping it easy TM Run,00:56:05,5.83,00:09:46,3/9/2023,6:41:35 PM,THU,3,9,2023,165.2,118.9,0,Strain is getting better. Gotta keep it easy. Will keep pushing distance with each run
+PAIGE O,8692742624,Huge accomplishment ,01:04:02,8.15,00:07:55,3/9/2023,5:33:32 PM,THU,3,9,2023,185,159.2,0,
+MARK M,8686884939,Lunch Run,01:02:05,8.32,00:07:33,3/9/2023,11:13:34 AM,THU,3,9,2023,NA,175.3,0,"HR has been broken all week kinda annoying 
 Headwind way out tailwind way back"
-PATRICK L,8683862509,Easy TM Run,00:48:04,4.80,10:09:00,3/8/2023,7:53:49 PM,WED,3,8,2023,161.6,118.8,,Went better than yesterday. Keeping intensity down this week so I can recover. Still plan on progressing volume. We'll keep attn to mobility work of gastroc and post tib
-TIMMY B,8683377926,Smooth workout,01:05:02,10.01,06:32:00,3/8/2023,4:53:52 PM,WED,3,8,2023,171.8,158.3,,"3 mile warmup (2.5 on watch, forgot to start first .5) 30’ tempo, 6x20” hill sprints 
+PATRICK L,8683862509,Easy TM Run,00:48:04,4.80,00:10:09,3/8/2023,7:53:49 PM,WED,3,8,2023,161.6,118.8,0,Went better than yesterday. Keeping intensity down this week so I can recover. Still plan on progressing volume. We'll keep attn to mobility work of gastroc and post tib
+TIMMY B,8683377926,Smooth workout,01:05:02,10.01,00:06:32,3/8/2023,4:53:52 PM,WED,3,8,2023,171.8,158.3,0,"3 mile warmup (2.5 on watch, forgot to start first .5) 30’ tempo, 6x20” hill sprints 
 
 Ran into a Dan Forry on my warmup, nice to see a familiar face on a run"
-PAIGE O,8683128934,Post drive,00:49:01,7.01,07:02:00,3/8/2023,3:53:20 PM,WED,3,8,2023,188.6,155,,"2 mile WU, FARTLEK: 1,2,3,2,1,2,3,2,1 w/ halved J R, CD to 7"
-MARK M,8682392530,Afternoon Run,01:07:02,9.03,07:28:00,3/8/2023,1:10:57 PM,WED,3,8,2023,NA,172.2,,
-PATRICK L,8678687253,Easy TM Run,00:31:04,3.39,09:23:00,3/7/2023,8:50:38 PM,TUE,3,7,2023,167.8,130,,Dealing with some post tib soreness. Keeping it light as precaution. We'll do some mobility work!!
-TIMMY B,8678033793,Afternoon Run,00:37:04,5.03,07:30:00,3/7/2023,5:32:25 PM,TUE,3,7,2023,169.6,144.2,,
-MARK M,8677601662,Afternoon Run,01:25:05,12.01,07:09:00,3/7/2023,1:32:00 PM,TUE,3,7,2023,NA,166.4,,"3xmi,90r,2min r, 2x(6,4,2) 2 r in,4 r btw
+PAIGE O,8683128934,Post drive,00:49:01,7.01,00:07:02,3/8/2023,3:53:20 PM,WED,3,8,2023,188.6,155,0,"2 mile WU, FARTLEK: 1,2,3,2,1,2,3,2,1 w/ halved J R, CD to 7"
+MARK M,8682392530,Afternoon Run,01:07:02,9.03,00:07:28,3/8/2023,1:10:57 PM,WED,3,8,2023,NA,172.2,,
+PATRICK L,8678687253,Easy TM Run,00:31:04,3.39,00:09:23,3/7/2023,8:50:38 PM,TUE,3,7,2023,167.8,130,0,Dealing with some post tib soreness. Keeping it light as precaution. We'll do some mobility work!!
+TIMMY B,8678033793,Afternoon Run,00:37:04,5.03,00:07:30,3/7/2023,5:32:25 PM,TUE,3,7,2023,169.6,144.2,,
+MARK M,8677601662,Afternoon Run,01:25:05,12.01,00:07:09,3/7/2023,1:32:00 PM,TUE,3,7,2023,NA,166.4,0,"3xmi,90r,2min r, 2x(6,4,2) 2 r in,4 r btw
 5:25,5:23,5:25,1:52,70,34,1:49,68,32
 Got an internship offer after finishing this W day"
-PAIGE O,8676860105,EZ miles ,00:53:03,7.01,07:37:00,3/7/2023,12:27:01 PM,TUE,3,7,2023,185.6,164.6,,6 hill sprints at the end
-TIMMY B,8672636578,Evening Run,00:58:04,8.07,07:17:00,3/6/2023,6:33:41 PM,MON,3,6,2023,171,151.7,,
-MARK M,8670645299,Lunch Run,01:06:01,9.18,07:14:00,3/6/2023,11:20:45 AM,MON,3,6,2023,NA,173,,
-PATRICK L,8667108542,WarmUp+Easy+Steady +Easy,02:46:01,20.05,08:18:00,3/5/2023,2:09:26 PM,SUN,3,5,2023,170.4,159.6,2,Holy Hills in Hershey! Not my favorite run but have steady effort and happy with result.
-MARK M,8665896248,Lunch Run,00:32:04,4.00,08:12:00,3/5/2023,11:54:28 AM,SUN,3,5,2023,NA,140.6,,
-PAIGE O,8666263967,Solo LR,01:42:05,14.01,07:21:00,3/5/2023,11:40:18 AM,SUN,3,5,2023,190,165.7,,This went well until taking a second gel at mile 11 and cramping the rest of the run. Will have to figure that out
-TIMMY B,8665531067,Long Jawn Silvers ,01:22:04,13.02,06:22:00,3/5/2023,6:48:18 AM,SUN,3,5,2023,173.6,160.1,,
-PAIGE O,8660574673,Windy workout 💨,00:48:01,7.01,06:53:00,3/4/2023,3:41:28 PM,SAT,3,4,2023,189.2,168,,"2 mile WU, 20 min tempo (6:30, 6:24, 6:27), jog to 6 x 15 sec hills, CD to 7"
-MARK M,8660451913,Back Home,01:52:03,16.52,06:49:00,3/4/2023,2:00:27 PM,SAT,3,4,2023,NA,159.5,,"3x2mi, 2 min r, 4x150, j r 11:10,11:06,10:58
+PAIGE O,8676860105,EZ miles ,00:53:03,7.01,00:07:37,3/7/2023,12:27:01 PM,TUE,3,7,2023,185.6,164.6,0,6 hill sprints at the end
+TIMMY B,8672636578,Evening Run,00:58:04,8.07,00:07:17,3/6/2023,6:33:41 PM,MON,3,6,2023,171,151.7,,
+MARK M,8670645299,Lunch Run,01:06:01,9.18,00:07:14,3/6/2023,11:20:45 AM,MON,3,6,2023,NA,173,,
+PATRICK L,8667108542,WarmUp+Easy+Steady +Easy,02:46:01,20.05,00:08:18,3/5/2023,2:09:26 PM,SUN,3,5,2023,170.4,159.6,2,Holy Hills in Hershey! Not my favorite run but have steady effort and happy with result.
+MARK M,8665896248,Lunch Run,00:32:04,4.00,00:08:12,3/5/2023,11:54:28 AM,SUN,3,5,2023,NA,140.6,,
+PAIGE O,8666263967,Solo LR,01:42:05,14.01,00:07:21,3/5/2023,11:40:18 AM,SUN,3,5,2023,190,165.7,0,This went well until taking a second gel at mile 11 and cramping the rest of the run. Will have to figure that out
+TIMMY B,8665531067,Long Jawn Silvers ,01:22:04,13.02,00:06:22,3/5/2023,6:48:18 AM,SUN,3,5,2023,173.6,160.1,0,
+PAIGE O,8660574673,Windy workout 💨,00:48:01,7.01,00:06:53,3/4/2023,3:41:28 PM,SAT,3,4,2023,189.2,168,0,"2 mile WU, 20 min tempo (6:30, 6:24, 6:27), jog to 6 x 15 sec hills, CD to 7"
+MARK M,8660451913,Back Home,01:52:03,16.52,00:06:49,3/4/2023,2:00:27 PM,SAT,3,4,2023,NA,159.5,0,"3x2mi, 2 min r, 4x150, j r 11:10,11:06,10:58
 Lots of wind on home stretch as usual"
-PATRICK L,8658816335,Easy Run,00:48:02,5.03,09:38:00,3/4/2023,9:31:13 AM,SAT,3,4,2023,164.8,141,,Nice and easy. A bit sore from yesterday. Breaking in Topo Athletic Ultrafly 4s. Light supportive dailytrainer for mod-high milage. Definitely better than last model...
+PATRICK L,8658816335,Easy Run,00:48:02,5.03,00:09:38,3/4/2023,9:31:13 AM,SAT,3,4,2023,164.8,141,0,Nice and easy. A bit sore from yesterday. Breaking in Topo Athletic Ultrafly 4s. Light supportive dailytrainer for mod-high milage. Definitely better than last model...
 DAVID L,8707289467,Morning Run,00:10:01,1.17,00:08:48,3/4/2023,8:46:20 AM,SAT,3,4,2023,162.2,155.7,,
-PAIGE O,8654805328,Afternoon Run,00:45:03,6.05,07:32:00,3/3/2023,4:20:33 PM,FRI,3,3,2023,185.6,157.8,,
-PATRICK L,8654672818,"WarmUp+FLUX: 5x(800m @ 10k, 800m @ goal MP)**No rest**+Easy Cooldown ",01:16:00,9.32,08:09:00,3/3/2023,3:07:06 PM,FRI,3,3,2023,172.8,159.9,3,"10k efforts targeted 6:40. Progressed efforts each set, last was 6:15 range. MP efforts from 7:05-7:15 range. PROUD OF THIS ONE. Felt strong and could have kept going. Doing it in terrible sleet rain made me feel like a viking 💪...😂😂. Warrior mode. "
-MARK M,8652825571,Morning Run,00:56:04,7.55,07:31:00,3/3/2023,8:23:22 AM,FRI,3,3,2023,NA,148,,
-PATRICK L,8650309456,Easy TM Run,00:42:00,4.48,09:23:00,3/2/2023,6:29:47 PM,THU,3,2,2023,168,125.3,,Hate this weekday training. Another weekend heavy run fest coming up!
-MARK M,8650101271,Afternoon Run,01:04:05,9.00,07:12:00,3/2/2023,5:12:34 PM,THU,3,2,2023,NA,152.8,,
-TIMMY B,8649969456,Flux workout ,00:52:00,8.36,06:14:00,3/2/2023,4:36:26 PM,THU,3,2,2023,173,159.5,,"4x(800@10k, 800@mile)"
-PAIGE O,8649662165,Lost Owen to the corporate life ,00:30:05,4.01,07:42:00,3/2/2023,2:16:07 PM,THU,3,2,2023,186,166.4,,
-DAVID L,8649229731,Regression Run,00:36:02,4.10,08:53:00,3/2/2023,2:02:35 PM,THU,3,2,2023,160.4,166.6,,"I think it’s gonna take a few days to feel normal again, but it’s good to be back"
-PAIGE O,8649661186,To Owen checking email ,00:34:03,4.57,07:33:00,3/2/2023,1:13:11 PM,THU,3,2,2023,185.6,161.1,,
-DAVID L,8645128173,Something. ,00:10:00,1.13,08:57:00,3/1/2023,8:27:35 PM,WED,3,1,2023,161.4,148.6,,"I am blessed to be very durable so Ive never trained to the point of getting injured, but as a result I am able to go hard until I dig myself into a pit so deep it takes weeks to climb back out.
+PAIGE O,8654805328,Afternoon Run,00:45:03,6.05,00:07:32,3/3/2023,4:20:33 PM,FRI,3,3,2023,185.6,157.8,,
+PATRICK L,8654672818,"WarmUp+FLUX: 5x(800m @ 10k, 800m @ goal MP)**No rest**+Easy Cooldown ",01:16:00,9.32,00:08:09,3/3/2023,3:07:06 PM,FRI,3,3,2023,172.8,159.9,3,"10k efforts targeted 6:40. Progressed efforts each set, last was 6:15 range. MP efforts from 7:05-7:15 range. PROUD OF THIS ONE. Felt strong and could have kept going. Doing it in terrible sleet rain made me feel like a viking 💪...😂😂. Warrior mode. "
+MARK M,8652825571,Morning Run,00:56:04,7.55,00:07:31,3/3/2023,8:23:22 AM,FRI,3,3,2023,NA,148,,
+PATRICK L,8650309456,Easy TM Run,00:42:00,4.48,00:09:23,3/2/2023,6:29:47 PM,THU,3,2,2023,168,125.3,0,Hate this weekday training. Another weekend heavy run fest coming up!
+MARK M,8650101271,Afternoon Run,01:04:05,9.00,00:07:12,3/2/2023,5:12:34 PM,THU,3,2,2023,NA,152.8,,
+TIMMY B,8649969456,Flux workout ,00:52:00,8.36,00:06:14,3/2/2023,4:36:26 PM,THU,3,2,2023,173,159.5,0,"4x(800@10k, 800@mile)"
+PAIGE O,8649662165,Lost Owen to the corporate life ,00:30:05,4.01,00:07:42,3/2/2023,2:16:07 PM,THU,3,2,2023,186,166.4,0,
+DAVID L,8649229731,Regression Run,00:36:02,4.10,00:08:53,3/2/2023,2:02:35 PM,THU,3,2,2023,160.4,166.6,0,"I think it’s gonna take a few days to feel normal again, but it’s good to be back"
+PAIGE O,8649661186,To Owen checking email ,00:34:03,4.57,00:07:33,3/2/2023,1:13:11 PM,THU,3,2,2023,185.6,161.1,0,
+DAVID L,8645128173,Something. ,00:10:00,1.13,00:08:57,3/1/2023,8:27:35 PM,WED,3,1,2023,161.4,148.6,0,"I am blessed to be very durable so Ive never trained to the point of getting injured, but as a result I am able to go hard until I dig myself into a pit so deep it takes weeks to climb back out.
 
 I am out at last. Let’s grind (but be smarter this time)."
-TIMMY B,8644908147,Evening Run,00:55:05,7.81,07:09:00,3/1/2023,6:33:40 PM,WED,3,1,2023,169.4,148.8,,
-MARK M,8644196476,Afternoon Run,00:17:00,2.20,07:46:00,3/1/2023,4:09:10 PM,WED,3,1,2023,NA,NA,,Watch bugged out on the warmup
-MARK M,8644172585,Afternoon Run,01:03:01,9.18,06:53:00,3/1/2023,2:54:35 PM,WED,3,1,2023,NA,155.2,,"6xk,90r,5x4,2j 3:18,12,7,8,12,14 70,1,2,1,1
+TIMMY B,8644908147,Evening Run,00:55:05,7.81,00:07:09,3/1/2023,6:33:40 PM,WED,3,1,2023,169.4,148.8,,
+MARK M,8644196476,Afternoon Run,00:17:00,2.20,00:07:46,3/1/2023,4:09:10 PM,WED,3,1,2023,NA,NA,,Watch bugged out on the warmup
+MARK M,8644172585,Afternoon Run,01:03:01,9.18,00:06:53,3/1/2023,2:54:35 PM,WED,3,1,2023,NA,155.2,0,"6xk,90r,5x4,2j 3:18,12,7,8,12,14 70,1,2,1,1
 Too nice to not run too fast 
 Wanted Ks at 3:25 and 4s at 75"
-PAIGE O,8643938028,So close ,00:38:02,5.11,07:31:00,3/1/2023,2:05:56 PM,WED,3,1,2023,186.2,159.7,,"2 mile WU, 10 x 30 sec hill, one full serpentine, CD home"
-PATRICK L,8639399064,Easy TM Run,00:49:00,4.48,10:57:00,2/28/2023,7:09:48 PM,TUE,2,28,2023,165.6,122.7,,Forgot to stop watch.. 
-TIMMY B,8639102087,Afternoon Run,00:54:04,7.02,07:48:00,2/28/2023,5:38:32 PM,TUE,2,28,2023,169.2,140.7,,
-PAIGE O,8637355360,Morning Run,00:49:02,6.36,07:47:00,2/28/2023,10:58:33 AM,TUE,2,28,2023,186.2,157.8,,Strides to end
-MARK M,8636005967,Morning Run,01:05:05,8.78,07:31:00,2/28/2023,7:22:51 AM,TUE,2,28,2023,NA,155,,Windy
-TIMMY B,8633406726,Workout action,00:59:02,9.22,06:27:00,2/27/2023,5:20:59 PM,MON,2,27,2023,169.8,159.9,,"3xMile 90 sec rest. 1x600,400,200 on 200 rest"
-MARK M,8632926534,Afternoon Run,01:04:05,8.79,07:24:00,2/27/2023,3:14:47 PM,MON,2,27,2023,NA,158.7,,Cold and wet
-DAVID L,8630426884,"“Politicians are temporary, Wu Tang is forever”",00:34:01,3.73,09:11:00,2/27/2023,6:51:27 AM,MON,2,27,2023,160,158.7,,Wisdom from a lawn sign in the fan
-PATRICK L,8641362442,Easy TM.. Run,00:45:00,4.50,10:01:00,2/27/2023,12:43:13 AM,SUN,2,26,2023,165.8,119.5,,Lol. Definitely not the time I did this.  
-PAIGE O,8628466192,Shakey,00:27:03,3.51,07:52:00,2/26/2023,5:37:19 PM,SUN,2,26,2023,184.8,130.6,,Gonna log my miles on my shoes starting now
-MARK M,8628460318,Afternoon Run,01:44:03,15.51,06:44:00,2/26/2023,4:26:03 PM,SUN,2,26,2023,NA,158.7,,25 min tempo 5:40 pace
-PATRICK L,8628285838,WarmUp+Easy+Steady second half + Cooldown Run,02:39:02,19.01,08:23:00,2/26/2023,2:23:21 PM,SUN,2,26,2023,170,158.8,2,
-TIMMY B,8626254515,Morning Run,00:50:03,7.00,07:13:00,2/26/2023,9:21:32 AM,SUN,2,26,2023,174.8,151.9,,
-PAIGE O,8621968279,LR on the PI!,01:44:03,14.01,07:28:00,2/25/2023,2:26:31 PM,SAT,2,25,2023,188.4,165.7,,With great company :)
-PATRICK L,8621089504,Easy TM Run,01:10:01,7.45,09:26:00,2/25/2023,11:04:14 AM,SAT,2,25,2023,167.4,128.3,,
-TIMMY B,8620037315,Morning Run,00:34:05,5.00,06:58:00,2/25/2023,9:00:42 AM,SAT,2,25,2023,177,153.4,,
-MARK M,8619568407,Morning Run,00:31:02,4.01,07:51:00,2/25/2023,7:48:33 AM,SAT,2,25,2023,NA,135.9,,Jog day
-TIMMY B,8616347316,Afternoon Run,00:23:00,3.26,07:04:00,2/24/2023,4:08:22 PM,FRI,2,24,2023,173.4,147.9,,
-PATRICK L,8616332260,WarmUp+Easy Run,00:32:05,3.39,09:42:00,2/24/2023,3:58:04 PM,FRI,2,24,2023,160.4,139.4,,
-PAIGE O,8616114177,✈️🙋‍♀️🥰,00:55:03,7.51,07:24:00,2/24/2023,2:16:47 PM,FRI,2,24,2023,187.8,160.4,,"2 mile WU, 5 x 5 min tempo (around 6:35 pace) with 1 min rest in btwn, 6 x 20 sec hills, CD to 7.5
+PAIGE O,8643938028,So close ,00:38:02,5.11,00:07:31,3/1/2023,2:05:56 PM,WED,3,1,2023,186.2,159.7,0,"2 mile WU, 10 x 30 sec hill, one full serpentine, CD home"
+PATRICK L,8639399064,Easy TM Run,00:49:00,4.48,00:10:57,2/28/2023,7:09:48 PM,TUE,2,28,2023,165.6,122.7,0,Forgot to stop watch.. 
+TIMMY B,8639102087,Afternoon Run,00:54:04,7.02,00:07:48,2/28/2023,5:38:32 PM,TUE,2,28,2023,169.2,140.7,,
+PAIGE O,8637355360,Morning Run,00:49:02,6.36,00:07:47,2/28/2023,10:58:33 AM,TUE,2,28,2023,186.2,157.8,0,Strides to end
+MARK M,8636005967,Morning Run,01:05:05,8.78,00:07:31,2/28/2023,7:22:51 AM,TUE,2,28,2023,NA,155,0,Windy
+TIMMY B,8633406726,Workout action,00:59:02,9.22,00:06:27,2/27/2023,5:20:59 PM,MON,2,27,2023,169.8,159.9,0,"3xMile 90 sec rest. 1x600,400,200 on 200 rest"
+MARK M,8632926534,Afternoon Run,01:04:05,8.79,00:07:24,2/27/2023,3:14:47 PM,MON,2,27,2023,NA,158.7,0,Cold and wet
+DAVID L,8630426884,"“Politicians are temporary, Wu Tang is forever”",00:34:01,3.73,00:09:11,2/27/2023,6:51:27 AM,MON,2,27,2023,160,158.7,0,Wisdom from a lawn sign in the fan
+PATRICK L,8641362442,Easy TM.. Run,00:45:00,4.50,00:10:01,2/27/2023,12:43:13 AM,SUN,2,26,2023,165.8,119.5,0,Lol. Definitely not the time I did this.  
+PAIGE O,8628466192,Shakey,00:27:03,3.51,00:07:52,2/26/2023,5:37:19 PM,SUN,2,26,2023,184.8,130.6,0,Gonna log my miles on my shoes starting now
+MARK M,8628460318,Afternoon Run,01:44:03,15.51,00:06:44,2/26/2023,4:26:03 PM,SUN,2,26,2023,NA,158.7,0,25 min tempo 5:40 pace
+PATRICK L,8628285838,WarmUp+Easy+Steady second half + Cooldown Run,02:39:02,19.01,00:08:23,2/26/2023,2:23:21 PM,SUN,2,26,2023,170,158.8,2,Goal was to stay sub 8 second half. Little mini workout in long run...💪.
+TIMMY B,8626254515,Morning Run,00:50:03,7.00,00:07:13,2/26/2023,9:21:32 AM,SUN,2,26,2023,174.8,151.9,,
+PAIGE O,8621968279,LR on the PI!,01:44:03,14.01,00:07:28,2/25/2023,2:26:31 PM,SAT,2,25,2023,188.4,165.7,0,With great company :)
+PATRICK L,8621089504,Easy TM Run,01:10:01,7.45,00:09:26,2/25/2023,11:04:14 AM,SAT,2,25,2023,167.4,128.3,0,A bit sore. Just stuck to easy TM today. Long one tomorrow.
+TIMMY B,8620037315,Morning Run,00:34:05,5.00,00:06:58,2/25/2023,9:00:42 AM,SAT,2,25,2023,177,153.4,,
+MARK M,8619568407,Morning Run,00:31:02,4.01,00:07:51,2/25/2023,7:48:33 AM,SAT,2,25,2023,NA,135.9,0,Jog day
+TIMMY B,8616347316,Afternoon Run,00:23:00,3.26,00:07:04,2/24/2023,4:08:22 PM,FRI,2,24,2023,173.4,147.9,,
+PATRICK L,8616332260,WarmUp+Easy Run,00:32:05,3.39,00:09:42,2/24/2023,3:58:04 PM,FRI,2,24,2023,160.4,139.4,0,
+PAIGE O,8616114177,✈️🙋‍♀️🥰,00:55:03,7.51,00:07:24,2/24/2023,2:16:47 PM,FRI,2,24,2023,187.8,160.4,0,"2 mile WU, 5 x 5 min tempo (around 6:35 pace) with 1 min rest in btwn, 6 x 20 sec hills, CD to 7.5
 
 This felt really good! Gave me a bit of confidence :)"
-MARK M,8614877035,Morning Run,00:59:03,8.02,07:25:00,2/24/2023,9:29:25 AM,FRI,2,24,2023,NA,146.6,,
-PATRICK L,8611576025,"WarmUp+""INTERVALS: 1M T, 90""""R, 4x1k/200j, 2'R, 1M T"" ",00:57:03,7.19,08:01:00,2/23/2023,3:36:31 PM,THU,2,23,2023,172.6,160.8,3,
-PAIGE O,8610802327,Lunch Run,00:39:05,5.21,07:39:00,2/23/2023,12:58:30 PM,THU,2,23,2023,184.8,152.7,,
-MARK M,8609868856,Morning Run,01:08:03,9.05,07:35:00,2/23/2023,9:51:05 AM,THU,2,23,2023,NA,146,,
-PAIGE O,8606831775,Rainy day workout ,01:05:00,9.01,07:14:00,2/22/2023,5:46:33 PM,WED,2,22,2023,188,165.6,,"2 mile WU, 4 x (3 on, 2 on, 1 on)90 sec btwn everything, CD to 9"
-MARK M,8606191320,Afternoon Run,00:55:05,8.45,06:37:00,2/22/2023,3:08:42 PM,WED,2,22,2023,NA,166.1,,"1,2,3,2,1,2,3,2,1 min on w half recovery (~6 min pace for 25 min of full workout)
+MARK M,8614877035,Morning Run,00:59:03,8.02,00:07:25,2/24/2023,9:29:25 AM,FRI,2,24,2023,NA,146.6,,
+PATRICK L,8611576025,"WarmUp+""INTERVALS: 1M T, 90""""R, 4x1k/200j, 2'R, 1M T"" ",00:57:03,7.19,00:08:01,2/23/2023,3:36:31 PM,THU,2,23,2023,172.6,160.8,3,Tempo (6:55)/1k(6:45-6:35-6:30-6:25) + (4x400m had to skip because short on time 😔)+ 1mTempo (6:50ish)
+PAIGE O,8610802327,Lunch Run,00:39:05,5.21,00:07:39,2/23/2023,12:58:30 PM,THU,2,23,2023,184.8,152.7,,
+MARK M,8609868856,Morning Run,01:08:03,9.05,00:07:35,2/23/2023,9:51:05 AM,THU,2,23,2023,NA,146,,
+PAIGE O,8606831775,Rainy day workout ,01:05:00,9.01,00:07:14,2/22/2023,5:46:33 PM,WED,2,22,2023,188,165.6,0,"2 mile WU, 4 x (3 on, 2 on, 1 on)90 sec btwn everything, CD to 9"
+MARK M,8606191320,Afternoon Run,00:55:05,8.45,00:06:37,2/22/2023,3:08:42 PM,WED,2,22,2023,NA,166.1,0,"1,2,3,2,1,2,3,2,1 min on w half recovery (~6 min pace for 25 min of full workout)
 Felt solid. Conor and I helped each other through this one"
-PATRICK L,8603290716,Easy TM Run,00:42:03,4.35,09:46:00,2/22/2023,6:02:39 AM,WED,2,22,2023,169,125.4,,
-MARK M,8601246400,Afternoon Run,01:06:03,9.04,07:21:00,2/21/2023,5:02:34 PM,TUE,2,21,2023,NA,144.7,,
-PAIGE O,8600124874,Lunch Run,00:51:05,6.80,07:37:00,2/21/2023,12:54:32 PM,TUE,2,21,2023,177.6,162.4,,The treadmill got 6.5 but whatever. Hill sprints to end.
-DAVID L,8598825401,Nope. Nada. Zero. Zilch. ,00:32:05,3.44,09:32:00,2/21/2023,6:56:03 AM,TUE,2,21,2023,158.2,150.1,,Felt like my battery was on 3% this morning.  Just feeling burnt out the last few days.  I think my 2 jobs/6 days a week work schedule is finally catching up to me.
-TIMMY B,8595641143,I was lost for about 7 miles of this run ,01:09:01,9.53,07:16:00,2/20/2023,5:41:51 PM,MON,2,20,2023,169,151,,
-MARK M,8595078993,Afternoon Run,01:04:04,9.10,07:07:00,2/20/2023,3:19:38 PM,MON,2,20,2023,NA,149.2,,
-PATRICK L,8591889449,Easy TM Run,00:32:02,3.42,09:30:00,2/20/2023,5:52:12 AM,MON,2,20,2023,167.4,134.5,,
-MARK M,8589940427,Afternoon Run,01:33:05,14.03,06:41:00,2/19/2023,2:43:58 PM,SUN,2,19,2023,NA,153,,First 8 with Conor
-PATRICK L,8589294977,WarmUp+Easy Long,02:39:01,18.12,08:47:00,2/19/2023,10:42:18 AM,SUN,2,19,2023,168.2,150.8,2,
-PAIGE O,8588132642,Morning Run,01:37:01,13.01,07:29:00,2/19/2023,8:43:03 AM,SUN,2,19,2023,189.4,166.2,,Lots of stopping to blow my nose 🫠
-DAVID L,8587587268,Kicking the Tires,00:44:02,5.11,08:42:00,2/19/2023,8:04:15 AM,SUN,2,19,2023,163,163,,We are back in working order!
-MARK M,8583807812,Afternoon Run,00:32:02,4.01,08:04:00,2/18/2023,4:23:11 PM,SAT,2,18,2023,NA,136.2,,
-PAIGE O,8583223160,🤧🌞🎉,00:43:03,6.08,07:10:00,2/18/2023,1:04:22 PM,SAT,2,18,2023,187.6,168.3,,"2 mile WU, 3 mile @ marathon pace  (6:54,6:50,6:26), 1 mile CD and walked home bc I’m lazy
+PATRICK L,8603290716,Easy TM Run,00:42:03,4.35,00:09:46,2/22/2023,6:02:39 AM,WED,2,22,2023,169,125.4,0,
+MARK M,8601246400,Afternoon Run,01:06:03,9.04,00:07:21,2/21/2023,5:02:34 PM,TUE,2,21,2023,NA,144.7,,
+PAIGE O,8600124874,Lunch Run,00:51:05,6.80,00:07:37,2/21/2023,12:54:32 PM,TUE,2,21,2023,177.6,162.4,0,The treadmill got 6.5 but whatever. Hill sprints to end.
+DAVID L,8598825401,Nope. Nada. Zero. Zilch. ,00:32:05,3.44,00:09:32,2/21/2023,6:56:03 AM,TUE,2,21,2023,158.2,150.1,0,Felt like my battery was on 3% this morning.  Just feeling burnt out the last few days.  I think my 2 jobs/6 days a week work schedule is finally catching up to me.
+TIMMY B,8595641143,I was lost for about 7 miles of this run ,01:09:01,9.53,00:07:16,2/20/2023,5:41:51 PM,MON,2,20,2023,169,151,0,
+ME,8595307889,Afternoon Run,00:05:00,0.67,00:07:29,2/20/2023,5:12:48 PM,MON,2,20,2023,166.4,153.6,,
+MARK M,8595078993,Afternoon Run,01:04:04,9.10,00:07:07,2/20/2023,3:19:38 PM,MON,2,20,2023,NA,149.2,,
+PATRICK L,8591889449,Easy TM Run,00:32:02,3.42,00:09:30,2/20/2023,5:52:12 AM,MON,2,20,2023,167.4,134.5,0,Recovery run...
+MARK M,8589940427,Afternoon Run,01:33:05,14.03,00:06:41,2/19/2023,2:43:58 PM,SUN,2,19,2023,NA,153,0,First 8 with Conor
+PATRICK L,8589294977,WarmUp+Easy Long,02:39:01,18.12,00:08:47,2/19/2023,10:42:18 AM,SUN,2,19,2023,168.2,150.8,2,Took her easy. The tour of Middletown today. Tried to pile up as many segments as I could! Holy elevation today!
+PAIGE O,8588132642,Morning Run,01:37:01,13.01,00:07:29,2/19/2023,8:43:03 AM,SUN,2,19,2023,189.4,166.2,0,Lots of stopping to blow my nose 🫠
+DAVID L,8587587268,Kicking the Tires,00:44:02,5.11,00:08:42,2/19/2023,8:04:15 AM,SUN,2,19,2023,163,163,0,We are back in working order!
+MARK M,8583807812,Afternoon Run,00:32:02,4.01,00:08:04,2/18/2023,4:23:11 PM,SAT,2,18,2023,NA,136.2,0,Jog szn LR tomorrow
+PAIGE O,8583223160,🤧🌞🎉,00:43:03,6.08,00:07:10,2/18/2023,1:04:22 PM,SAT,2,18,2023,187.6,168.3,0,"2 mile WU, 3 mile @ marathon pace  (6:54,6:50,6:26), 1 mile CD and walked home bc I’m lazy
 
 Maybe a little fast? Maybe not?"
-TIMMY B,8581899990,Cool Down,00:25:03,3.30,07:45:00,2/18/2023,9:45:25 AM,SAT,2,18,2023,173.2,158.3,,
-PATRICK L,8581903308,Single Stroller Indian Rock 10k,00:45:05,6.20,07:24:00,2/18/2023,9:04:46 AM,SAT,2,18,2023,167.8,167.4,3,
-TIMMY B,8581682334,Indian Rock 10k,00:34:04,6.20,05:37:00,2/18/2023,9:04:28 AM,SAT,2,18,2023,175.2,164.7,1,4th place I’ll take it
-TIMMY B,8581334282,Warm up ,00:22:05,3.01,07:37:00,2/18/2023,8:20:44 AM,SAT,2,18,2023,172.8,148.1,,
-DAVID L,8587595378,Night Run,00:04:00,0.37,11:04:00,2/17/2023,11:02:25 PM,FRI,2,17,2023,140.8,101.9,,
-PATRICK L,8578077850,"WarmUp+ ""TEMPO: 30', 3'R, 4-6x20"""" uphill sprints w/ walk-down R"" + Cooldown ",01:05:05,8.52,07:44:00,2/17/2023,3:56:59 PM,FRI,2,17,2023,177.2,167.1,3,
-TIMMY B,8577087359,“Pre-Meet”,00:35:02,4.75,07:28:00,2/17/2023,11:58:07 AM,FRI,2,17,2023,168.2,154.4,,
-MARK M,8577241627,Lunch Run,01:02:01,9.00,06:55:00,2/17/2023,11:47:54 AM,FRI,2,17,2023,NA,169.8,,
-TIMMY B,8573676793,Afternoon Run,00:55:01,7.30,07:34:00,2/16/2023,5:39:31 PM,THU,2,16,2023,167.6,149.8,,
-PATRICK L,8573602501,Easy TM Run,00:45:02,5.24,08:41:00,2/16/2023,5:32:39 PM,THU,2,16,2023,170.6,139.5,,
-PAIGE O,8572403616,Slog,00:44:00,5.62,07:50:00,2/16/2023,12:52:45 PM,THU,2,16,2023,185.2,159.5,,
-MARK M,8571573380,Morning Run,01:00:03,8.28,07:18:00,2/16/2023,10:09:09 AM,THU,2,16,2023,NA,147.7,,
-DAVID L,8577663966,Evening Run,00:15:01,1.42,10:44:00,2/15/2023,6:31:33 PM,WED,2,15,2023,158.6,143.8,,In Philly they call cool downs “Kuuldahhns” and I think that’s beautiful
-DAVID L,8577663863,Nope!,00:09:01,1.15,08:06:00,2/15/2023,6:12:11 PM,WED,2,15,2023,166.8,158,3,"Body said no way, José
+TIMMY B,8581899990,Cool Down,00:25:03,3.30,00:07:45,2/18/2023,9:45:25 AM,SAT,2,18,2023,173.2,158.3,0,
+PATRICK L,8581903308,Single Stroller Indian Rock 10k,00:45:05,6.20,00:07:24,2/18/2023,9:04:46 AM,SAT,2,18,2023,167.8,167.4,3,Reppin Drayer PT at race...Well it was either stand and freeze my arse off or run. So I ran..lol. Held back and max effort was 75% exertion. Trying to be smart since I had a workout yesterday and a long tomorrow.. Bonus effort work today!
+TIMMY B,8581682334,Indian Rock 10k,00:34:04,6.20,00:05:37,2/18/2023,9:04:28 AM,SAT,2,18,2023,175.2,164.7,1,4th place I’ll take it
+TIMMY B,8581334282,Warm up ,00:22:05,3.01,00:07:37,2/18/2023,8:20:44 AM,SAT,2,18,2023,172.8,148.1,0,
+DAVID L,8587595378,Night Run,00:04:00,0.37,00:11:04,2/17/2023,11:02:25 PM,FRI,2,17,2023,140.8,101.9,,
+PATRICK L,8578077850,"WarmUp+ ""TEMPO: 30', 3'R, 4-6x20"""" uphill sprints w/ walk-down R"" + Cooldown ",01:05:05,8.52,00:07:44,2/17/2023,3:56:59 PM,FRI,2,17,2023,177.2,167.1,3,Windy every damn time I gotta get a workout in!! Pushed through and went well...
+TIMMY B,8577087359,“Pre-Meet”,00:35:02,4.75,00:07:28,2/17/2023,11:58:07 AM,FRI,2,17,2023,168.2,154.4,0,
+MARK M,8577241627,Lunch Run,01:02:01,9.00,00:06:55,2/17/2023,11:47:54 AM,FRI,2,17,2023,NA,169.8,0,"20 min tempo (3.53 mi 5:40 pace), 4x20s hill sprints 
+Past 2 seasons I would’ve quit on this early or changed it really glad to get through the whole thing"
+TIMMY B,8573676793,Afternoon Run,00:55:01,7.30,00:07:34,2/16/2023,5:39:31 PM,THU,2,16,2023,167.6,149.8,,
+PATRICK L,8573602501,Easy TM Run,00:45:02,5.24,00:08:41,2/16/2023,5:32:39 PM,THU,2,16,2023,170.6,139.5,0,Again. The week is getting in way of runs!!
+PAIGE O,8572403616,Slog,00:44:00,5.62,00:07:50,2/16/2023,12:52:45 PM,THU,2,16,2023,185.2,159.5,0,Feel like I’m sleep walking
+MARK M,8571573380,Morning Run,01:00:03,8.28,00:07:18,2/16/2023,10:09:09 AM,THU,2,16,2023,NA,147.7,0,Nice and light left hamstring a bit sore
+DAVID L,8577663966,Evening Run,00:15:01,1.42,00:10:44,2/15/2023,6:31:33 PM,WED,2,15,2023,158.6,143.8,0,In Philly they call cool downs “Kuuldahhns” and I think that’s beautiful
+DAVID L,8577663863,Nope!,00:09:01,1.15,00:08:06,2/15/2023,6:12:11 PM,WED,2,15,2023,166.8,158,3,"Body said no way, José
 
 (Yeah okay fine I’ll admit it I am sick)"
-TIMMY B,8568288096,Afternoon Workout,00:49:05,0.00,NA,2/15/2023,5:39:26 PM,WED,2,15,2023,NA,93.6,,
-DAVID L,8577663878,Up & strides,00:20:00,2.29,08:46:00,2/15/2023,5:33:41 PM,WED,2,15,2023,165.2,144,,Everything feels wonky
-PAIGE O,8566200059,Sunny day! ,00:44:01,6.05,07:18:00,2/15/2023,10:52:55 AM,WED,2,15,2023,187.2,168,,
-MARK M,8565438864,Morning Run,00:59:03,8.13,07:20:00,2/15/2023,7:34:33 AM,WED,2,15,2023,NA,153.9,,
-DAVID L,8565354588,shake,00:20:01,2.15,09:25:00,2/15/2023,7:24:05 AM,WED,2,15,2023,161.6,152.7,,Ya boy’z gotta headache
-PATRICK L,8562778933,Easy TM  Run,00:37:05,4.33,08:46:00,2/14/2023,6:33:34 PM,TUE,2,14,2023,170.6,135.1,,
-DAVID L,8562801625,Evening Run,01:03:04,7.02,09:05:00,2/14/2023,6:03:28 PM,TUE,2,14,2023,164,156.7,,Felt WAY better than I anticipated and only accidentally lapped my watch once.  Last two days have been pure flow
-TIMMY B,8562468681,23 minute ish tempo,01:05:02,10.01,06:32:00,2/14/2023,4:39:12 PM,TUE,2,14,2023,170,164.1,,5:55 ish pace
-PAIGE O,8560849381,Lunch Run,00:50:04,6.51,07:47:00,2/14/2023,11:39:47 AM,TUE,2,14,2023,178,154.5,,
-MARK M,8560840270,Lunch Run,00:59:05,7.62,07:51:00,2/14/2023,11:28:15 AM,TUE,2,14,2023,NA,150.1,,
-DAVID L,8557367149,Evening Run,00:37:05,4.15,09:07:00,2/13/2023,7:14:04 PM,MON,2,13,2023,162.8,157,,Feelin groovy
-TIMMY B,8557025504,Evening Run,00:46:03,6.01,07:45:00,2/13/2023,6:05:19 PM,MON,2,13,2023,167.8,138.4,,
-MARK M,8556425681,Afternoon Run,01:03:05,9.00,07:07:00,2/13/2023,3:23:51 PM,MON,2,13,2023,NA,154.5,,
-PATRICK L,8551631504,WarmUp+Steady Long+Cooldown Run,02:22:00,17.15,08:17:00,2/12/2023,2:26:32 PM,SUN,2,12,2023,170.4,163.3,,
-DAVID L,8551193194,Please kill me,01:15:03,8.26,09:09:00,2/12/2023,1:37:28 PM,SUN,2,12,2023,162,158.4,,"“Long” run.  37 degrees, 20mph winds, pouring horizontal rain.  Just pure misery from start to finish.  Glad I did it, now I’m gonna try and forget it ever happened."
-PAIGE O,8550616912,🦅🦅🦅,00:31:04,4.12,07:43:00,2/12/2023,12:24:12 PM,SUN,2,12,2023,184.8,155.3,,
-TIMMY B,8550326769,Long Jawn Silvers is back ,01:12:05,11.37,06:25:00,2/12/2023,10:52:06 AM,SUN,2,12,2023,171.6,164.1,,
-MARK M,8545202839,Afternoon Run,01:30:05,13.04,06:58:00,2/11/2023,3:06:20 PM,SAT,2,11,2023,NA,157.1,,
-PAIGE O,8543689231,LR!,01:29:00,12.01,07:26:00,2/11/2023,8:59:30 AM,SAT,2,11,2023,191,163.1,,
-TIMMY B,8542701762,Morning Run,00:39:00,5.28,07:23:00,2/11/2023,8:06:16 AM,SAT,2,11,2023,170.8,147.5,,
-DAVID L,8542575736,Morning Run,00:18:05,2.01,09:24:00,2/11/2023,7:58:41 AM,SAT,2,11,2023,162.4,150,,
-PATRICK L,8542351548,Easy TM Run,00:29:02,3.03,09:43:00,2/11/2023,7:23:19 AM,SAT,2,11,2023,171,132.6,,
-DAVID L,8542575772,Getting the work in,00:23:04,3.02,07:51:00,2/11/2023,7:21:20 AM,SAT,2,11,2023,171.4,165.2,3,"Did it in the SL20s just to feel something.  Legs felt good, but I’m definitely tired.  2 mile tempo in the wrong direction (gotta balance out Wed), 2x(300, 200, 100) w/ 100m jogs. Second set in spikes.  Felt flat, but good!"
-DAVID L,8542582665,Morning Run,00:20:00,2.06,09:42:00,2/11/2023,6:49:23 AM,SAT,2,11,2023,162.4,141.4,,
-PATRICK L,8539218957,"Progressive WarmUp+ 3M,1M,2M w/ 2'rest)+Cooldown",01:11:05,9.02,07:59:00,2/10/2023,3:03:44 PM,FRI,2,10,2023,174.6,161.3,,
-MARK M,8539130827,Afternoon Run,00:54:03,8.00,06:49:00,2/10/2023,2:54:46 PM,FRI,2,10,2023,NA,175,,
-PAIGE O,8538642195,Part 2,00:27:05,3.71,07:32:00,2/10/2023,1:15:21 PM,FRI,2,10,2023,187.6,159.3,,
-PAIGE O,8538641278,Part 1,00:25:03,3.33,07:42:00,2/10/2023,12:41:55 PM,FRI,2,10,2023,185.4,151.8,,
-DAVID L,8538401747,Windy & Warm,00:53:02,6.07,08:49:00,2/10/2023,11:54:03 AM,FRI,2,10,2023,162.2,159.9,,"Passed a little girl who flexed at me & screamed “I’m gonna world wreck you!!!”  Honestly, one of the hardest lines of all time."
-DAVID L,8536998019,Morning Run,00:20:01,2.16,09:23:00,2/10/2023,7:34:13 AM,FRI,2,10,2023,162.4,151.2,,
-PATRICK L,8535120074,Easy TM Run,00:30:05,3.09,10:00:00,2/9/2023,7:52:09 PM,THU,2,9,2023,166.8,139.9,,
-TIMMY B,8535076167,Evening Workout,01:18:02,0.00,NA,2/9/2023,6:52:46 PM,THU,2,9,2023,NA,92.5,,
-MARK M,8534666837,Afternoon Run,00:59:03,7.99,07:28:00,2/9/2023,5:06:09 PM,THU,2,9,2023,NA,150.3,,
-DAVID L,8534274300,“Train Too Long Experts”,00:56:05,5.83,09:46:00,2/9/2023,3:02:32 PM,THU,2,9,2023,162.6,167.7,,Every time I run trails I’m reminded that I need to run more trails because I’m REALLY BAD at running trails
-PAIGE O,8533302648,Lunch Run,00:38:02,5.02,07:40:00,2/9/2023,12:29:10 PM,THU,2,9,2023,184.2,157.8,,
-DAVID L,8529447710,Down,00:12:05,1.28,10:10:00,2/8/2023,6:47:20 PM,WED,2,8,2023,158.4,151.8,,
-PAIGE O,8529426541,Evening Run,00:23:05,3.05,07:52:00,2/8/2023,6:32:04 PM,WED,2,8,2023,183.8,161.5,,
-DAVID L,8529447765,8’ pace the hard way,00:39:05,4.98,08:01:00,2/8/2023,5:58:04 PM,WED,2,8,2023,164.4,169.4,3,
-DAVID L,8529447877,Up,00:20:00,2.25,08:53:00,2/8/2023,5:28:14 PM,WED,2,8,2023,162.4,148.5,,
-TIMMY B,8529211367,17:30 minute tempo action ,01:00:02,9.27,06:31:00,2/8/2023,4:58:16 PM,WED,2,8,2023,170,164.4,,
-MARK M,8528528250,Afternoon Run,01:05:03,8.94,07:20:00,2/8/2023,2:15:09 PM,WED,2,8,2023,NA,149,,
-PAIGE O,8528162809,#1,00:37:01,5.01,07:27:00,2/8/2023,1:34:59 PM,WED,2,8,2023,184,162.4,,
-PATRICK L,8525948122,Easy  TM Run,00:42:02,4.06,10:27:00,2/8/2023,6:44:28 AM,WED,2,8,2023,169.4,128.5,,
-DAVID L,8523826893,"Feelin Lucky, Punk?",01:05:00,7.12,09:09:00,2/7/2023,6:02:33 PM,TUE,2,7,2023,163.4,155.1,,
-TIMMY B,8523436792,Afternoon Run,00:54:03,7.18,07:37:00,2/7/2023,4:45:21 PM,TUE,2,7,2023,168.8,150.9,,
-PAIGE O,8521836894,Treadmill,00:47:02,6.02,07:52:00,2/7/2023,12:00:38 PM,TUE,2,7,2023,179.4,160.8,,
-MARK M,8521669427,Lunch Run,00:57:04,8.02,07:12:00,2/7/2023,11:11:34 AM,TUE,2,7,2023,NA,156.2,,
-PATRICK L,8519667445,Easy TM Run,00:22:00,2.01,10:57:00,2/7/2023,5:29:40 AM,TUE,2,7,2023,167,124.7,,
-TIMMY B,8517726035,Afternoon Run,00:51:01,7.01,07:18:00,2/6/2023,5:16:56 PM,MON,2,6,2023,NA,173.3,,
-MARK M,8517459378,Afternoon Run,01:05:05,9.20,07:10:00,2/6/2023,3:56:07 PM,MON,2,6,2023,NA,153,,
-DAVID L,8514797158,Morning Run,00:50:01,5.54,09:04:00,2/6/2023,7:02:44 AM,MON,2,6,2023,164.2,150.7,,
-DAVID L,8512272396,Beautiful Afternoon ,01:00:03,7.02,08:39:00,2/5/2023,3:18:39 PM,SUN,2,5,2023,162.8,162.8,,
-MARK M,8512648362,Afternoon Run,01:26:00,11.74,07:20:00,2/5/2023,2:51:21 PM,SUN,2,5,2023,NA,154.7,,
-PATRICK L,8512109401,Easy Long Run,02:14:01,15.08,08:54:00,2/5/2023,1:26:49 PM,SUN,2,5,2023,166.8,150.5,,
-TIMMY B,8511205996,Lunch Run,00:39:05,5.22,07:40:00,2/5/2023,11:52:55 AM,SUN,2,5,2023,173,142.9,,
-PAIGE O,8510946580,Again,01:30:03,12.01,07:32:00,2/5/2023,9:55:25 AM,SUN,2,5,2023,187.8,164.6,,
-TIMMY B,8506359273,Afternoon Run,00:28:05,3.86,07:28:00,2/4/2023,5:16:26 PM,SAT,2,4,2023,NA,173.1,,
-TIMMY B,8506064292,Afternoon Workout,01:00:00,0.00,NA,2/4/2023,4:09:06 PM,SAT,2,4,2023,NA,97.6,,
-MARK M,8505903233,Afternoon Run,01:04:04,8.40,07:42:00,2/4/2023,3:09:10 PM,SAT,2,4,2023,NA,148.7,,
-PATRICK L,8500056901,"WarmUp+TEMPO INTERVALS: 2x2M T w/ 90""""R, 1M T w/ 75""""R, 4x10"""" hill repeats+ Steady Cooldown Run",01:06:02,8.38,07:56:00,2/3/2023,3:02:14 PM,FRI,2,3,2023,176,155.8,,
-DAVID L,8499363833,Some days you feel good,01:01:05,7.01,08:50:00,2/3/2023,12:01:10 PM,FRI,2,3,2023,164.6,160.1,,
-PAIGE O,8498495701,Morning Run,00:38:03,5.03,07:41:00,2/3/2023,9:22:59 AM,FRI,2,3,2023,187.8,157.7,,
-DAVID L,8495111888,Afternoon Run,01:00:00,6.50,09:15:00,2/2/2023,2:47:09 PM,THU,2,2,2023,162,158,,
-PAIGE O,8493709935,Sunny day! ☀️🌞🕶️,00:53:02,7.01,07:37:00,2/2/2023,10:18:41 AM,THU,2,2,2023,186.2,157.5,,
-MARK M,8493597514,Morning Run,00:55:01,7.20,07:40:00,2/2/2023,10:08:09 AM,THU,2,2,2023,NA,147.6,,
-DAVID L,8490979070,I’m terrible at saying “no” to climbing,01:15:00,0.00,NA,2/1/2023,8:30:11 PM,WED,2,1,2023,NA,NA,,
-DAVID L,8490646239,Commuted Cooldown,00:20:04,2.06,10:03:00,2/1/2023,7:27:14 PM,WED,2,1,2023,161,148.9,,
-DAVID L,8490651856,Yessir,00:34:05,4.61,07:36:00,2/1/2023,6:05:20 PM,WED,2,1,2023,169.2,161.6,,
-PAIGE O,8490821557,Afternoon Run,00:54:05,7.02,07:49:00,2/1/2023,5:43:40 PM,WED,2,1,2023,184.8,150.6,,
-MARK M,8489843226,Afternoon Run,00:53:03,7.21,07:26:00,2/1/2023,3:19:34 PM,WED,2,1,2023,NA,148.4,,
-PATRICK L,8487828831,WarmUp up + Easy Run,00:29:05,3.15,09:30:00,2/1/2023,10:10:26 AM,WED,2,1,2023,163.4,143.8,,
-TIMMY B,8485054616,Slowly getting back into things after rolling my ankle Friday ,00:52:01,7.03,07:26:00,1/31/2023,6:25:54 PM,TUE,1,31,2023,170.2,148.7,,
-PAIGE O,8483847156,Treadmill,00:56:05,7.02,08:06:00,1/31/2023,12:05:01 PM,TUE,1,31,2023,179,169.8,,
-MARK M,8482491725,Morning Run,01:00:03,8.21,07:22:00,1/31/2023,9:58:45 AM,TUE,1,31,2023,NA,150.3,,
-PATRICK L,8482290953,"WarmUp+ 6x800/90""R, 4x100/100j",00:39:02,5.19,07:35:00,1/31/2023,9:27:48 AM,TUE,1,31,2023,182.8,141.7,,
-TIMMY B,8479757446,Afternoon Run,00:37:05,5.00,07:35:00,1/30/2023,5:04:50 PM,MON,1,30,2023,171.4,145.5,,
-PATRICK L,8478497114,WarmUp+ Easy Recovery Run,00:38:00,4.11,09:17:00,1/30/2023,2:49:11 PM,MON,1,30,2023,165,148,,
-PAIGE O,8474225510,Shakeout!,00:33:02,4.24,07:52:00,1/29/2023,5:22:06 PM,SUN,1,29,2023,183.8,148.5,,
-PATRICK L,8471945661,WarmUp+Easy-Steasy-Steady Progression,01:55:05,14.18,08:10:00,1/29/2023,7:56:08 AM,SUN,1,29,2023,173.4,143.5,,
-PAIGE O,8466961645,I’m tired,01:26:03,12.01,07:13:00,1/28/2023,10:59:32 AM,SAT,1,28,2023,188.6,169.5,,
-TIMMY B,8462227928,Afternoon Run,00:30:02,4.17,07:19:00,1/27/2023,4:37:19 PM,FRI,1,27,2023,175.6,144.4,,
-PATRICK L,8462218626,"WarmUp +TEMPO: 20'T, 3'R, 6x20"""" hill repeats"" Run",00:53:05,6.53,08:16:00,1/27/2023,4:16:32 PM,FRI,1,27,2023,173.8,167.4,,
-TIMMY B,8457699167,Afternoon Run,00:46:02,6.00,07:44:00,1/26/2023,5:59:54 PM,THU,1,26,2023,168.8,152.7,,
-PATRICK L,8454470364,Easy TM Run,00:38:05,4.01,09:42:00,1/26/2023,6:31:26 AM,THU,1,26,2023,169.6,135,,
-PATRICK L,8449259356,Easy TM Run,00:39:03,4.14,09:32:00,1/25/2023,6:55:43 AM,WED,1,25,2023,170,134.1,,
-PATRICK L,8447315741,WarmUp+ Easy TM Run,00:41:01,4.16,09:55:00,1/24/2023,7:22:46 PM,TUE,1,24,2023,169,133.7,,
-TIMMY B,8447066710,"3x(30,60,45) hill repeat ",00:52:01,7.06,07:24:00,1/24/2023,5:49:38 PM,TUE,1,24,2023,169.2,147.2,,
+DAVID L,8577663878,Up & strides,00:20:00,2.29,00:08:46,2/15/2023,5:33:41 PM,WED,2,15,2023,165.2,144,0,Everything feels wonky
+PAIGE O,8566200059,Sunny day! ,00:44:01,6.05,00:07:18,2/15/2023,10:52:55 AM,WED,2,15,2023,187.2,168,0,"2 mile WU, 8 x 1 on, 1 off, CD to 6
+
+First workout!"
+MARK M,8565438864,Morning Run,00:59:03,8.13,00:07:20,2/15/2023,7:34:33 AM,WED,2,15,2023,NA,153.9,,
+DAVID L,8565354588,shake,00:20:01,2.15,00:09:25,2/15/2023,7:24:05 AM,WED,2,15,2023,161.6,152.7,0,Ya boy’z gotta headache
+PATRICK L,8562778933,Easy TM  Run,00:37:05,4.33,00:08:46,2/14/2023,6:33:34 PM,TUE,2,14,2023,170.6,135.1,0,Easy Run after work
+DAVID L,8562801625,Evening Run,01:03:04,7.02,00:09:05,2/14/2023,6:03:28 PM,TUE,2,14,2023,164,156.7,0,Felt WAY better than I anticipated and only accidentally lapped my watch once.  Last two days have been pure flow
+TIMMY B,8562468681,23 minute ish tempo,01:05:02,10.01,00:06:32,2/14/2023,4:39:12 PM,TUE,2,14,2023,170,164.1,0,5:55 ish pace
+PAIGE O,8560849381,Lunch Run,00:50:04,6.51,00:07:47,2/14/2023,11:39:47 AM,TUE,2,14,2023,178,154.5,0,Ended with some treadmill hill sprints that tested my coordination
+MARK M,8560840270,Lunch Run,00:59:05,7.62,00:07:51,2/14/2023,11:28:15 AM,TUE,2,14,2023,NA,150.1,0,"Little hill workout 4x(30s,60s,45s) j down recovery all effort based a bit subpar but it’s whatever"
+DAVID L,8557367149,Evening Run,00:37:05,4.15,00:09:07,2/13/2023,7:14:04 PM,MON,2,13,2023,162.8,157,0,Feelin groovy
+TIMMY B,8557025504,Evening Run,00:46:03,6.01,00:07:45,2/13/2023,6:05:19 PM,MON,2,13,2023,167.8,138.4,,
+MARK M,8556425681,Afternoon Run,01:03:05,9.00,00:07:07,2/13/2023,3:23:51 PM,MON,2,13,2023,NA,154.5,,
+PATRICK L,8551631504,WarmUp+Steady Long+Cooldown Run,02:22:00,17.15,00:08:17,2/12/2023,2:26:32 PM,SUN,2,12,2023,170.4,163.3,2,Didn't look at pacing whole run. Just went off feel and kept her steady! Felt good overall. Now time for some football!! Go Birds!!
+DAVID L,8551193194,Please kill me,01:15:03,8.26,00:09:09,2/12/2023,1:37:28 PM,SUN,2,12,2023,162,158.4,0,"“Long” run.  37 degrees, 20mph winds, pouring horizontal rain.  Just pure misery from start to finish.  Glad I did it, now I’m gonna try and forget it ever happened."
+PAIGE O,8550616912,🦅🦅🦅,00:31:04,4.12,00:07:43,2/12/2023,12:24:12 PM,SUN,2,12,2023,184.8,155.3,0,Seemed obligatory
+TIMMY B,8550326769,Long Jawn Silvers is back ,01:12:05,11.37,00:06:25,2/12/2023,10:52:06 AM,SUN,2,12,2023,171.6,164.1,0,Was aiming for the most dissatisfying distance possible Jacob Montgomery
+MARK M,8545202839,Afternoon Run,01:30:05,13.04,00:06:58,2/11/2023,3:06:20 PM,SAT,2,11,2023,NA,157.1,0,"First 10.5 w Conor feeling good 
+Off tomorrow in observance of the holiday 
+Go birds"
+PAIGE O,8543689231,LR!,01:29:00,12.01,00:07:26,2/11/2023,8:59:30 AM,SAT,2,11,2023,191,163.1,0,forgot my UCan :(
+TIMMY B,8542701762,Morning Run,00:39:00,5.28,00:07:23,2/11/2023,8:06:16 AM,SAT,2,11,2023,170.8,147.5,,
+DAVID L,8542575736,Morning Run,00:18:05,2.01,00:09:24,2/11/2023,7:58:41 AM,SAT,2,11,2023,162.4,150,0,
+PATRICK L,8542351548,Easy TM Run,00:29:02,3.03,00:09:43,2/11/2023,7:23:19 AM,SAT,2,11,2023,171,132.6,0,Nice and easy recovery after workout yesterday 
+DAVID L,8542575772,Getting the work in,00:23:04,3.02,00:07:51,2/11/2023,7:21:20 AM,SAT,2,11,2023,171.4,165.2,3,"Did it in the SL20s just to feel something.  Legs felt good, but I’m definitely tired.  2 mile tempo in the wrong direction (gotta balance out Wed), 2x(300, 200, 100) w/ 100m jogs. Second set in spikes.  Felt flat, but good!"
+DAVID L,8542582665,Morning Run,00:20:00,2.06,00:09:42,2/11/2023,6:49:23 AM,SAT,2,11,2023,162.4,141.4,0,
+PATRICK L,8539218957,"Progressive WarmUp+ 3M,1M,2M w/ 2'rest)+Cooldown",01:11:05,9.02,00:07:59,2/10/2023,3:03:44 PM,FRI,2,10,2023,174.6,161.3,3,"Goal Paces: 7:10-6:30-6:45.
+Didn't have it today. Got my first 3 goal in but the next 2 sets missed my pacing. Some of it was the wind I was running into but most was my body feeling rundown. Dealing with another cold of some sort. Considering, I'm happy but next time I'm hitting the marks!!"
+MARK M,8539130827,Afternoon Run,00:54:03,8.00,00:06:49,2/10/2023,2:54:46 PM,FRI,2,10,2023,NA,175,0,"4x5 min tempo,75s r, 4x20s hill sprint 
+Felt decent 5:40 pace for the tempo parts"
+PAIGE O,8538642195,Part 2,00:27:05,3.71,00:07:32,2/10/2023,1:15:21 PM,FRI,2,10,2023,187.6,159.3,0,After owen checking email
+PAIGE O,8538641278,Part 1,00:25:03,3.33,00:07:42,2/10/2023,12:41:55 PM,FRI,2,10,2023,185.4,151.8,0,Before owen checking email
+DAVID L,8538401747,Windy & Warm,00:53:02,6.07,00:08:49,2/10/2023,11:54:03 AM,FRI,2,10,2023,162.2,159.9,0,"Passed a little girl who flexed at me & screamed “I’m gonna world wreck you!!!”  Honestly, one of the hardest lines of all time."
+DAVID L,8536998019,Morning Run,00:20:01,2.16,00:09:23,2/10/2023,7:34:13 AM,FRI,2,10,2023,162.4,151.2,0,
+PATRICK L,8535120074,Easy TM Run,00:30:05,3.09,00:10:00,2/9/2023,7:52:09 PM,THU,2,9,2023,166.8,139.9,0,This week isn't allowing for many miles!!!
+MARK M,8534666837,Afternoon Run,00:59:03,7.99,00:07:28,2/9/2023,5:06:09 PM,THU,2,9,2023,NA,150.3,0,Can’t emphasize how nice the weather was
+DAVID L,8534274300,“Train Too Long Experts”,00:56:05,5.83,00:09:46,2/9/2023,3:02:32 PM,THU,2,9,2023,162.6,167.7,0,Every time I run trails I’m reminded that I need to run more trails because I’m REALLY BAD at running trails
+PAIGE O,8533302648,Lunch Run,00:38:02,5.02,00:07:40,2/9/2023,12:29:10 PM,THU,2,9,2023,184.2,157.8,,
+DAVID L,8529447710,Down,00:12:05,1.28,00:10:10,2/8/2023,6:47:20 PM,WED,2,8,2023,158.4,151.8,0,8.5 total
+PAIGE O,8529426541,Evening Run,00:23:05,3.05,00:07:52,2/8/2023,6:32:04 PM,WED,2,8,2023,183.8,161.5,,
+DAVID L,8529447765,8’ pace the hard way,00:39:05,4.98,00:08:01,2/8/2023,5:58:04 PM,WED,2,8,2023,164.4,169.4,3,"That felt fantastic.  8k continuous alternating 800s at 10k/M paces.  3:49 / 4:14 / 3:48 / 4:14 / 3:43 / 4:12 / 3:43 / 4:16 / 3:42 / 4:03.  Felt SMOOTH, got in the zone, very, very happy with this one."
+DAVID L,8529447877,Up,00:20:00,2.25,00:08:53,2/8/2023,5:28:14 PM,WED,2,8,2023,162.4,148.5,0,
+TIMMY B,8529211367,17:30 minute tempo action ,01:00:02,9.27,00:06:31,2/8/2023,4:58:16 PM,WED,2,8,2023,170,164.4,3,"Workout said 15-20 minute tempo, so I split the difference. Strides on the cooldown"
+MARK M,8528528250,Afternoon Run,01:05:03,8.94,00:07:20,2/8/2023,2:15:09 PM,WED,2,8,2023,NA,149,,
+PAIGE O,8528162809,#1,00:37:01,5.01,00:07:27,2/8/2023,1:34:59 PM,WED,2,8,2023,184,162.4,0,NYRR website really messed with my timing today
+PATRICK L,8525948122,Easy  TM Run,00:42:02,4.06,00:10:27,2/8/2023,6:44:28 AM,WED,2,8,2023,169.4,128.5,0,Getting it in.. Nice easy TM.. 
+DAVID L,8523826893,"Feelin Lucky, Punk?",01:05:00,7.12,00:09:09,2/7/2023,6:02:33 PM,TUE,2,7,2023,163.4,155.1,0,Pistol loop.  Some hill strides in there.
+TIMMY B,8523436792,Afternoon Run,00:54:03,7.18,00:07:37,2/7/2023,4:45:21 PM,TUE,2,7,2023,168.8,150.9,,
+PAIGE O,8521836894,Treadmill,00:47:02,6.02,00:07:52,2/7/2023,12:00:38 PM,TUE,2,7,2023,179.4,160.8,0,
+MARK M,8521669427,Lunch Run,00:57:04,8.02,00:07:12,2/7/2023,11:11:34 AM,TUE,2,7,2023,NA,156.2,0,"8x 1/1 2.5 in 15 mins for 6 min avg 
+Felt decent a bit tough at the end"
+PATRICK L,8519667445,Easy TM Run,00:22:00,2.01,00:10:57,2/7/2023,5:29:40 AM,TUE,2,7,2023,167,124.7,0,Sometimes it's about just getting something in!
+TIMMY B,8517726035,Afternoon Run,00:51:01,7.01,00:07:18,2/6/2023,5:16:56 PM,MON,2,6,2023,NA,173.3,,
+MARK M,8517459378,Afternoon Run,01:05:05,9.20,00:07:10,2/6/2023,3:56:07 PM,MON,2,6,2023,NA,153,0,"Great start to the week 
+First workout tomorrow?"
+DAVID L,8514797158,Morning Run,00:50:01,5.54,00:09:04,2/6/2023,7:02:44 AM,MON,2,6,2023,164.2,150.7,0,6 100m strides in spikes at the end
+DAVID L,8512272396,Beautiful Afternoon ,01:00:03,7.02,00:08:39,2/5/2023,3:18:39 PM,SUN,2,5,2023,162.8,162.8,0,"This was a good transition week back into real training after falling off the wagon last week.  Need to prioritize fueling moving forward though — not having enough to eat (especially at work where I can’t just get more) is probably the biggest hindrance to training for me overall.  Easy fix, though, and a fun one (involves ice cream)"
+MARK M,8512648362,Afternoon Run,01:26:00,11.74,00:07:20,2/5/2023,2:51:21 PM,SUN,2,5,2023,NA,154.7,,
+PATRICK L,8512109401,Easy Long Run,02:14:01,15.08,00:08:54,2/5/2023,1:26:49 PM,SUN,2,5,2023,166.8,150.5,2,"Was debating about getting this in. Fighting a little cold and took day off yesterday. HRV was a 2!! I decided to start it up and just go as long as I felt OK. Turns out, as long as I kept it slow, I was good. It's about getting it in. Solid run considering. Another progressive week. Keep it going!!"
+ME,8511403318,Lunch Run,00:21:02,2.91,00:07:21,2/5/2023,12:42:31 PM,SUN,2,5,2023,165.2,128.7,,
+TIMMY B,8511205996,Lunch Run,00:39:05,5.22,00:07:40,2/5/2023,11:52:55 AM,SUN,2,5,2023,173,142.9,,
+PAIGE O,8510946580,Again,01:30:03,12.01,00:07:32,2/5/2023,9:55:25 AM,SUN,2,5,2023,187.8,164.6,0,Think I’m liking my UCANs
+TIMMY B,8506359273,Afternoon Run,00:28:05,3.86,00:07:28,2/4/2023,5:16:26 PM,SAT,2,4,2023,NA,173.1,,
+MARK M,8505903233,Afternoon Run,01:04:04,8.40,00:07:42,2/4/2023,3:09:10 PM,SAT,2,4,2023,NA,148.7,0,Called an audible and changed the route mid run. Got stopped at pretty much every light
+ME,8505723161,Afternoon Run,00:30:00,4.10,00:07:19,2/4/2023,2:55:01 PM,SAT,2,4,2023,166.6,133.6,,
+PATRICK L,8500056901,"WarmUp+TEMPO INTERVALS: 2x2M T w/ 90""""R, 1M T w/ 75""""R, 4x10"""" hill repeats+ Steady Cooldown Run",01:06:02,8.38,00:07:56,2/3/2023,3:02:14 PM,FRI,2,3,2023,176,155.8,3,Well.. that was some bad ass wind out there🥶🥶🥶. Progressing tempo from 70-80% effort. My effort lead to a slower than normal pace today due to this weather! Happy with how I felt with the effort though and after the workout felt great with steady effort home. 
+DAVID L,8499363833,Some days you feel good,01:01:05,7.01,00:08:50,2/3/2023,12:01:10 PM,FRI,2,3,2023,164.6,160.1,0,Some 20/40 strides near the end
+PAIGE O,8498495701,Morning Run,00:38:03,5.03,00:07:41,2/3/2023,9:22:59 AM,FRI,2,3,2023,187.8,157.7,0,This is easily the most I’ve ever ran in the winter and I am over it
+DAVID L,8495111888,Afternoon Run,01:00:00,6.50,00:09:15,2/2/2023,2:47:09 PM,THU,2,2,2023,162,158,0,Felt icky but that’s the way it goes sometimes!
+PAIGE O,8493709935,Sunny day! ☀️🌞🕶️,00:53:02,7.01,00:07:37,2/2/2023,10:18:41 AM,THU,2,2,2023,186.2,157.5,0,
+MARK M,8493597514,Morning Run,00:55:01,7.20,00:07:40,2/2/2023,10:08:09 AM,THU,2,2,2023,NA,147.6,0,Stomach was in shambles today not my best effort
+DAVID L,8490646239,Commuted Cooldown,00:20:04,2.06,00:10:03,2/1/2023,7:27:14 PM,WED,2,1,2023,161,148.9,0,Desperately had to drive home and… erm… drop the kids off at the pool before the cooldown
+DAVID L,8490651856,Yessir,00:34:05,4.61,00:07:36,2/1/2023,6:05:20 PM,WED,2,1,2023,169.2,161.6,3,"3x1600 w/ 75/80” rest: 7:48, 7:42, 7:31
+2:30 rest
+2x[600, 400, 200 (1’r)]: 2:43, 1:45, 46 (2’ rest) 2:38, 1:40, 45
+
+Hell yeah!  Felt smooth & controlled the whole time."
+PAIGE O,8490821557,Afternoon Run,00:54:05,7.02,00:07:49,2/1/2023,5:43:40 PM,WED,2,1,2023,184.8,150.6,,
+DAVID L,8490651833,Up,00:21:04,2.37,00:09:11,2/1/2023,5:33:52 PM,WED,2,1,2023,162.4,150.3,0,Singing “Night Shift” out loud on Patterson
+MARK M,8489843226,Afternoon Run,00:53:03,7.21,00:07:26,2/1/2023,3:19:34 PM,WED,2,1,2023,NA,148.4,0,Still kinda slick 5 strides after
+PATRICK L,8487828831,WarmUp up + Easy Run,00:29:05,3.15,00:09:30,2/1/2023,10:10:26 AM,WED,2,1,2023,163.4,143.8,0,Easy recovery day. Feeling a bit sore from yesterday.
+TIMMY B,8485054616,Slowly getting back into things after rolling my ankle Friday ,00:52:01,7.03,00:07:26,1/31/2023,6:25:54 PM,TUE,1,31,2023,170.2,148.7,0,
+ME,8484327263,Afternoon Run,00:45:00,6.08,00:07:24,1/31/2023,3:25:16 PM,TUE,1,31,2023,166.6,127.6,,
+PAIGE O,8483847156,Treadmill,00:56:05,7.02,00:08:06,1/31/2023,12:05:01 PM,TUE,1,31,2023,179,169.8,0,I swear this had to have been faster this was hard
+MARK M,8482491725,Morning Run,01:00:03,8.21,00:07:22,1/31/2023,9:58:45 AM,TUE,1,31,2023,NA,150.3,0,Roads are slick and almost fell a few times but still worth not being on a treadmill
+PATRICK L,8482290953,"WarmUp+ 6x800/90""R, 4x100/100j",00:39:02,5.19,00:07:35,1/31/2023,9:27:48 AM,TUE,1,31,2023,182.8,141.7,3,Great lighter workout. Started with mile WarmUp w/ Megan Lister . First real track workout. Pushed my 800s progressively from 70-80%. Felt stronger as I reached my 5 and 6 reps. Happy with progress right now. 
+DAVID L,8481602351,Oregon Thrill,01:01:03,6.18,00:09:57,1/31/2023,6:45:08 AM,TUE,1,31,2023,160.8,153.9,0,Conner Mulloy encounter on the drive to BP had me confident this would be a good morning (it was)
+TIMMY B,8479757446,Afternoon Run,00:37:05,5.00,00:07:35,1/30/2023,5:04:50 PM,MON,1,30,2023,171.4,145.5,,
+ME,8478894547,Afternoon Run,00:30:00,4.10,00:07:19,1/30/2023,4:40:04 PM,MON,1,30,2023,165.2,123.3,,
+MARK M,8478675679,Afternoon Run,00:53:00,7.27,00:07:18,1/30/2023,3:25:57 PM,MON,1,30,2023,NA,146.3,,
+PATRICK L,8478497114,WarmUp+ Easy Recovery Run,00:38:00,4.11,00:09:17,1/30/2023,2:49:11 PM,MON,1,30,2023,165,148,0,Time to pick it up this week. Gradually progressing total mileage+ adding additional workout in weekly plan. Let's go!
+DAVID L,8476128443,Morning Yog,00:43:05,4.48,00:09:47,1/30/2023,6:48:52 AM,MON,1,30,2023,159.4,149.8,0,Zoned out & just trotted along
+ME,8474401920,Evening Run,00:33:05,4.66,00:07:17,1/29/2023,6:55:45 PM,SUN,1,29,2023,166.8,133.9,0,"foot hurty, called it short 1.5 miles"
+PAIGE O,8474225510,Shakeout!,00:33:02,4.24,00:07:52,1/29/2023,5:22:06 PM,SUN,1,29,2023,183.8,148.5,0,
+DAVID L,8473543931,CNU Mile,00:06:03,1.00,00:06:35,1/29/2023,2:40:01 PM,SUN,1,29,2023,NA,NA,1,"Felt solid, and I ran it well in terms of effort & pacing, but this was my slowest mile race ever.  47s felt like 42s.  What the hell man. Bummed & confused, so it goes.  Time to house a chipotle burrito and forget it ever happened."
+DAVID L,8473525604,Afternoon Run,00:11:05,1.34,00:08:54,1/29/2023,2:09:59 PM,SUN,1,29,2023,160.4,157.7,0,
+DAVID L,8473525596,Lunch Run,00:11:01,1.32,00:08:34,1/29/2023,11:52:11 AM,SUN,1,29,2023,159.6,159.2,0,
+PATRICK L,8471945661,WarmUp+Easy-Steasy-Steady Progression,01:55:05,14.18,00:08:10,1/29/2023,7:56:08 AM,SUN,1,29,2023,173.4,143.5,2,"First 4 with the wifey Megan Lister . Went longer than planned due to missing my run yesterday because I was surprised by Megan with 76ers tickets to see the true MVP Embiid kick Jokic's + Nuggets a$$. Was awesome game and much respect to both teams. 
+Great run. Felt stronger as it went on. "
+MARK M,8467698050,Afternoon Run,01:22:02,11.56,00:07:08,1/28/2023,2:29:25 PM,SAT,1,28,2023,NA,157.4,0,10 w sean then chilled last 1.5
+PAIGE O,8466961645,I’m tired,01:26:03,12.01,00:07:13,1/28/2023,10:59:32 AM,SAT,1,28,2023,188.6,169.5,0,
+DAVID L,8465389361,Pre Race,00:25:04,3.01,00:08:34,1/28/2023,8:02:58 AM,SAT,1,28,2023,169.4,148.6,0,Mile tomorrow.  Here goes nuthin.  #BSTC
+PAIGE O,8462632313,Evening Run,00:40:04,5.25,00:07:45,1/27/2023,6:23:21 PM,FRI,1,27,2023,185.2,147.7,0,Trying not to slip
+TIMMY B,8462227928,Afternoon Run,00:30:02,4.17,00:07:19,1/27/2023,4:37:19 PM,FRI,1,27,2023,175.6,144.4,,
+MARK M,8462165717,Afternoon Run,00:45:04,6.40,00:07:09,1/27/2023,4:22:45 PM,FRI,1,27,2023,NA,162,,
+PATRICK L,8462218626,"WarmUp +TEMPO: 20'T, 3'R, 6x20"""" hill repeats"" Run",00:53:05,6.53,00:08:16,1/27/2023,4:16:32 PM,FRI,1,27,2023,173.8,167.4,3,Progressed 70-80% threshold. Stayed after it longer than last week.. cramps from a big lunch caught up to me. Hills went great. Felt real strong on em. Another good workout in the books. Next week we start 2/week!
+DAVID L,8461224274,Lunch Run,00:20:01,2.37,00:08:33,1/27/2023,12:35:30 PM,FRI,1,27,2023,163.4,161.3,0,Time to quit moping and get back in the saddle.  This felt *excellent*
+ME,8459788155,Morning Run,01:30:00,12.41,00:07:16,1/27/2023,6:05:24 AM,FRI,1,27,2023,167.2,130,,
+TIMMY B,8457699167,Afternoon Run,00:46:02,6.00,00:07:44,1/26/2023,5:59:54 PM,THU,1,26,2023,168.8,152.7,,
+MARK M,8455500114,Morning Run,00:51:05,6.87,00:07:33,1/26/2023,10:09:46 AM,THU,1,26,2023,NA,150.7,0,Conor and I only had to stop for one light!
+PAIGE O,8455442200,☺️,00:52:03,7.01,00:07:29,1/26/2023,9:46:41 AM,THU,1,26,2023,185.4,164.7,0,
+PATRICK L,8454470364,Easy TM Run,00:38:05,4.01,00:09:42,1/26/2023,6:31:26 AM,THU,1,26,2023,169.6,135,0,Treadmill but staying consistent. Gonna get some solid runs in end of week. Keep progression of miles going
+ME,8454493514,Morning Run,01:01:02,8.04,00:07:39,1/26/2023,5:57:30 AM,THU,1,26,2023,165,126.2,,
+MARK M,8449540201,Morning Run,00:47:00,6.16,00:07:38,1/25/2023,7:43:17 AM,WED,1,25,2023,NA,149.6,0,"4 strides at the end 
+Passed Nolan and Alex on the way out"
+PATRICK L,8449259356,Easy TM Run,00:39:03,4.14,00:09:32,1/25/2023,6:55:43 AM,WED,1,25,2023,170,134.1,0,
+ME,8449205582,Morning Run + 4x20” strides,01:00:00,8.03,00:07:28,1/25/2023,6:15:17 AM,WED,1,25,2023,166.6,136.1,0,
+PATRICK L,8447315741,WarmUp+ Easy TM Run,00:41:01,4.16,00:09:55,1/24/2023,7:22:46 PM,TUE,1,24,2023,169,133.7,0,
+TIMMY B,8447066710,"3x(30,60,45) hill repeat ",00:52:01,7.06,00:07:24,1/24/2023,5:49:38 PM,TUE,1,24,2023,169.2,147.2,0,
+ME,8446809216,Afternoon Run,00:54:01,7.50,00:07:14,1/24/2023,4:56:46 PM,TUE,1,24,2023,165.2,131.5,,
+PAIGE O,8445536884,Treadmill break again ,00:48:04,6.28,00:07:45,1/24/2023,12:28:01 PM,TUE,1,24,2023,176.8,154,0,
+MARK M,8444546039,Morning Run,00:52:01,6.29,00:08:19,1/24/2023,10:03:28 AM,TUE,1,24,2023,NA,151.7,0,"Wow watch had 6.49 
+4x20s hill sprints 
+Easy today w afternoon run and night IM bball yesterday"
+DAVID L,8443742539,Morning Run,00:40:03,4.37,00:09:17,1/24/2023,7:12:51 AM,TUE,1,24,2023,163.2,156.7,0,
+TIMMY B,8441185379,Afternoon Run,00:33:01,4.01,00:08:17,1/23/2023,5:20:07 PM,MON,1,23,2023,166,139.5,,
+ME,8441164389,Afternoon Run,00:58:05,8.01,00:07:22,1/23/2023,4:44:21 PM,MON,1,23,2023,166.4,132.6,,
+PAIGE O,8441146321,Afternoon Run,00:45:03,6.02,00:07:34,1/23/2023,4:15:16 PM,MON,1,23,2023,184.2,155,,
+MARK M,8440842347,Afternoon Run,00:57:00,7.88,00:07:14,1/23/2023,3:11:56 PM,MON,1,23,2023,NA,153.7,,
+MARK M,8435884284,Afternoon Run,00:48:03,6.34,00:07:40,1/22/2023,2:53:15 PM,SUN,1,22,2023,NA,162,,
+PATRICK L,8435428063,Long Run for Week...,01:11:04,9.05,00:07:56,1/22/2023,12:37:54 PM,SUN,1,22,2023,173.2,160.3,2,Felt stronger as I went on. Attacked segment at end and was my PR. Happy where I'm at but a long way to go!!
+PAIGE O,8435182415,Recovery!,00:32:00,4.01,00:08:00,1/22/2023,12:12:14 PM,SUN,1,22,2023,184.8,152.7,0,
+TIMMY B,8435289142,Schmedium Long run ,00:52:02,8.50,00:06:10,1/22/2023,12:10:23 PM,SUN,1,22,2023,170.6,164.6,0,
+ME,8435399054,Morning Run,00:50:00,6.83,00:07:19,1/22/2023,9:55:45 AM,SUN,1,22,2023,167.2,137.7,,
+PATRICK L,8429790157,Easy TM Run,00:30:00,3.20,00:09:23,1/21/2023,2:21:47 PM,SAT,1,21,2023,168,132.7,0,
+ME,8429751784,Afternoon Run,00:45:00,6.20,00:07:16,1/21/2023,1:44:33 PM,SAT,1,21,2023,167.8,137.8,,
+MARK M,8429615129,Lunch Run,01:14:04,9.95,00:07:31,1/21/2023,12:50:57 PM,SAT,1,21,2023,NA,153,0,Watch had 10 this is disappointing
+PAIGE O,8429484331,Marathon is life.,01:24:01,11.12,00:07:35,1/21/2023,11:03:13 AM,SAT,1,21,2023,187.8,162.6,0,A wise man once said
+DAVID L,8425236046,Dubya ,00:20:00,2.07,00:09:39,1/20/2023,8:49:14 PM,FRI,1,20,2023,161,156.1,0,4x TB spicy potato soft taco // 30’ // 2 miles.  Legs felt heavy.
+TIMMY B,8424757757,Afternoon Run,00:35:04,4.58,00:07:48,1/20/2023,5:39:03 PM,FRI,1,20,2023,167.6,142.2,,
+ME,8424396142,Afternoon Run,00:30:01,4.09,00:07:24,1/20/2023,4:14:22 PM,FRI,1,20,2023,167,132.3,,
+PATRICK L,8424292275,"WarmUp+ TEMPO: 20'T, 3'R, 6x20"" hill repeats",00:57:05,7.04,00:08:13,1/20/2023,3:16:53 PM,FRI,1,20,2023,171.8,135.6,3,"Progressed in Tempo goal 6:40/mile maintain. Kept it pretty consistent at about 80-85% effort. Pushed hills @ about 90%. Overall, good workout. Love getting out there. "
+PAIGE O,8423698318,🌨️🧗‍♀️🫠,00:52:04,7.02,00:07:31,1/20/2023,12:30:28 PM,FRI,1,20,2023,185.6,163.5,0,Heavy legs
+DAVID L,8422967214,“Swords Sold Here!”,01:01:03,6.86,00:09:00,1/20/2023,9:46:55 AM,FRI,1,20,2023,161.6,158.7,0,"Didn’t realize what a nice tailwind I had until I turned around and got smacked.  Another no-look, deeply satisfying progression."
+PATRICK L,8420047068,Easy TM Run,00:37:05,4.30,00:08:49,1/19/2023,6:14:08 PM,THU,1,19,2023,171.4,141.4,0,Felt Ok. Looking forward the next few days when I can pick up intensity and bang some miles out
+TIMMY B,8419961702,This loop was much longer than anticipated ,01:00:03,8.79,00:06:53,1/19/2023,5:25:26 PM,THU,1,19,2023,167.8,158.7,0,
+MARK M,8419869349,Afternoon Run,00:38:01,5.24,00:07:17,1/19/2023,5:01:38 PM,THU,1,19,2023,NA,163.4,0,5+4 strides
+PAIGE O,8420179234,With Owen,00:45:01,6.04,00:07:29,1/19/2023,4:11:33 PM,THU,1,19,2023,183.6,149.1,0,
+DAVID L,8419414119,Down,00:19:01,2.08,00:09:18,1/19/2023,3:40:20 PM,THU,1,19,2023,161.4,160.3,0,8 for the day
+DAVID L,8419408505,"6x800ish @ 10k, 4x150ish shpeedy ",00:33:05,3.50,00:09:41,1/19/2023,2:57:36 PM,THU,1,19,2023,171.4,167.9,3,"75-90” between 800s, 1’ between “150s” (first 2 definitely closer to 200m). Didn’t feel easy, but came easily, if you catch my drift.  Can feel the fitness on the horizon."
+DAVID L,8419414131,Up,00:21:04,2.41,00:08:59,1/19/2023,2:29:45 PM,THU,1,19,2023,164.8,152.4,0,Finally got my legs back under me
+DAVID L,8414987130,Yog+strides,00:28:01,3.02,00:09:22,1/18/2023,6:50:25 PM,WED,1,18,2023,165.8,151.7,0,Still shaking Sunday outta my legs
+ME,8414209834,Afternoon Run,00:50:00,7.04,00:07:06,1/18/2023,3:06:55 PM,WED,1,18,2023,169.2,129.9,,
+MARK M,8414137125,Afternoon Run,00:45:05,6.02,00:07:37,1/18/2023,2:59:50 PM,WED,1,18,2023,NA,163.9,0,
+PATRICK L,8411675349,Easy TM Run,00:50:00,4.22,00:11:51,1/18/2023,6:57:32 AM,WED,1,18,2023,167.8,133,0,Forgot to stop watch when I was done.. I DO run slow but not that slow...lol
+DAVID L,8411749080,"“And in my hour of greatest need, the Lord sent me a toilet” — the Gospel of PortaJohn 2:2",01:01:02,6.39,00:09:37,1/18/2023,6:48:44 AM,WED,1,18,2023,161.2,151.2,0,Early EZ hour. Satisfying progression.
+DAVID L,8412104524,missing vert,00:00:00,0.03,NA,1/17/2023,7:30:00 PM,TUE,1,17,2023,NA,NA,0,
+DAVID L,8409690060,Shoutout to the guy on the treadmill next to me running 12’ pace backwards,00:58:01,6.30,00:09:14,1/17/2023,6:59:27 PM,TUE,1,17,2023,159.4,157.1,0,"“Kick Out the Jams” came on shuffle for the last 3’ of the run… Blitz runs DEEP.  Legs feel nice, though quads still feel like [redacted] every time I try and go up/down stairs.  Fighting the urge to pick up the pace the whole time."
+TIMMY B,8409393571,Lil workout action ,00:56:00,8.01,00:07:00,1/17/2023,5:45:54 PM,TUE,1,17,2023,167.4,155.6,3,"Felt really good on this. 1,1,3,3,5,3,3,1,1 on half rest. 1(5:15), 3(5:30), 5(5:45)"
+PAIGE O,8408258993,Tread,00:46:04,6.01,00:07:47,1/17/2023,12:37:13 PM,TUE,1,17,2023,178.8,159.1,0,In btwn classes
+ME,8407651921,Lunch Run,00:31:02,4.44,00:07:04,1/17/2023,12:25:23 PM,TUE,1,17,2023,169.6,130.5,,
+MARK M,8406594911,Morning Run,00:48:01,6.42,00:07:32,1/17/2023,8:36:49 AM,TUE,1,17,2023,NA,155.9,0,
+PATRICK L,8405790135,Easy TM,00:30:04,3.19,00:09:39,1/17/2023,6:09:16 AM,TUE,1,17,2023,169.2,131.3,0,Fitting it in. Long day yesterday and long one today. Needed something
+TIMMY B,8403656650,Afternoon Run,00:39:04,5.01,00:07:55,1/16/2023,4:59:31 PM,MON,1,16,2023,168,147.7,,
+PAIGE O,8403239392,Afternoon Run,00:29:05,4.07,00:07:21,1/16/2023,2:09:38 PM,MON,1,16,2023,185,163.9,,
+MARK M,8401226686,Morning Run,00:45:04,6.16,00:07:25,1/16/2023,8:57:46 AM,MON,1,16,2023,NA,163.2,0,
+MARK M,8398720514,Afternoon Run,01:03:05,8.49,00:07:32,1/15/2023,3:41:22 PM,SUN,1,15,2023,NA,161.5,0,
+PAIGE O,8398304362,2/2,00:37:04,5.02,00:07:32,1/15/2023,2:34:12 PM,SUN,1,15,2023,185.6,168,0,Checking on Nala and Owen in between
+PATRICK L,8398265540,WarmUp+ Easy Longish,01:09:00,8.22,00:08:24,1/15/2023,1:59:49 PM,SUN,1,15,2023,171.6,160.5,0,For week purposes...Long Run.. Felt good.. pushed into steady a bit.. Best week since Marathon. Feel like back in gear!
+PAIGE O,8398303112,1/2,00:36:02,5.01,00:07:16,1/15/2023,1:48:41 PM,SUN,1,15,2023,184.4,163.6,0,
+TIMMY B,8398135340,Morning Run,00:56:02,8.07,00:07:00,1/15/2023,10:31:21 AM,SUN,1,15,2023,167.6,161.1,,
+DAVID L,8396801441,Down,00:12:03,1.31,00:09:36,1/15/2023,10:08:22 AM,SUN,1,15,2023,167,155.9,0,Almost got mauled by a dog and hit by a car — all in the span of 2 seconds!
+DAVID L,8396801771,Frostbite 15k — a good day to have a good day,01:14:04,9.39,00:07:57,1/15/2023,8:30:29 AM,SUN,1,15,2023,163.8,176.7,1,"5th in age group. Didn’t look at my watch a single time, so when I turned the corner and saw 1:14 on the clock I was STOKED.  Finished hard and immediately puked my guts out.  Hills were killing me, but I just kept reeling people in the whole race.  The kid is back!"
+DAVID L,8396808777,Warmoop ,00:17:00,1.83,00:09:21,1/15/2023,7:55:27 AM,SUN,1,15,2023,164.4,152.9,0,"Whenever I feel like dog doo on the warm-up, I know I’m gonna have a good race. Guess I’m gonna have a good one today!"
+PAIGE O,8393397542,Loops,00:44:02,6.01,00:07:24,1/14/2023,5:58:04 PM,SAT,1,14,2023,186.2,157.4,0,Have a feeling more runs like this are in my future. 4 x overlook with medium effort.
+PATRICK L,8392565608,Easy TM Run,00:32:02,3.14,00:10:19,1/14/2023,3:47:47 PM,SAT,1,14,2023,166.4,132,0,Nice easy. Ahead of mileage goal for week w/ longer than expected workout yesterday...
+TIMMY B,8390643761,Morning Run,00:47:05,7.00,00:06:51,1/14/2023,8:46:04 AM,SAT,1,14,2023,170,159.7,,
+TIMMY B,8387178714,Afternoon Run,00:38:03,5.01,00:07:43,1/13/2023,4:39:03 PM,FRI,1,13,2023,NA,173.1,0,
+PATRICK L,8386691648,"""FARTLEK: 3x(3,2,1)/90"""" jog"" -(6:50,6:40,6:30)",01:00:04,7.24,00:08:23,1/13/2023,1:59:14 PM,FRI,1,13,2023,171.2,149.2,3,Went well. If anything I was pushing pace too much. Feels good to get 2 weeks of a workout. Dang was wind wicked at first but helped cool me down once I was pushing pace! 
+DAVID L,8384987358,Stomach go boom,00:30:00,3.26,00:09:13,1/13/2023,8:03:55 AM,FRI,1,13,2023,163.4,162.3,0,"Some thing I ate for dinner last night REALLY didn’t agree with me. Other than that, felt pretty okay over the hills.  Calves still dead from Wed.  Cut short due to GI concerns, gonna go foamroll like a madman."
+ME,8384659821,"5M Tempo in ~27:35 (5:31/mi), 3’R, 4x16-18s on 90” cycles",01:05:04,10.15,00:06:28,1/13/2023,5:57:39 AM,FRI,1,13,2023,171.8,147.5,3,finished the 4th loop which got me over 5mi just a tad. think it should’ve been 5 miles but always a bit of watch error
+PAIGE O,8383181321,Evening Run,00:33:02,4.16,00:08:01,1/12/2023,6:42:33 PM,THU,1,12,2023,184,156.6,,
+PATRICK L,8382494571,Easy TM Run,00:41:02,4.14,00:10:01,1/12/2023,5:20:28 PM,THU,1,12,2023,169.4,132.1,0,
+DAVID L,8381470728,Felt Pretty Bad,00:33:02,3.44,00:09:43,1/12/2023,1:35:44 PM,THU,1,12,2023,165.4,162.3,0,Would’ve happily toughed it out for the full hour if not for the race on Sunday.  This was a good soft surface shakeout.
+MARK M,8380485346,Morning Run,00:54:02,7.02,00:07:46,1/12/2023,10:14:48 AM,THU,1,12,2023,NA,159.1,0,Been feeling kinda tired on runs and I think it’s from the mono so I’m gonna cross train tomorrow
+ME,8379498609,Morning Run,01:00:02,8.17,00:07:23,1/12/2023,6:22:43 AM,THU,1,12,2023,168.4,133.3,,
+DAVID L,8377537844,down,00:15:02,1.44,00:10:41,1/11/2023,6:55:37 PM,WED,1,11,2023,161.2,153.3,0,9 on the day?
+DAVID L,8377537894,Alone and in the dark to balance out the cheater shoes,00:45:04,5.64,00:08:07,1/11/2023,5:58:38 PM,WED,1,11,2023,166.6,174.2,3,"1600: 7:44 // (90”) // 10x400 (200jg): 1:49, 47, 47, 44, 47, 47, 46, 45, 44, 43 // (90”) // 1600: 7:38
+
+Needed this. Literally could not be happier with this one. Felt crazy smooth and in control the whole time. Did it in the vaporflys to make sure they are good to go for Sunday, and WOW they feel nice!"
+DAVID L,8377537853,üp,00:21:01,2.24,00:09:28,1/11/2023,5:29:07 PM,WED,1,11,2023,168,156.7,0,
+PAIGE O,8377125703,Afternoon Run,00:45:00,6.01,00:07:29,1/11/2023,4:26:54 PM,WED,1,11,2023,183.6,166.6,,
+MARK M,8376575202,Afternoon Run,00:44:02,6.03,00:07:22,1/11/2023,2:34:35 PM,WED,1,11,2023,NA,159.6,0,
+PATRICK L,8374101772,East TM Run,00:41:04,4.32,00:09:40,1/11/2023,6:42:29 AM,WED,1,11,2023,169.8,132.3,0,
+PATRICK L,8372108447,Easy TM @ MAF target HR,00:39:03,4.23,00:09:21,1/10/2023,7:03:42 PM,TUE,1,10,2023,168.4,134.2,0,
+TIMMY B,8372096010,Workout season ,00:48:04,7.08,00:06:53,1/10/2023,6:47:39 PM,TUE,1,10,2023,169.8,157.3,0,"3x(3,2,1) 90sec rest, didn’t go perfectly but went OK. Feel beat but missed the feeling"
+PAIGE O,8372471749,🌖😴🌃,00:46:00,6.01,00:07:40,1/10/2023,6:41:54 PM,TUE,1,10,2023,183.2,165.1,0,Long days this semester
+DAVID L,8371981731,Between Two Torah Academies,00:59:03,6.36,00:09:22,1/10/2023,5:55:58 PM,TUE,1,10,2023,164.4,154.5,0,"Easy hour boppin around in the dark.   Had this song stuck in my head the whole time, so you know I had to BUMP it when I got home"
+MARK M,8371021214,Morning Run,00:39:02,4.89,00:08:03,1/10/2023,10:14:45 AM,TUE,1,10,2023,NA,160.1,0,
+ME,8368598869,"12x200m uphill (35-36), ~4’R, 2M steady (5:41/mi)",01:20:00,11.05,00:07:14,1/10/2023,6:09:13 AM,TUE,1,10,2023,168.6,143.7,3,felt pretty meh but we got er done. original plan was to tag on 3x5/1 tempo intervals but opted for a longer steady effort instead. same general purpose achieved
+DAVID L,8366387393,After Work,00:35:03,3.79,00:09:23,1/9/2023,5:53:53 PM,MON,1,9,2023,166.4,152.4,0,"Saturday off was intentional, Sunday off was not.  That being said, after 61 straight days of running (new PR haha) the 2 rest days going into a race week probably did me good. Time to get back after it."
+TIMMY B,8366282292,Afternoon Run,00:43:02,5.95,00:07:18,1/9/2023,5:34:08 PM,MON,1,9,2023,166.8,148.6,,
+ME,8366031019,Afternoon Run + hill drills,00:58:05,8.37,00:07:02,1/9/2023,4:08:23 PM,MON,1,9,2023,169.8,134.4,0,pogs
+MARK M,8365849098,Afternoon Run,00:38:05,5.08,00:07:39,1/9/2023,3:57:40 PM,MON,1,9,2023,NA,168.3,0,With Conor and Sean
+PATRICK L,8360967550,Easy TM Run,01:02:02,6.21,00:10:03,1/8/2023,3:55:40 PM,SUN,1,8,2023,167.4,152,0,Wanted to get outdoor and do more but just no time today.. good overall week though 
+PAIGE O,8361012990,Kinda not fun ,00:59:00,8.01,00:07:23,1/8/2023,3:27:02 PM,SUN,1,8,2023,186.8,160.3,0,
+MARK M,8359215329,I had mono ,00:48:03,6.52,00:07:27,1/8/2023,9:45:33 AM,SUN,1,8,2023,NA,167.3,0,I’m back now
+TIMMY B,8358695889,What a beautiful run ,01:00:02,9.18,00:06:35,1/8/2023,8:09:34 AM,SUN,1,8,2023,174.8,161.2,0,
+PAIGE O,8355211207,Run!,00:44:03,6.01,00:07:24,1/7/2023,4:41:30 PM,SAT,1,7,2023,185,165.1,0,
+PATRICK L,8354701040,"WarmUp+ FARTLEK: 5' steady, 2'j, 5x1/1, 2'j, 5' steady",00:42:00,4.90,00:08:35,1/7/2023,2:35:28 PM,SAT,1,7,2023,167,146.6,3,Felt solid. My steady was about 6:30/mile. Right leg is still an issue though. Still feels dragging a bit. Positive step towards training building!
+ME,8352297696,2x3M T w/ 2’R ,01:36:00,14.76,00:06:31,1/7/2023,6:05:05 AM,SAT,1,7,2023,172.8,152.2,2,"16:29 (5:30), 16:16 (5:25). workout made into a LR, first tempo that hasn’t felt like absolute death so that’s a win 😁 skratch labs horchata protein powder is ⛽️"
+DAVID L,8349873724,Slow Day at the Office,00:20:00,2.01,00:10:01,1/6/2023,7:16:12 PM,FRI,1,6,2023,165.2,143.9,0,Super EZ treddy shakeout at work trying to calibrate my watch’s indoor mode.
+TIMMY B,8349475915,Afternoon Run,00:24:01,3.11,00:07:49,1/6/2023,5:16:51 PM,FRI,1,6,2023,167,144.4,,
+PATRICK L,8349344954,Easy TM Run,00:29:02,3.05,00:09:40,1/6/2023,4:36:09 PM,FRI,1,6,2023,168.8,132.1,0,
+ME,8349324041,Afternoon Run + 4x10-12” strides,01:00:00,8.36,00:07:11,1/6/2023,3:47:00 PM,FRI,1,6,2023,168.4,132.4,0,feeling good going into morning tempo/LR! :)
+DAVID L,8347227388,1st Official Meeting of the Texas Beach Track Club,00:54:02,6.01,00:09:02,1/6/2023,7:46:16 AM,FRI,1,6,2023,163.6,160.1,0,TBTC out in full swing today (me & Thomas).   Beautiful morning.  We are gearing up to fight RVA’s final boss (Petronius Jones).
+PATRICK L,8344797118,Easy TM Run,00:42:05,4.03,00:10:38,1/5/2023,6:23:44 PM,THU,1,5,2023,167.4,142.8,0,
+ME,8344590287,Afternoon Run w/ nolan 😛,01:03:05,8.08,00:07:54,1/5/2023,4:59:20 PM,THU,1,5,2023,163.8,129.9,0,10/10 run and nashville hot chicken to follow 😁 nice to see my boys Sean McDonald and Nolan Pernia back to back 🥰 and yes the route was indeed bad 💀
+DAVID L,8344569094,Isn’t that right Uh-Huh?,00:55:03,6.02,00:09:14,1/5/2023,4:43:13 PM,THU,1,5,2023,161.8,150.8,0,Uh-huh!
+PAIGE O,8342848138,☀️🌞🌇,00:37:02,5.02,00:07:28,1/5/2023,9:59:48 AM,THU,1,5,2023,183.8,157.6,0,The sun came out! I’m going to get so good at hills
+DAVID L,8339765537,I’ll Take It,01:21:04,9.02,00:09:05,1/4/2023,6:14:59 PM,WED,1,4,2023,162.2,162.5,3,"15’ T (90”) 10’ T (90”) 10’ T + 4x 15”ish hill strides.  I needed a good one, and I’m happy to have gotten one.  I feel like I’m finally really learning how to tempo, so I’m counting that as a win and trusting that the paces will come down in time."
+TIMMY B,8339517688,First workout of training ,00:40:00,5.43,00:07:22,1/4/2023,6:10:13 PM,WED,1,4,2023,167.2,158.6,0,"This workout is brought to you by Jacob Montgomery 
+
+4 min steady (6:30-6:45), 1 rest, 6x1 on 1 off tempo(6:00-6:20) 4 steady 
+
+Hill for a cooldown is not it"
+PATRICK L,8336534879,Easy TM Run,00:20:00,2.05,00:09:48,1/4/2023,8:07:59 AM,WED,1,4,2023,167,145.6,0,
+ME,8336371176,"4x1M/90”R, 2x800/90”R, 2:30R, 4x200/1’R",01:23:03,12.10,00:06:55,1/4/2023,6:09:26 AM,WED,1,4,2023,167.6,149.9,3,"5:07 10 9 8, 2:33 31, 30 30 30 30. plan was 5x1M then 4x2 but felt pretty 💩 from the start so opted to break up the 5th mile into 2 8’s. also, stupid humid out, felt like i was running underwater the first 4 reps 💀🤣 visibility was very low, kinda spooky. we’ll take it, lots of hurting in workouts the last couple months. maybe one day soon i’ll feel like my aerobic fitness is back but for now tempos and mile repeats will continue to suck 🙃😂 fyi this was more like 11 miles not 12. garmins seem to suck on the track"
+TIMMY B,8334231971,Got lost,00:44:04,6.11,00:07:20,1/3/2023,6:29:51 PM,TUE,1,3,2023,168.8,157.3,0,Again
+DAVID L,8334092707,Such a nice night,00:30:05,3.11,00:09:54,1/3/2023,6:06:28 PM,TUE,1,3,2023,166,141.3,0,"Man, I love doubles"
+PAIGE O,8333766020,Afternoon Run,00:38:02,5.02,00:07:39,1/3/2023,4:29:01 PM,TUE,1,3,2023,182.8,159.7,,
+ME,8333439244,Afternoon Run,01:00:00,8.30,00:07:14,1/3/2023,2:57:27 PM,TUE,1,3,2023,167.8,130.6,0,"get ready Nolan Pernia, you finna run the best (worst) route of your life in two days time"
+DAVID L,8330863441,Sunrise on the River ,00:54:05,5.56,00:09:53,1/3/2023,6:40:54 AM,TUE,1,3,2023,159.2,150.8,0,"I felt really good, this was just the pace my legs chose.  Who am I to argue?"
+TIMMY B,8328538487,Afternoon Run,00:44:05,6.06,00:07:24,1/2/2023,5:09:05 PM,MON,1,2,2023,168.8,151,,
+ME,8328256001,Afternoon Run + Hill Drills,01:00:03,8.16,00:07:26,1/2/2023,3:39:04 PM,MON,1,2,2023,166.2,131.5,0,not sure if foot is regressing but it ain’t progressing that’s for sure 💀rip
+DAVID L,8327972953,Legs Felt Startlingly Good,00:20:05,2.38,00:08:49,1/2/2023,3:24:13 PM,MON,1,2,2023,168.8,151.7,0,
+PAIGE O,8327905029,Afternoon Run,00:45:02,6.03,00:07:32,1/2/2023,2:39:34 PM,MON,1,2,2023,184.8,159.8,0,This was hard
+PATRICK L,8326222380,MAF  Run,00:40:04,4.10,00:09:56,1/2/2023,10:01:47 AM,MON,1,2,2023,163.8,128.5,0,Taking it easy. Here's to a healthier 2023!!!
+DAVID L,8322756575,Huckleberry Trail LR,01:36:01,10.51,00:09:10,1/1/2023,2:38:11 PM,SUN,1,1,2023,159.8,158.1,2,
+PAIGE O,8322199759,Lunch Run,00:53:01,7.01,00:07:36,1/1/2023,12:19:55 PM,SUN,1,1,2023,NA,NA,,
+TIMMY B,8321814855,Eh ,00:48:03,7.00,00:06:57,1/1/2023,11:11:20 AM,SUN,1,1,2023,171.2,162.3,0,"First “Long Run” of the year. Did not go as planned whatsoever. Not a bad run, just still trying to figure out loops and got a little lost and it screwed up the pace. And the hill at the end was killer."
+PAIGE O,8318685173,Afternoon Run,00:23:04,3.05,00:07:48,12/31/2022,3:32:47 PM,SAT,12,31,2022,182.8,153.2,,
+DAVID L,8318335861,Blacksburg Hills Pay Richmond Bills,01:20:01,8.23,00:09:45,12/31/2022,2:57:36 PM,SAT,12,31,2022,162.2,155.7,3,
+ME,8318277361,Easy Long Run,01:35:00,13.16,00:07:13,12/31/2022,2:36:27 PM,SAT,12,31,2022,168.2,133.3,2,"been humbled by my neuroma too many times to count. won the battle but i’ll win the war (i hope). 🙃 maybe it’s a good thing, my ego would be too high without it. wanted 14-15 but just wasn’t happening today. bright side: hit some new territory for all you haters AND aerobically felt stupid good. the real question is do i get over myself and do the surgery…"
+PAIGE O,8313415315,Post car,00:23:04,3.01,00:07:53,12/30/2022,4:59:10 PM,FRI,12,30,2022,181.4,159.3,0,
+TIMMY B,8312628163,Lunch Run,00:36:03,5.09,00:07:11,12/30/2022,12:44:31 PM,FRI,12,30,2022,169.8,158.3,,
+DAVID L,8311708676,Morning Run,00:56:02,6.13,00:09:12,12/30/2022,8:48:43 AM,FRI,12,30,2022,161.6,155,0,
+ME,8311105255,30’ Tempo @ 5:36/mi + 4x~150m strides,01:05:05,10.02,00:06:34,12/30/2022,6:06:53 AM,FRI,12,30,2022,171.6,152.8,3,"pretty rough night’s sleep bc of dreading this workout (as i tend to do with tempos) so went into this like a beta. come out somewhat of a beta too. felt pretty rough. original plan was 2x3M tempo w/ 2’R but opted for a sustained, slightly slower effort instead, albeit I felt like I was working for the large majority of the 30’. glutes were oddly fried for the latter 20 of those minutes. oh well, we move on. 🙃"
+PATRICK L,8309235424,Easy TM Run,00:38:01,4.10,00:09:19,12/29/2022,5:49:48 PM,THU,12,29,2022,167.6,152.4,0,Getting it. I just can't stop fighting some sort of illness this winter. It's non stop!!
+ME,8308953868,Afternoon Run + 4 Strides,00:58:03,8.01,00:07:18,12/29/2022,3:47:43 PM,THU,12,29,2022,167.8,131.8,0,foot has been sucky last couple days. we’ll see how workout tm morning goes :/ no hill drills bc foot
+DAVID L,8308726587,🇧🇷,00:55:01,6.03,00:09:10,12/29/2022,2:43:23 PM,THU,12,29,2022,161.4,153.7,0,
+PAIGE O,8308854968,🥣💨🌞,00:40:05,5.22,00:07:51,12/29/2022,2:27:42 PM,THU,12,29,2022,183,159.1,0,
+DAVID L,8306884713,Morning Run,00:20:04,2.24,00:09:16,12/29/2022,8:27:21 AM,THU,12,29,2022,170.6,151.8,0,
+TIMMY B,8304278148,Afternoon Run,00:36:05,5.08,00:07:15,12/28/2022,4:05:37 PM,WED,12,28,2022,169.6,151.6,,
+DAVID L,8304128829,COROS user says what?,01:12:05,8.10,00:09:00,12/28/2022,2:42:45 PM,WED,12,28,2022,162.8,159.6,3,
+ME,8303278709,Lunch Run (overdressed 🥵),01:00:00,8.18,00:07:20,12/28/2022,11:27:17 AM,WED,12,28,2022,169.2,138,0,"tried out my watches’ music feature which was very cool. think i’m definitely more of a no music guy, like the silence. still cool though and if i really don’t feel like running, it’ll help get me out the door 🤣 plus it comes in clutch for lifting and cross training"
+DAVID L,8307938704,missing elevation,00:00:00,0.01,NA,12/28/2022,11:20:00 AM,WED,12,28,2022,NA,NA,,
+PATRICK L,8301996776,Easy TM Run,00:39:00,4.05,00:09:39,12/28/2022,7:16:41 AM,WED,12,28,2022,168.6,135.8,0,
+DAVID L,8299576213,Perfect Weather,00:54:00,6.00,00:09:00,12/27/2022,3:00:00 PM,TUE,12,27,2022,NA,NA,0,
+TIMMY B,8298321626,Morning Run,00:35:01,5.01,00:07:03,12/27/2022,10:19:01 AM,TUE,12,27,2022,NA,181.6,0,
+MARK M,8298381626,Morning Run,00:46:04,6.22,00:07:32,12/27/2022,9:35:20 AM,TUE,12,27,2022,NA,169.4,0,With jake
+ME,8297372219,HILLS PAY THE 💵: 14x200m uphill @ 4:50-5:05/mi,01:16:04,10.34,00:07:26,12/27/2022,6:14:22 AM,TUE,12,27,2022,169.4,143.1,3,saw two skunks 🦨 and a crippled deer ☹️ first couple reps were extra rest bc i chose a bad hill and had to adjust💀🤣 looks like my power was roughly 780-820 on the reps… interesting. side note: don’t give me kudos until i formulate my workout post people!! 😂 new tracksmith tights are gas ⛽️
+DAVID L,8295266963,Watchless Yog,00:36:00,4.00,00:09:00,12/26/2022,3:30:00 PM,MON,12,26,2022,NA,NA,0,
+PAIGE O,8295152720,Loopy,00:38:01,5.01,00:07:38,12/26/2022,3:08:12 PM,MON,12,26,2022,184.4,160.1,0,
+MARK M,8294218331,Lunch Run,00:43:05,6.13,00:07:10,12/26/2022,11:15:58 AM,MON,12,26,2022,NA,169.4,0,
+PATRICK L,8293697553,Easy TM Run,00:39:03,4.32,00:09:10,12/26/2022,9:40:47 AM,MON,12,26,2022,169,137.5,0,Crunch for time. TM again! Good start for a Monday.
+TIMMY B,8293671607,Morning Run,00:35:00,5.06,00:06:55,12/26/2022,9:40:06 AM,MON,12,26,2022,NA,174,0,Apple Watch is clearly drunk. Did not have 508 ft of elevation on the rail trail lol. Can’t wait to get my Garmin back tomorrow
+ME,8293727540,Morning Run + 4x15” Strides,01:00:03,8.35,00:07:15,12/26/2022,9:09:25 AM,MON,12,26,2022,170.2,142.2,0,body battery feature is pretty cool. interested in the HRV and power metrics too. will be cool to see those in a few weeks once there’s enough data 😁 ankle was much better :)
+PATRICK L,8290565022,TM Easy Run,00:58:01,6.34,00:09:12,12/25/2022,1:18:44 PM,SUN,12,25,2022,170,137.1,0,Most miles/week and longest run since Marathon. We're on a build up baby. 
+DAVID L,8295253549,Hill Sprints w the Old Man,00:23:02,2.69,00:08:39,12/25/2022,12:42:51 PM,SUN,12,25,2022,167.2,NA,0,
+MARK M,8289941568,Morning Run,00:37:00,5.12,00:07:15,12/25/2022,9:05:28 AM,SUN,12,25,2022,NA,169.6,0,"When you leave miles til Sunday, you gotta do them Sunday"
+DAVID L,8287354527,Lunch Run,00:36:02,4.02,00:09:05,12/24/2022,12:52:56 PM,SAT,12,24,2022,163.8,NA,0,
+PAIGE O,8287168051,Lunch Run,00:30:03,4.01,00:07:36,12/24/2022,12:12:01 PM,SAT,12,24,2022,183.6,163.9,0,I’m literally so brave
+TIMMY B,8286971229,Morning Run,00:41:00,6.00,00:06:50,12/24/2022,9:15:58 AM,SAT,12,24,2022,NA,NA,0,
+PATRICK L,8286119007,Easy TM Run,00:48:02,5.29,00:09:09,12/24/2022,7:45:36 AM,SAT,12,24,2022,171.6,136.1,0,Non stop treadmill until I'm done with Vikings binge.. lol. Treadmill Trap!!!
+PATRICK L,8284130344,TM Run,00:40:04,4.19,00:09:43,12/23/2022,9:29:35 PM,FRI,12,23,2022,163.8,137.6,0,TM not ideal but just care about getting miles in at this point...
+TIMMY B,8283487690,Afternoon Run,00:20:05,3.02,00:06:55,12/23/2022,4:26:36 PM,FRI,12,23,2022,NA,176.7,0,
+DAVID L,8283457449,Pretty Cold for a Simple Southern Boy Like Me,00:52:05,6.00,00:08:49,12/23/2022,3:35:36 PM,FRI,12,23,2022,164.2,NA,0,
+ME,8282656616,Morning Run,01:00:02,8.01,00:07:33,12/23/2022,10:43:46 AM,FRI,12,23,2022,170.2,135.2,0,"wow 10/10 weather. blizzard the last 15 min 💀🤣 a day off yesterday for the ankle but still felt iffy today, might take this weather as a sign to cross train next two days"
+MARK M,8282297663,Morning Run,00:54:01,7.01,00:07:44,12/23/2022,9:08:02 AM,FRI,12,23,2022,NA,162.6,0,Weather sucked
+PATRICK L,8280658661,Easy TM Run,00:32:04,3.14,00:10:26,12/22/2022,9:27:41 PM,THU,12,22,2022,163.4,132.3,0,Just fit this one in...
+TIMMY B,8280402293,Evening Run,00:26:02,3.51,00:07:30,12/22/2022,6:37:21 PM,THU,12,22,2022,NA,176.5,0,
+DAVID L,8279907825,Lubbock’s Very Big Shoes for Large-Footed Ladies ,00:55:05,6.10,00:09:10,12/22/2022,3:00:54 PM,THU,12,22,2022,NA,NA,0,
+PAIGE O,8279184289,Lunch Run,00:22:04,3.01,00:07:34,12/22/2022,12:02:00 PM,THU,12,22,2022,184.6,163.4,,
+MARK M,8278694351,Morning Run,00:07:01,1.04,00:07:01,12/22/2022,10:03:05 AM,THU,12,22,2022,NA,158.2,0,Treadmill bc of sleet/hail then bailed and said I’ll make up the miles another day
+DAVID L,8276781376,Dark night of the soul,00:27:05,3.07,00:09:05,12/21/2022,7:29:11 PM,WED,12,21,2022,165,NA,3,
+DAVID L,8276781196,Evening Run,00:15:05,1.70,00:09:23,12/21/2022,7:08:52 PM,WED,12,21,2022,167.2,NA,0,
+TIMMY B,8276844244,Afternoon Run,00:32:05,4.21,00:07:51,12/21/2022,5:48:20 PM,WED,12,21,2022,NA,165,0,
+PAIGE O,8276883554,Returned ,00:37:04,5.01,00:07:33,12/21/2022,3:11:43 PM,WED,12,21,2022,184.4,158,0,
+ME,8276088608,"No Stridez, Just Vibez",01:00:03,8.10,00:07:29,12/21/2022,2:47:28 PM,WED,12,21,2022,169.2,131.3,0,"right ankle is a bit iffy, do i scratch the lift today and/or take tm off from running? 🤔 i need a second voice y’all i don’t trust my own 💀🤣
+
+i rly oughta go for the nifty sixty one of these days given my easy run pace often lands right around 7:30/mi. one day…"
+MARK M,8275298796,Lunch Run,00:47:05,6.23,00:07:42,12/21/2022,11:17:02 AM,WED,12,21,2022,NA,165.4,0,With Nolan
+DAVID L,8274399671,Morning shake,00:20:02,2.16,00:09:28,12/21/2022,7:41:31 AM,WED,12,21,2022,164.8,NA,0,
+PATRICK L,8274196613,Easy TM Run,00:34:05,3.06,00:11:24,12/21/2022,6:34:14 AM,WED,12,21,2022,165.4,130.5,0,Getting it in. Week just keeps getting busier.. ahh!!!!
+MARK M,8271310087,Lunch Run,00:32:05,4.51,00:07:18,12/20/2022,11:55:52 AM,TUE,12,20,2022,NA,163.2,0,Vibes were not there today
+MARK M,8271310037,Lunch Run,00:03:03,0.50,00:07:14,12/20/2022,11:51:58 AM,TUE,12,20,2022,NA,162.6,0,
+DAVID L,8270345668,Icicle Boy,00:56:00,6.01,00:09:20,12/20/2022,6:59:01 AM,TUE,12,20,2022,162.6,NA,0,
+ME,8270283059,"5x(800,1’R,200) w/ 90”R",01:14:00,10.01,00:07:23,12/20/2022,6:14:28 AM,TUE,12,20,2022,168.4,144.8,3,"2:34 31, 2:30 33, 2:30 32, 2:30 32, 2:29 30.
+hoped for 6 sets but all but the first 800 were faster than i wanted them to be thx to opening each 400 in 72-74 💀😂 garmin be flattering me 🥰"
+PATRICK L,8269978850,Easy TM Run,00:30:02,3.04,00:10:00,12/20/2022,5:58:24 AM,TUE,12,20,2022,169.4,132.9,0,Busy week. Squeezing what I can in!
+TIMMY B,8268671822,Evening Run,00:37:03,4.71,00:07:58,12/19/2022,6:50:08 PM,MON,12,19,2022,NA,163.5,0,
+DAVID L,8268648573,Evening Run,00:24:02,2.51,00:09:44,12/19/2022,6:43:20 PM,MON,12,19,2022,165.4,NA,0,
+ME,8268340937,Afternoon Run + Hill Drills,00:58:05,8.04,00:07:19,12/19/2022,3:59:32 PM,MON,12,19,2022,168.2,132.7,0,breaking this run up into emojis: 😃😵😁😵🫥
+PAIGE O,8268346076,Oh my Darlington ,00:31:04,4.05,00:07:49,12/19/2022,3:56:35 PM,MON,12,19,2022,184.6,156.8,0,
+MARK M,8267427195,Lunch Run,00:43:02,5.91,00:07:22,12/19/2022,12:15:40 PM,MON,12,19,2022,NA,164.9,0,6x20s hill “sprints” into the wind. they were pretty slow
+DAVID L,8264484949,HourForty,01:40:00,10.84,00:09:14,12/18/2022,1:07:46 PM,SUN,12,18,2022,163.2,NA,2,
+PATRICK L,8264129150,TM MAF Run,00:45:02,5.03,00:09:02,12/18/2022,12:09:30 PM,SUN,12,18,2022,170.2,135.4,0,This time of year is always tough with finding time. Had to get it in on TM today but it's something! Focusing on form and feeling a lot smoother. Solid mileage progress this week. We'll keep ticking it up. 
+MARK M,8263863386,Morning Run,00:35:05,5.01,00:07:09,12/18/2022,10:44:04 AM,SUN,12,18,2022,NA,164.6,0,End of week 1
+TIMMY B,8263416543,Morning Run,00:36:01,5.05,00:07:11,12/18/2022,8:49:41 AM,SUN,12,18,2022,NA,164.9,0,
+PAIGE O,8260288562,Afternoon Run,00:30:04,4.01,00:07:40,12/17/2022,2:10:37 PM,SAT,12,17,2022,183.2,153.8,,
+MARK M,8259925524,Lunch Run,00:28:01,4.02,00:07:02,12/17/2022,12:43:51 PM,SAT,12,17,2022,NA,175,0,Hard to get out the door for this one
+DAVID L,8259626237,Down,00:18:01,1.85,00:09:49,12/17/2022,11:03:08 AM,SAT,12,17,2022,161.6,NA,0,
+DAVID L,8259625971,Need a t-shirt that says “IF YOU WALK IN LANE 1 YOU’RE DEAD TO ME”,00:42:01,4.99,00:08:28,12/17/2022,10:09:46 AM,SAT,12,17,2022,169.8,NA,3,
+DAVID L,8259625352,Up,00:20:00,2.14,00:09:23,12/17/2022,9:33:11 AM,SAT,12,17,2022,163.2,NA,0,
+PATRICK L,8258569075,WarmUp+MAF Run,00:47:03,5.35,00:08:54,12/17/2022,7:14:42 AM,SAT,12,17,2022,168.2,135.7,0,Felt great. My MAF HR stayed in great range at pace. Tells me my recovery on point. Time to push towards higher mileage and intensity. We'll get some mobility in and shoot for a solid run tomorrow to get me to 25. 
+ME,8258760228,Easy 14,01:40:04,14.02,00:07:11,12/17/2022,7:05:24 AM,SAT,12,17,2022,170,138.4,2,big toe strength/mobility work for my feet seems to be helping… foot felt pretty great today :) time to see my gf yay
+PATRICK L,8256345564,TM MAF Run,00:36:05,3.88,00:09:31,12/16/2022,3:53:11 PM,FRI,12,16,2022,167.4,133,0,This is what happens when you just want to get miles in and your hooked on Vikings! Been 2 years and finally almost done...lol.
+PAIGE O,8256072956,Lunch Run,00:30:04,4.01,00:07:40,12/16/2022,12:59:31 PM,FRI,12,16,2022,182.2,155.9,,
+DAVID L,8255230154,Morning Run,00:49:03,5.39,00:09:12,12/16/2022,8:52:29 AM,FRI,12,16,2022,162.8,NA,0,
+ME,8254809183,5M Tempo in 27:55 (~5:33/mi) + 4x20” Strides,01:00:00,9.32,00:06:26,12/16/2022,6:15:18 AM,FRI,12,16,2022,172,148.3,3,"backstretch of the workout loop was ROUGH w/ the gradual uphill + rain and wind 💀 tried not to fight it and stay smooth, i’d say mission accomplished. garmin says i’m peaking lololol"
+TIMMY B,8253283737,Evening Run,00:30:04,4.06,00:07:35,12/15/2022,6:27:11 PM,THU,12,15,2022,NA,157.3,0,
+PATRICK L,8253088870,Easy TM + Mobility Run,00:28:01,3.02,00:09:23,12/15/2022,5:19:04 PM,THU,12,15,2022,166.8,131.9,0,Just getting something in. Over the post stomach issues.. Thank God for probiotics!! We'll push to getting 25 in this week. 
+ME,8253002666,Afternoon Run + 4x10” Strides,01:00:01,7.95,00:07:35,12/15/2022,3:55:08 PM,THU,12,15,2022,167.4,133.3,0,"ideal weather: windy, cold, and rainy. pros: it’s a natural ibuprofen and i felt absolutely nothing. cons: everything else.
+
+btw: ignore everything i said yesterday. cashews are just cashews. 💀"
+DAVID L,8252761094,1.5 episodes of King of the Hill,00:46:00,5.05,00:09:06,12/15/2022,3:00:02 PM,THU,12,15,2022,NA,NA,0,
+PAIGE O,8252971988,Almost connected ,00:24:05,3.01,00:08:17,12/15/2022,2:47:24 PM,THU,12,15,2022,183.6,145.7,0,
+MARK M,8251574162,Morning Run,00:21:01,3.04,00:07:01,12/15/2022,9:34:46 AM,THU,12,15,2022,NA,181.1,0,Absolutely abysmal weather and an interview later cut this one short
+ME,8249296803,Afternoon Run + 4x20” Strides,01:00:00,8.17,00:07:21,12/14/2022,4:02:34 PM,WED,12,14,2022,167.4,135.3,0,just 5 minutes ago i discovered that cashews are basically everything bagel seasoning but for nuts (pogs!!!)
+TIMMY B,8245168904,Afternoon Run,00:25:05,3.59,00:07:13,12/13/2022,3:36:57 PM,TUE,12,13,2022,NA,177.6,0,
+PAIGE O,8245769210,GPS!,00:33:01,4.26,00:07:48,12/13/2022,3:01:39 PM,TUE,12,13,2022,183.8,159.1,0,
+MARK M,8244398925,Lunch Run,00:29:00,4.32,00:06:44,12/13/2022,12:21:58 PM,TUE,12,13,2022,NA,172.3,0,
+ME,8243307329,"4x1600M/90”R, ~3’R, 4x200 strong w/ infield walk",01:05:00,9.74,00:06:40,12/13/2022,6:10:40 AM,TUE,12,13,2022,171,143.1,3,5:16 10 10 8 - 30 30 30 29. air was mfkn cold this morning (feels like 20💀) but overall feels good to be doing mile repeats again :) 10k effort felt like right around 5:10 today
+PATRICK L,8243033428,Easy TM Run +Mobility ,00:33:04,3.05,00:11:04,12/13/2022,5:51:32 AM,TUE,12,13,2022,153,113.5,0,Gradually building back into it. It's treadmill but at this point just want some consistent runs so I'll take it.
+PATRICK L,8242918782,TM Run + Mobility ,00:20:05,2.01,00:10:26,12/12/2022,7:42:27 PM,MON,12,12,2022,154.2,73.8,0,
+MARK M,8241639845,Evening Run,00:26:03,4.00,00:06:37,12/12/2022,6:17:46 PM,MON,12,12,2022,NA,172.6,0,Quick one today I’ve got to start studying for an exam I have tomorrow
+ME,8239451477,Morning Run + Hill Drills,01:01:01,8.01,00:07:39,12/12/2022,6:28:09 AM,MON,12,12,2022,168.6,130,0,🫥😶
+TIMMY B,8242726639,Morning Run,00:27:02,3.65,00:07:32,12/12/2022,6:18:24 AM,MON,12,12,2022,NA,171.5,0,
+MARK M,8235687822,Finals prep,00:30:04,4.26,00:07:13,12/11/2022,7:38:10 AM,SUN,12,11,2022,NA,158.3,0,"Finals studying killed some momentum 
+next week might be iffy too but after that consistently is back"
+TIMMY B,8233449859,Afternoon Run,00:29:00,4.05,00:07:10,12/10/2022,3:47:08 PM,SAT,12,10,2022,NA,177.4,0,
+PATRICK L,8232116403,WarmUp+MAF Run,00:53:01,5.25,00:10:08,12/10/2022,9:57:41 AM,SAT,12,10,2022,158.6,131,0,
+ME,8232064313,Easy Bool LR,01:40:03,13.66,00:07:21,12/10/2022,8:48:18 AM,SAT,12,10,2022,169.6,136.6,2,"highlights:
+1) tik tok influencers doing a synchronized dance in the middle of a road
+2) a hawk being photographed by a dude with a mondo camera"
+ME,8227247327,"2x2M T w/ 90”R, 1M faster, 3’R, 4x150m/1’R",01:01:05,9.25,00:06:41,12/9/2022,6:19:34 AM,FRI,12,9,2022,169.6,153.8,3,"10:59, 11:04, 5:17. ooooof didn’t feel great today but got it done and overall happy with it! second 2M started feeling rough quick so did my best to control effort hence the slower result. some days ya just don’t feel good 🤷🏼‍♂️ forgot how much the cold plays a factor in working out… rip my lungs 💀🤣"
+TIMMY B,8226886836,Morning Run,00:22:04,3.02,00:07:33,12/9/2022,5:28:46 AM,FRI,12,9,2022,NA,171.9,0,Forgot how much it sucks running in the early winter morning
+ME,8225308627,The Nifty Fifty Fail + 5x10s Strides,01:00:00,8.01,00:07:29,12/8/2022,4:24:10 PM,THU,12,8,2022,166.6,129.4,0,so close yet so far… maybe next time guys. foot was iffy but felt peppy today so ready to have some fun tm morning :) no hill drills today primarily bc the foot
+TIMMY B,8221432454,Evening Run,00:27:03,3.79,00:07:16,12/7/2022,6:27:34 PM,WED,12,7,2022,NA,168.8,0,
+ME,8218602628,💩 ,00:45:00,6.04,00:07:27,12/7/2022,5:34:52 AM,WED,12,7,2022,168.2,139.7,0,"shoutout Cole T. Bishop and Jimmy Lombardi for coming out at 5:30am with me in the 97% humidity 💀🤣 back in the burgh for work baby!! body is feeling bleh, need to sleep more"
+TIMMY B,8217045959,Evening Run,00:23:05,3.02,00:07:54,12/6/2022,6:18:59 PM,TUE,12,6,2022,NA,170.8,0,
+ME,8214500019,"HILLS PAY THE 💵: 4x(30,60,45) w/ jog down recovery",01:05:00,8.52,00:07:38,12/6/2022,6:29:17 AM,TUE,12,6,2022,169.6,148.8,3,"paces ranging from 4:43-5:50/mi. love my hill repeats 🥰 had a dog cheer squad which was 10/10. literally was one road away from the one I intended to go to but I mean, cmon now… Kirby Dr!? can’t beat that"
+TIMMY B,8212236015,Officially starting training this week ,00:22:02,3.01,00:07:28,12/5/2022,4:47:38 PM,MON,12,5,2022,NA,170.7,0,
+ME,8212199230,Afternoon Run + 4x10” Strides,01:05:00,8.63,00:07:32,12/5/2022,3:38:24 PM,MON,12,5,2022,166.6,134.6,0,scouted out hills for tomorrows repeats. looks like i’m hitting a main road because all the hills in neighborhoods are just steep and short which isn’t what i need 😛😂
+ME,8206405552,Long Run ft. DTW :),01:24:03,12.12,00:06:59,12/4/2022,7:06:25 AM,SUN,12,4,2022,169.2,147,2,very nice LR with some of the Downingtown West crew 10/10. these guys are fast af
+TIMMY B,8202056362,Morning Run,00:30:01,4.20,00:07:11,12/3/2022,9:05:12 AM,SAT,12,3,2022,NA,177.4,0,
+ME,8201496085,4M Tempo @ ~5:33/mi ☔️🌬️ ,00:55:01,8.35,00:06:36,12/3/2022,6:30:57 AM,SAT,12,3,2022,169.8,151.5,3,"5:33 33 34 34. found a banger workout loop for early morning that’s relatively low risk for cars. super happy with this, body said we staying right here at 5:33-34/mi!? 🤣 almost had a pity party and sandbagged bc of the rain and beta energy but we mfkn DID it 😛"
+ME,8197160064,Morning Run + Hill Drills,01:00:00,8.03,00:07:28,12/2/2022,5:24:41 AM,FRI,12,2,2022,165,131.4,0,"flu shot from wednesday had me feeling pretty rough into the night and all of yesterday so called an audible and opted for easy today, workout tm, and LR sunday. sometimes ya gotta shift baby. bright side of this run: felt dummy good (probs partly bc the advil lololol). downside: woke up at 3:45am and the body said nah g u ain’t goin back to sleep, hence the 5:24am start :) lol"
+TIMMY B,8195981319,Evening Run,00:26:00,3.49,00:07:29,12/1/2022,6:52:28 PM,THU,12,1,2022,NA,173.9,0,
+TIMMY B,8191345224,Evening Run,00:24:01,3.04,00:08:00,11/30/2022,6:14:21 PM,WED,11,30,2022,NA,167.8,0,
+ME,8191110887,☔️ + 💨 + 🚗 = bad time,00:55:00,7.35,00:07:29,11/30/2022,4:09:22 PM,WED,11,30,2022,166.4,135.4,0,"SO MANY CARSSSSSS
+4x10s light strides in there to feel something"
+ME,8184061469,"FARTLEK: 1,2,3,2,1,2,3,2,1 w/ halved jogs",01:06:00,9.61,00:06:53,11/29/2022,5:39:45 AM,TUE,11,29,2022,170.4,148.6,3,"classic fartlek action. this hurt more than my 5k race 💀 probs pushed the first few reps a bit too hard, these types of workouts are easy to underestimate. felt deec but not great. took me an eternity to figure out how to get onto the track, by the time I got on people were starting their cooldowns and by halfway through my workout it was just John (who also showed up late) and I 🤣🤣
+
+paces ranging from ~4:40-5:20/mi"
+ME,8181924114,Afternoon Run + 4x10s strides (sorta uphill) ,01:00:01,8.17,00:07:22,11/28/2022,3:34:54 PM,MON,11,28,2022,166.8,133,0,"wish i felt this good yesterday lol. pulling out a dummy early one tm to link up with a WC workout crew at the Henderson HS track, we will see if it’s worth it 💀"
+ME,8175910311,Easy 90,01:30:00,12.08,00:07:27,11/27/2022,7:02:36 AM,SUN,11,27,2022,167.8,140.6,2,my body only wanted to run 7:30s today 💀 slightly triggered i’m just under 50 on the week AGAIN
+ME,8168164091,Afternoon Run,00:59:01,8.01,00:07:23,11/25/2022,3:55:29 PM,FRI,11,25,2022,168,133.8,0,"felt pretty good, thanks alphaflys"
+TIMMY B,8162222151,Morning Run,00:25:04,3.07,00:08:23,11/24/2022,9:02:17 AM,THU,11,24,2022,NA,176.5,0,
+ME,8161865173,CD,00:15:00,2.05,00:07:19,11/24/2022,8:02:40 AM,THU,11,24,2022,165.8,138.2,0,
+TIMMY B,8150513004,Afternoon Run,00:27:02,3.11,00:08:50,11/21/2022,4:28:59 PM,MON,11,21,2022,NA,169.3,0,"Been running on the treadmill little by little everyday, finally felt good enough to run outside. Just running for fun"
+TIMMY B,8304276440,Afternoon Run,00:24:00,2.97,00:08:06,2/28/2022,4:49:57 PM,MON,2,28,2022,169,159.1,,
+TIMMY B,6550964856,Afternoon Run,00:55:00,8.37,00:06:34,1/19/2022,4:38:22 PM,WED,1,19,2022,174,152.3,,
+TIMMY B,6545873568,Afternoon Run,00:57:01,8.25,00:06:56,1/18/2022,4:46:33 PM,TUE,1,18,2022,171,147.9,,
+TIMMY B,6534349095,3x8 temoo,01:00:01,9.49,00:06:21,1/16/2022,10:48:03 AM,SUN,1,16,2022,NA,NA,0,
+TIMMY B,6529165047,CD,00:12:05,1.71,00:07:32,1/15/2022,2:30:22 PM,SAT,1,15,2022,174.2,154.5,0,
