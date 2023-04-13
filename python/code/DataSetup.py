@@ -37,7 +37,7 @@ run_script("Strava API and Sheets Integration using Apps Script", "GOONS")
 # Schedule the script to run every day at 8:00 PM
 # TODO: Schedule isn't really working, will have to look into it. Some connection issue.
 # schedule.every().day.at("20:00:00").do(run_script, "Strava API and Sheets Integration using Apps Script", "GOONS")
-
+# change
 # while True:
 #     # Run the scheduler
 #     schedule.run_pending()
