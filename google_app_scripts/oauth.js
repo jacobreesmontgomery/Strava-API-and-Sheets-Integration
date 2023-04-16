@@ -1,5 +1,5 @@
-var CLIENT_ID = '83199';
-var CLIENT_SECRET = '4d662f26d0a43fb69c2ab52e7838cc7c31736879';
+var CLIENT_ID = '<MY CLIENT ID>';
+var CLIENT_SECRET = '<MY CLIENT SECRET>';
 
 // configure the service
 function getStravaService() {
