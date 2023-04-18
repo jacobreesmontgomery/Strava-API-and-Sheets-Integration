@@ -2,8 +2,6 @@
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 import pandas
-import schedule
-import time
 import datetime
 
 # METHOD(S)
@@ -32,13 +30,5 @@ def run_script(spreadsheet, sheet_name):
 
     print('Finished the script at {}'.format(datetime.datetime.now())) # Closing print
 
+# Calling to retrieve data from the "GOONS" sheet and inject into a CSV file
 run_script("Strava API and Sheets Integration using Apps Script", "GOONS")
-
-# Schedule the script to run every day at 8:00 PM
-# TODO: Schedule isn't really working, will have to look into it. Some connection issue.
-# schedule.every().day.at("20:00:00").do(run_script, "Strava API and Sheets Integration using Apps Script", "GOONS")
-
-# while True:
-#     # Run the scheduler
-#     schedule.run_pending()
-#     time.sleep(1)
