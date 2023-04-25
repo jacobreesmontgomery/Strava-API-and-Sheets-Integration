@@ -1,12 +1,12 @@
 // FOR IMPORTANT GLOBALLY-REFERENCED VARIABLES
 AUTH_EXCHANGE_LINK='https://www.strava.com/oauth/authorize?client_id=83199&response_type=code&redirect_uri=http://localhost/exchange_token&approval_prompt=force&scope=activity:read_all'; // This one is how I get the code with which to retrieve the refresh token for my athletes
 
-TIMMY_B_REFRESH_TOKEN = 'ed67f6258bfd8ad0851a4d5c544d0766432ab9e8'; // Done his training, add him back to ATHLETE* arrays once he's back
-PAIGE_O_REFRESH_TOKEN = '0726964a5a1735551ccee68f46e7df753b9bebb4';
-MARK_M_REFRESH_TOKEN = '23d1f3b6f426daf584d6cce3987fff9b2443ff0c';
-DAVID_L_REFRESH_TOKEN = 'e9a8cf64fd7d49df41d5aca427c9dc77a3ed7409';
-PATRICK_L_REFRESH_TOKEN = '25a0a96e7a6f57bd393c8e76fc83c68486289790';
-MY_REFRESH_TOKEN = 'e62f800366085277ebdb8a54c81a6306f9b01fa9';
+TIMMY_B_REFRESH_TOKEN = 'CANNOT DISCLOSE'; // Done his training, add him back to ATHLETE* arrays once he's back
+PAIGE_O_REFRESH_TOKEN = 'CANNOT DISCLOSE';
+MARK_M_REFRESH_TOKEN = 'CANNOT DISCLOSE';
+DAVID_L_REFRESH_TOKEN = 'CANNOT DISCLOSE';
+PATRICK_L_REFRESH_TOKEN = 'CANNOT DISCLOSE';
+MY_REFRESH_TOKEN = 'CANNOT DISCLOSE';
 
 // Establishing parallel arrays (update as athletes stop/start new training blocks)
 NUM_OF_ACTIVE_GOONS=5;
