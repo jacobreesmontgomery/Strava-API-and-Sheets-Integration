@@ -1,4 +1,19 @@
 ATHLETE,ACTIVITY ID,RUN,MOVING TIME,DISTANCE,PACE,FULL DATE,TIME,DAY,MONTH,DATE,YEAR,SPM AVG,HR AVG,WKT TYPE,DESCRIPTION,TOTAL ELEV GAIN,MANUAL,MAX SPEED,CALORIES,ACHIEVEMENT COUNT,KUDOS COUNT,COMMENT COUNT,ATHLETE COUNT
+PATRICK L,8963381312,WarmUp+3x1M MP/1'R + Strides,00:48:05,5.75,00:08:30,4/26/2023,6:10:12 PM,WED,4,26,2023,167,145.4,3,"Last little workout before race.
+Hit MP at 55-60% effort.
+Goal 7:05 -7:15. Good - Great - Awesome ",77.5,FALSE,5.171,622,0,3,3,1
+ME,8963204543,Afternoon Run,00:37:05,4.12,00:09:12,4/26/2023,5:40:51 PM,WED,4,26,2023,147.6,125.7,0,"5x5/1, no alpha pull ups bc bar was wet from rain smh",37,FALSE,4.852,482,0,8,3,1
+MARK M,8962844658,Afternoon Run,00:40:04,5.39,00:07:33,4/26/2023,4:02:47 PM,WED,4,26,2023,NA,141.7,,,96.6,FALSE,6.616,0,2,8,0,1
+DAVID L,8959623291,Down,00:19:00,2.01,00:09:31,4/26/2023,6:41:45 AM,WED,4,26,2023,161.4,150,0,Feelin groovy. We’ll call today 7.,22,FALSE,4.4,282,0,6,0,1
+DAVID L,8959623154,Olé,00:22:01,2.90,00:07:39,4/26/2023,6:12:23 AM,WED,4,26,2023,171.8,163.6,3,"20’ threshold, 2’ rest, 4x 20” hills.  Threshold was purely effort based and felt fantastic.  Passed 4k right at 18’ and pressed just a little.",28,FALSE,5.5,416,4,13,0,1
+MARK M,8957377987,Evening Run,00:45:00,7.04,00:06:24,4/25/2023,6:10:52 PM,TUE,4,25,2023,NA,165.4,0,"25 min tempo 4.46 (5:36 avg) 6x20s hills
+Felt decent taper got me feeling good just gotta get through finals",79.9,FALSE,7.386,0,0,2,0,1
+ME,8957010205,Afternoon Run,00:41:00,4.29,00:09:35,4/25/2023,4:41:56 PM,TUE,4,25,2023,144,123.3,0,"5’ walk, 5x5/1, smash 3x5 alpha pull-ups w/ 90”R, walk home",44,FALSE,4.408,499,0,12,0,1
+PAIGE O,8960249988,Bleh,00:39:01,5.01,00:07:49,4/25/2023,10:57:26 AM,TUE,4,25,2023,185.6,150.3,0,,84.8,FALSE,4.386,418,0,7,0,1
+DAVID L,8953893023,🚨NEW LOOP ALERT🚨,01:08:01,7.32,00:09:19,4/25/2023,6:54:55 AM,TUE,4,25,2023,163.4,147.6,0,"Thought this loop was <5.5, turns out it's nearly 7!  Whoopsie!  Legs felt a little rusty from the lift for the first 3 miles or so, but felt good once I hit Westham.  6x100m at the end in spikes -- 21->18, felt smooth.",102,FALSE,6,1016,6,24,0,1
+PATRICK L,8951313660,WarmUp+Easy Run,00:36:03,4.18,00:08:44,4/24/2023,7:13:39 PM,MON,4,24,2023,165.4,141.3,0,Did some glute work and mobility. Feeling good.,43.5,FALSE,4.034,450,0,15,0,1
+DAVID L,8951264554,Evening Run,00:44:01,4.35,00:10:10,4/24/2023,6:49:01 PM,MON,4,24,2023,161.6,143.7,0,"Perfect spring evening.  I felt wonderful, and my legs were abundantly clear that — as long as I let them pick the pace — we could have a real nice time.  I was inclined to oblige.",14,FALSE,4.9,592,7,13,0,1
+MARK M,8951521345,Lunch Run,00:39:02,5.34,00:07:23,4/24/2023,12:59:57 PM,MON,4,24,2023,NA,145.7,,,92.6,FALSE,5.294,0,5,13,0,1
 PAIGE O,8946198919,Not a long run ,00:23:00,3.01,00:07:38,4/23/2023,6:00:30 PM,SUN,4,23,2023,184.2,145.2,0,,78.6,FALSE,4.51,256,0,10,0,1
 MARK M,8945806699,Afternoon Run,01:08:00,9.85,00:06:55,4/23/2023,4:47:40 PM,SUN,4,23,2023,NA,160.3,0,"6xmi,90s r, 4x2on,2off 5:55,47,37,28,15,05
 33,33,31,30",54.3,FALSE,7.65,0,1,5,0,1
@@ -1176,21 +1191,3 @@ DAVID L,7685848532,Scouting a future tempo loop,00:36:02,4.01,00:09:05,8/23/2022
 Mist, 66°F, Feels like 67°F, Humidity 96%, Wind 0mph from N - by Klimat.app",17.9,FALSE,3.458,483,4,8,0,1
 PATRICK L,7683481708,WarmUp+Easy+Strides Run,00:38:01,4.11,00:09:17,8/22/2022,7:07:43 PM,MON,8,22,2022,164.2,133.6,0,,,,,,,,,
 MARK M,7683227152,Back with the boys ,00:59:00,8.01,00:07:22,8/22/2022,5:22:35 PM,MON,8,22,2022,NA,146.7,0,So glad to be back,121.1,FALSE,6.353,0,6,28,0,4
-DAVID L,7680496718,Technical Difficulties ,00:19:02,2.21,00:08:46,8/22/2022,7:31:17 AM,MON,8,22,2022,159,NA,0,"Alarm didn’t go off, got a bit of a late start
-
-Broken clouds, 71°F, Feels like 73°F, Humidity 95%, Wind 3mph from SSE - by Klimat.app",6.8,FALSE,6.236,275,4,7,0,1
-DAVID L,7678079617,Gotta start back somewhere,00:55:00,6.07,00:09:05,8/21/2022,4:43:03 PM,SUN,8,21,2022,156.4,NA,2,"Gotta love a good old-fashioned regressive LR!
-
-Broken clouds, 78°F, Feels like 80°F, Humidity 91%, Wind 10mph from S - by Klimat.app",18.8,FALSE,4.948,740,11,12,0,1
-PATRICK L,7677630102,WarmUp+Easy Progression Run,00:57:01,6.55,00:08:44,8/21/2022,2:26:35 PM,SUN,8,21,2022,169.2,143.2,0,,,,,,,,,
-MARK M,7676240052,Morning Run,00:52:02,7.01,00:07:29,8/21/2022,10:36:00 AM,SUN,8,21,2022,NA,150.5,0,On to the next,82.6,FALSE,12.963,0,1,17,0,1
-DAVID L,7671508025,Afternoon Run ,00:16:04,2.01,00:08:23,8/20/2022,1:31:28 PM,SAT,8,20,2022,157.6,NA,,"Overcast clouds, 85°F, Feels like 92°F, Humidity 65%, Wind 7mph from SE - by Klimat.app",12.8,FALSE,9.123,259,1,7,0,1
-MARK M,7670270976,Back in the Burgh,01:54:03,15.01,00:07:38,8/20/2022,9:01:28 AM,SAT,8,20,2022,NA,155.1,0,Just didn’t have it today been tired constantly for the past few days very grateful for the down week next week,160.3,FALSE,6.291,0,5,22,0,1
-PATRICK L,7669443407,WarmUp+Long Run,02:32:00,17.04,00:08:56,8/20/2022,6:21:17 AM,SAT,8,20,2022,169.2,145.9,2,,,,,,,,,
-PATRICK L,7666068996,WarmUp+ Easy-Steady Run,00:54:02,6.41,00:08:29,8/19/2022,3:19:50 PM,FRI,8,19,2022,171.6,151,0,,,,,,,,,
-PAIGE O,7664571919,Morning Run,00:29:02,4.01,00:07:20,8/19/2022,10:07:25 AM,FRI,8,19,2022,184.4,171.2,,,60.7,FALSE,4.398,335,0,10,0,1
-DAVID L,7663795841,Morning Run,00:31:05,3.54,00:09:02,8/19/2022,7:09:20 AM,FRI,8,19,2022,157.4,NA,0,"Took a nasty tumble 1/4 mile in, otherwise this was nice
-
-Mist, 66°F, Feels like 67°F, Humidity 93%, Wind 0mph from N - by Klimat.app",20,FALSE,3.61,435,2,13,0,1
-MARK M,7663566631,Morning Run,01:18:00,10.01,00:07:48,8/19/2022,5:47:28 AM,FRI,8,19,2022,NA,143.8,0,,108.7,FALSE,4.827,0,0,13,0,1
-PATRICK L,7661721583,WarmUp+Easy Run,00:38:01,4.08,00:09:22,8/18/2022,7:09:39 PM,THU,8,18,2022,162.6,138.1,0,,,,,,,,,
