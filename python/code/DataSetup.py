@@ -1,8 +1,19 @@
+"""
+CLASS: DataSetup.py
+AUTHOR: Jacob Montgomery
+OVERVIEW: This file is designed to pull run data from a spreadsheet 
+            and write it to a CSV file on which data analysis can be done
+            within the DataAnalysis.ipynb file.
+"""
+
 # IMPORTS
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 import pandas
 import datetime
+
+# TODO: On second thought, I may want to make this the front-end web-based application
+# by pulling in the logic from "The-Goon-Squad-Webpage" application and retaining what I need.
 
 # METHOD(S)
 def run_script(spreadsheet, sheet_name):
@@ -31,4 +42,4 @@ def run_script(spreadsheet, sheet_name):
     print('Finished the script at {}'.format(datetime.datetime.now())) # Closing print
 
 # Calling to retrieve data from the "GOONS" sheet and inject into a CSV file
-run_script("Strava API and Sheets Integration using Apps Script", "GOONS")
+run_script("Goons Activities - Strava API", "GOONS")
