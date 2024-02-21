@@ -12,8 +12,8 @@ from oauth2client.service_account import ServiceAccountCredentials
 import pandas
 import datetime
 
-# TODO: On second thought, I may want to make this the front-end web-based application
-# by pulling in the logic from "The-Goon-Squad-Webpage" application and retaining what I need.
+# GLOBAL VARIABLES
+NUM_ATHLETES = 5 # TODO: Make this dynamic
 
 # METHOD(S)
 def run_script(spreadsheet, sheet_name):
@@ -36,10 +36,14 @@ def run_script(spreadsheet, sheet_name):
 
     # Acquiring the sheet activities and writing the data to a CSV file
     goons_sheet = sheet.worksheet(sheet_name)
-    activities_df = pandas.DataFrame(goons_sheet.get_values(f"A2:P10000"), columns=goons_sheet.get_values("A1:P1"))
+    if (sheet_name == "GOONS"): 
+        activities_df = pandas.DataFrame(goons_sheet.get_values(f"A2:P10000"), columns=goons_sheet.get_values("A1:P1"))
+    elif (sheet_name == "GOONS RECAP"):
+        activities_df = pandas.DataFrame(goons_sheet.get_values(f"A4:{3 + NUM_ATHLETES}"), columns=goons_sheet.get_values("A3:M3"))
     activities_df.to_csv(f"python\code\datasetup\data\{sheet_name.upper()}_ACTIVITIES.csv", index=False, sep=",")
-
+    
     print('Finished the script at {}'.format(datetime.datetime.now())) # Closing print
 
 # Calling to retrieve data from the "GOONS" sheet and inject into a CSV file
 run_script("Goons Activities - Strava API", "GOONS")
+run_script("Goons Activities - Strava API", "GOONS RECAP")
