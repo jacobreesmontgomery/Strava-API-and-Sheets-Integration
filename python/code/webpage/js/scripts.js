@@ -1,35 +1,51 @@
-console.log("Data: ", headers)
+var headerStats = document.getElementById("headerStats").getAttribute("data-argument");
+console.log("Header stats:", headerStats);
 
-function filterTable(columnName) {
-    var input, filter, table, tr, td, i, txtValue;
-    input = document.getElementById("filter" + columnName);
-    filter = input.value.toUpperCase();
-    table = document.getElementById("dataTable");
-    tr = table.getElementsByTagName("tr");
-    for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[getIndex(columnName)];
-        if (td) {
-            txtValue = td.textContent || td.innerText;
-            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                tr[i].style.display = "";
-            } else {
-                tr[i].style.display = "none";
-            }
-        }
-    }
-}
+var recapData = document.getElementById("recapData").getAttribute("data-argument");
+console.log("Recap data:", recapData);
 
-function getIndex(columnName) {
-    var headers = document.getElementById("dataTable").getElementsByTagName("th");
-    for (var i = 0; i < headers.length; i++) {
-        if (headers[i].textContent === columnName) {
-            return i;
-        }
-    }
-    return -1; // If column name not found
-}
+// // Function to populate table with data
+// function populateTable(data) {
+//     const tableBody = document.querySelector('#dataTable tbody');
+//     tableBody.innerHTML = '';
 
-// Add a filter for each column
-for (header in headers) {
-    filterTable(header);
-}
+//     data.forEach(item => {
+//         const row = document.createElement('tr');
+//         Object.values(item).forEach(value => {
+//             const cell = document.createElement('td');
+//             cell.textContent = value;
+//             row.appendChild(cell);
+//         });
+//         tableBody.appendChild(row);
+//     });
+// }
+
+// // Function to filter table based on input value
+// function filterTable() {
+//     const input = document.getElementById('searchInput');
+//     const filter = input.value.toUpperCase();
+//     const table = document.getElementById('dataTable');
+//     const rows = table.getElementsByTagName('tr');
+
+//     for (let i = 0; i < rows.length; i++) {
+//         let shouldDisplay = false;
+//         const cells = rows[i].getElementsByTagName('td');
+//         for (let j = 0; j < cells.length; j++) {
+//             const cell = cells[j];
+//             if (cell) {
+//                 const textValue = cell.textContent || cell.innerText;
+//                 if (textValue.toUpperCase().indexOf(filter) > -1) {
+//                     shouldDisplay = true;
+//                     break;
+//                 }
+//             }
+//         }
+//         rows[i].style.display = shouldDisplay ? '' : 'none';
+//     }
+// }
+
+// // Populate table with initial data
+// populateTable(data);
+
+// // Attach event listener to input for filtering
+// document.getElementById('searchInput').addEventListener('keyup', filterTable);
