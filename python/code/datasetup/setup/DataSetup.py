@@ -13,7 +13,7 @@ import pandas
 import datetime
 
 # GLOBAL VARIABLES
-NUM_ATHLETES = 5 # TODO: Make this dynamic
+NUM_ATHLETES = 6 # TODO: Make this dynamic
 
 # METHOD(S)
 def run_script(spreadsheet, sheet_name):
