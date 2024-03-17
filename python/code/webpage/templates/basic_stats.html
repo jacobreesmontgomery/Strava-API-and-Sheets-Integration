@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Goon Squad</title>
-    <link rel="stylesheet" href="../css/styles.css">
-    <script src="../js/scripts.js"></script>
+    <link rel="stylesheet" href="{{ url_for('serve_file', filename='webpage/css/styles.css') }}">
+    <script src="{{ url_for('serve_file', filename='webpage/js/scripts.js') }}"></script>
 </head>
 <body>
     <header>
@@ -18,27 +18,18 @@
     </nav>
     <div class="container">
         <p>This is the basic stats page. You can navigate to other pages using the links above.</p>
-        <script>
-            var headers=headerStats; // Establishing headers variable to be processed in scripts.js
-        </script>
-        <input type="text" id="searchInput" placeholder="Search...">
-        <div style="overflow-x:auto;">
-            <table id="dataTable" border="1">
+        
+        <!-- Establishing externally referencable arguments -->
+        <div id="header-stats" data-argument="{{ headerStats }}"></div>
+        <div id="recap-data" data-argument="{{ recapData }}"></div>
+        
+        <div id="tableContainer" style="overflow-x:auto;">
+            <table id="dataTable">
                 <thead>
-                    <tr>
-                        {% for header in headerStats %}
-                            <td>{{ header }}</td>
-                        {% endfor %}
-                    </tr>
+                    <!-- Has two header rows, one for headers and a second for filters. -->
                 </thead>
                 <tbody>
-                    {% for recapRow in recapData %}
-                    <tr>
-                        {% for stat in recapRow %}
-                            <td>{{ stat }}</td>
-                        {% endfor %}
-                    </tr>
-                    {% endfor %}
+                    <!-- Has a recap row per athlete -->
                 </tbody>
             </table>
         </div>
