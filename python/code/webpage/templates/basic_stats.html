@@ -18,29 +18,18 @@
     </nav>
     <div class="container">
         <p>This is the basic stats page. You can navigate to other pages using the links above.</p>
-        <!-- <input type="text" id="searchInput" placeholder="Search..."> -->
         
         <!-- Establishing externally referencable arguments -->
         <div id="header-stats" data-argument="{{ headerStats }}"></div>
         <div id="recap-data" data-argument="{{ recapData }}"></div>
         
         <div id="tableContainer" style="overflow-x:auto;">
-            <table id="dataTable" border="1">
+            <table id="dataTable">
                 <thead>
-                    <!-- <tr>
-                        {% for header in headerStats %}
-                            <td>{{ header }}</td>
-                        {% endfor %}
-                    </tr> -->
+                    <!-- Has two header rows, one for headers and a second for filters. -->
                 </thead>
                 <tbody>
-                    <!-- {% for recapRow in recapData %}
-                    <tr>
-                        {% for stat in recapRow %}
-                            <td>{{ stat }}</td>
-                        {% endfor %}
-                    </tr>
-                    {% endfor %} -->
+                    <!-- Has a recap row per athlete -->
                 </tbody>
             </table>
         </div>

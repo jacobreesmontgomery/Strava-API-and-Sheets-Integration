@@ -16,13 +16,12 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }).filter(item => item != "" && item);
 
-    NUM_ATHLETES = 6;
-    NUM_HEADERS = 13;
+    NUM_HEADERS = headerStats.length;
+    NUM_ATHLETES = recapData.length / NUM_HEADERS;
     var arr = new Array(NUM_ATHLETES);
     for (var i = 0; i < arr.length; i++) {
         arr[i] = new Array(NUM_HEADERS);
     }
-    // 5 is the number of athletes
     counter = 0;
     for (var i = 0; i < arr.length; i++) {
         for (var j = 0; j < arr[i].length; j++) {
@@ -36,8 +35,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Populate table with initial data
     populateTable(headerStats, recapData);
 
-    // Attach event listener to input for filtering
-    // document.getElementById('searchInput').addEventListener('keyup', filterTable);
+    // Setting up columns to be sortable
+    createSortableColumns();
 });
 
 /**
@@ -47,15 +46,32 @@ function populateTable(headerStats, recapData) {
     const tableHeader = document.querySelector('#dataTable thead');
     tableHeader.innerHTML = '';
 
+    // Initial header row
     const row = document.createElement('tr');
+    var counter = 0;
     headerStats.forEach(header => {
         const cell = document.createElement('th');
-        // Might have to do sumn here to make these headers filterable
-        cell.textContent = header;
+        // cell.textContent = header;
+        const col = document.createElement('p');
+        col.textContent = header;
+        col.className = 'headerCols';
+        cell.appendChild(col);
         row.appendChild(cell);
+
+        // Create the input element
+        const input = document.createElement('input');
+        input.setAttribute('type', 'text');
+        input.setAttribute('id', header + 'Input');
+        input.setAttribute('placeholder', 'Search by ' + header + '...');
+        input.setAttribute('onkeyup', 'filterHeader(' + counter + ')');
+
+        // Append input to a header element
+        cell.appendChild(input);
+        counter++;
     });
     tableHeader.appendChild(row);
 
+    // Data cells
     const tableBody = document.querySelector('#dataTable tbody');
     tableBody.innerHTML = '';
 
@@ -71,27 +87,44 @@ function populateTable(headerStats, recapData) {
 }
 
 /**
- * Filters the table based on the input value.
- * */
-function filterTable() {
-    const input = document.getElementById('searchInput');
-    const filter = input.value.toUpperCase();
-    const table = document.getElementById('dataTable');
-    const rows = table.getElementsByTagName('tr');
-
-    for (let i = 0; i < rows.length; i++) {
-        let shouldDisplay = false;
-        const cells = rows[i].getElementsByTagName('td');
-        for (let j = 0; j < cells.length; j++) {
-            const cell = cells[j];
-            if (cell) {
-                const textValue = cell.textContent || cell.innerText;
-                if (textValue.toUpperCase().indexOf(filter) > -1) {
-                    shouldDisplay = true;
-                    break;
-                }
+ * Establishes a filter for the incoming header.
+ * @param {*} header 
+ */
+function filterHeader(columnIndex) {
+    var input, filter, table, tr, td, i;
+    input = document.getElementById("dataTable").getElementsByTagName("input")[columnIndex];
+    filter = input.value.toUpperCase();
+    table = document.getElementById("dataTable");
+    tr = table.getElementsByTagName("tr");
+    // Skipping first row (headers with filters)
+    for (i = 1; i < tr.length; i++) {
+        var matchFound = false;
+        td = tr[i].getElementsByTagName("td")[columnIndex];
+        if (td) {
+            if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                matchFound = true;
             }
         }
-        rows[i].style.display = shouldDisplay ? '' : 'none';
+        if (matchFound) {
+            tr[i].style.display = "";
+        } else {
+            tr[i].style.display = "none";
+        }
     }
+}
+
+function createSortableColumns() {
+    const getCellValue = (tr, idx) => tr.children[idx].innerText || tr.children[idx].textContent;
+    
+    const comparer = (idx, asc) => (a, b) => ((v1, v2) =>
+        v1 !== '' && v2 !== '' && !isNaN(v1) && !isNaN(v2) ? v1 - v2 : v1.toString().localeCompare(v2)
+    )(getCellValue(asc ? a : b, idx), getCellValue(asc ? b : a, idx));
+    
+    document.querySelectorAll('th').forEach(th => th.addEventListener('click', () => {
+        const table = th.closest('table');
+        const tbody = table.querySelector('tbody');
+        Array.from(tbody.querySelectorAll('tr'))
+            .sort(comparer(Array.from(th.parentNode.children).indexOf(th), this.asc = !this.asc))
+            .forEach(tr => tbody.appendChild(tr));
+    }));
 }

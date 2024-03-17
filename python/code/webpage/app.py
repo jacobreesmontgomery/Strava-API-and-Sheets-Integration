@@ -22,8 +22,6 @@ client = gspread.authorize(creds)
 # Opening the Strava API sheet
 sheet = client.open("Goons Activities - Strava API")
 
-NUM_ATHLETES = 5
-
 # HELPER METHODS
 def get_header_stats():
     """
