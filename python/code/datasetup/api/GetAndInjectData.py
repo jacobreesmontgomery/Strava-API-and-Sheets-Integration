@@ -16,6 +16,11 @@ from datetime import datetime, timedelta
 from stravalib.client import Client
 import csv
 import os
+from dotenv import load_dotenv
+import json
+
+# Loading environment variables from the .env file
+load_dotenv()
 
 # VARIABLES
 ACTIVITIES_FILE_NAME = "ATHLETE_DATA"
@@ -86,6 +91,9 @@ def get_index_of_key(dictionary, key_to_find):
     return -1  # Key not found in the dictionary
 
 def format_seconds(seconds):
+    """
+        Formats seconds to the format of HH:MM:SS.
+    """
     # Calculate hours, minutes, and remaining seconds
     hours, remainder = divmod(seconds.total_seconds(), 3600)
     minutes, seconds = divmod(remainder, 60)
@@ -93,15 +101,22 @@ def format_seconds(seconds):
     # Format as HH:MM:SS
     return f"{int(hours):02d}:{int(minutes):02d}:{int(seconds):02d}"
 
-def calculate_pace(time_seconds, distance_miles):
-    # Convert time to minutes
-    time_minutes = time_seconds / 60
+def calculate_pace(total_seconds, distance_miles):
+    """
+        Calculates pace (MM:SS) using the total seconds and
+        distance of the run (mi). 
+    """
+    # Convert total seconds to minutes
+    total_minutes = total_seconds / 60
     
-    print(f"Time (seconds): {time_seconds}\nDistance: {distance_miles}")
     # Calculate pace in minutes per mile
-    pace_minutes_per_mile = time_minutes / distance_miles
+    pace_minutes_per_mile = total_minutes / distance_miles
     
-    return pace_minutes_per_mile
+    # Convert pace to MM:SS format
+    pace_seconds = int(pace_minutes_per_mile * 60)
+    minutes, seconds = divmod(pace_seconds, 60)
+    
+    return f"{minutes:02d}:{seconds:02d}"
 
 def convert_activities_to_list(activities):
     """
@@ -110,34 +125,32 @@ def convert_activities_to_list(activities):
     """
     activities_list = list()
     for activity in activities:
-        # This must line up with the fieldnames / headers from the CSV
-        # TODO: Get all values we need, doing arithmetic as needed
-        print(activity.distance) # printing zero?
         activity_dict = {
-            "ATHLETE": athlete_names_parallel_arr[get_index_of_key(athlete_refresh_tokens, activity.athlete.id)],
+            "ATHLETE": athlete_names_parallel_arr[get_index_of_key(athlete_refresh_tokens, activity.athlete.id)].upper(),
             "ACTIVITY ID": activity.id,
             "RUN": activity.name,
             "MOVING TIME": format_seconds(activity.moving_time), # Formatting to HH:MM:SS
-            "DISTANCE": activity.distance * 0.000621371, # Converting meters to miles
-            "PACE": calculate_pace(float(activity.moving_time.total_seconds()), float(activity.distance * 0.000621371)),
+            "DISTANCE (MI)": round(float(activity.distance) / 1609.34, 2), # Converting meters to miles
+            "PACE (MIN/MI)": calculate_pace(float(activity.moving_time.total_seconds()), float(activity.distance * 0.000621371)),
             "FULL DATE": activity.start_date_local.strftime("%m/%d/%Y"),
-            "TIME": activity.start_date_local.strftime("%H:%M:%S"),
-            "DAY": activity.start_date_local.strftime("%a"),
+            "TIME": activity.start_date_local.strftime("%I:%M:%S %p"),
+            "DAY": activity.start_date_local.strftime("%a").upper(),
             "MONTH": activity.start_date_local.strftime("%m"),
             "DATE": activity.start_date_local.strftime("%d"),
             "YEAR": activity.start_date_local.strftime("%Y"),
-            "SPM AVG": activity.average_cadence * 2,
-            "HR AVG": activity.average_heartrate,
+            "SPM AVG": round(activity.average_cadence * 2, 2) if activity.average_cadence else "NA",
+            "HR AVG": round(activity.average_heartrate, 2) if activity.average_heartrate else "NA",
             "WKT TYPE": activity.workout_type,
             "DESCRIPTION": activity.description,
-            "TOTAL ELEV GAIN": activity.total_elevation_gain,
+            "TOTAL ELEV GAIN (FT)": round(float(str(activity.total_elevation_gain).split()[0]) * 3.28084, 2),
             "MANUAL": activity.manual,
-            "MAX SPEED": activity.max_speed,
+            "MAX SPEED (FT/S)": round(float(str(activity.max_speed).split()[0]) * 3.28084, 2),
             "CALORIES": activity.calories,
             "ACHIEVEMENT COUNT": activity.achievement_count,
             "KUDOS COUNT": activity.kudos_count,
             "COMMENT COUNT": activity.comment_count,
-            "ATHLETE COUNT": activity.athlete_count
+            "ATHLETE COUNT": activity.athlete_count,
+            "FULL DATETIME": activity.start_date_local.strftime("%Y-%m-%d %H:%M:%S")
             # Add more fields as needed
         }
         activities_list.append(activity_dict)
@@ -156,20 +169,11 @@ def load_existing_ids(file_path, column):
 
 # DRIVER
 if __name__ == "__main__":
-    client_id = "83199"
-    client_secret = "4d662f26d0a43fb69c2ab52e7838cc7c31736879"
-    redirect_uri = "http://localhost:5000/authorization_callback"
-
-    # Array containing athlete IDs and their corresponding refresh tokens
-    athlete_refresh_tokens = {
-        "37074049": "e62f800366085277ebdb8a54c81a6306f9b01fa9", # ME
-        "41580846": "25a0a96e7a6f57bd393c8e76fc83c68486289790" # PATRICK LISTER
-        # Add more athlete IDs and refresh tokens as needed
-    }
-    athlete_names_parallel_arr = [
-        "Jacob Montgomery",
-        "Patrick Lister"
-    ]
+    client_id = os.getenv("CLIENT_ID")
+    client_secret = os.getenv("CLIENT_SECRET")
+    redirect_uri = os.getenv("REDIRECT_URI")
+    athlete_refresh_tokens = json.loads(os.getenv("ATHLETE_REFRESH_TOKENS"))
+    athlete_names_parallel_arr = json.loads(os.getenv("ATHLETE_NAMES_PARALLEL_ARR"))
 
     # Initialize StravaAPI instances for each athlete
     strava_clients = {}
@@ -178,38 +182,44 @@ if __name__ == "__main__":
         access_token = authorization_client.exchange_refresh_token(refresh_token)
         strava_clients[athlete_id] = StravaAPI(access_token)
 
-    # Getting activities for each athlete
     athlete_count = 0
     fieldnames = [
         "ATHLETE", "ACTIVITY ID", "RUN", "MOVING TIME", 
-        "DISTANCE", "PACE", "FULL DATE", "TIME", "DAY",
+        "DISTANCE (MI)", "PACE (MIN/MI)", "FULL DATE", "TIME", "DAY",
         "MONTH", "DATE", "YEAR", "SPM AVG",	"HR AVG",	
-        "WKT TYPE", "DESCRIPTION", "TOTAL ELEV GAIN",
-        "MANUAL", "MAX SPEED", "CALORIES", "ACHIEVEMENT COUNT",
-        "KUDOS COUNT", "COMMENT COUNT", "ATHLETE COUNT"
+        "WKT TYPE", "DESCRIPTION", "TOTAL ELEV GAIN (FT)",
+        "MANUAL", "MAX SPEED (FT/S)", "CALORIES", "ACHIEVEMENT COUNT",
+        "KUDOS COUNT", "COMMENT COUNT", "ATHLETE COUNT",
+        "FULL DATETIME"
     ]
     file_path = f"python\code\datasetup\data\{ACTIVITIES_FILE_NAME}.csv"
-    file_empty = not os.path.exists(file_path) or os.stat(file_path).st_size == 0
     unique_column = "ACTIVITY ID"
     existing_ids = load_existing_ids(file_path, unique_column)
     unique_ids = set(existing_ids)
-    total_rows_added = 0
-    with open(file_path, mode='a', newline='') as file:
-        writer = csv.DictWriter(file, fieldnames=fieldnames, delimiter=',')
+    rows = []
+    # Establishing the activities to be added to CSV file(s)
+    for athlete_id, strava_client in strava_clients.items():
+        activities = convert_activities_to_list(strava_client.get_activities_this_week(athlete_id))
+        rows_added = 0
+        if activities:
+            for activity in activities:
+                if activity[unique_column] not in unique_ids:
+                    rows.append(activity)
+                    unique_ids.add(activity[unique_column])
+                    rows_added += 1
+        else:
+            print(f"No activities were retrieved for athlete {athlete_names_parallel_arr[athlete_count]}.")
+        print(f"{rows_added} new rows were found for athlete {athlete_names_parallel_arr[athlete_count]}.")
+        athlete_count += 1 # Ready for the next athlete
+    
+    # Sorting all new rows by the "FULL DATETIME" field
+    rows.sort(key=lambda x: datetime.strptime(x['FULL DATETIME'], '%Y-%m-%d %H:%M:%S'))
+
+    # Append sorted rows to the CSV file
+    file_empty = not os.path.exists(file_path) or os.stat(file_path).st_size == 0
+    with open(file_path, 'a', newline='') as csv_file:
+        writer = csv.DictWriter(csv_file, fieldnames=fieldnames, delimiter=',')
         if file_empty:
-            writer.writeheader() # Write header row
-        for athlete_id, strava_client in strava_clients.items():
-            activities = convert_activities_to_list(strava_client.get_activities_this_week(athlete_id))
-            rows_added = 0
-            if activities:
-                for activity in activities:
-                    if activity[unique_column] not in unique_ids:
-                        writer.writerow(activity)
-                        unique_ids.add(activity[unique_column])
-                        rows_added += 1
-            else:
-                print(f"No activities were retrieved for athlete {athlete_names_parallel_arr[athlete_count]}.")
-            print(f"{rows_added} rows were added for athlete {athlete_names_parallel_arr[athlete_count]}.")
-            athlete_count += 1 # Ready for the next athlete
-            total_rows_added += rows_added
-        print(f"{total_rows_added} rows were added to {file_path}.")
+            writer.writeheader()
+        writer.writerows(rows)
+        print(f"{len(rows)} rows were added to {file_path}.")
