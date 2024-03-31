@@ -3,7 +3,7 @@ CLASS: GetAndInjectData.py
 AUTHOR: Jacob Montgomery
 OVERVIEW: This file will be responsible for extracting data from my
     goons through calls to the Strava API and injecting that data into 
-    the "GOONS_ACTIVITIES.csv" file. 
+    the "ATHLETE_DATA.csv" file. 
 
     NOTE: Once completed, we will no longer need the DataSetup.py class
         which fetches API-extracted data from the "GOONS" sheet.

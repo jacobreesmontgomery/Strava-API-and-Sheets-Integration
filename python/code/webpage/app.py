@@ -8,8 +8,6 @@ OVERVIEW: This file will drive the front-end webpage.
 from flask import Flask, render_template, send_file
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
-import pandas
-import datetime
 import csv 
 
 app = Flask(__name__)
