@@ -18,12 +18,6 @@ import csv
 import os
 
 # VARIABLES
-DESIRED_COLUMNS=[
-    "ATHLETE","ACTIVITY ID","RUN","MOVING TIME",
-    "DISTANCE","PACE","FULL DATE","TIME","DAY",
-    "MONTH","DATE","YEAR","SPM AVG","HR AVG",
-    "WKT TYPE","DESCRIPTION"
-]
 ACTIVITIES_FILE_NAME = "ATHLETE_DATA"
 
 # CLASSES
@@ -60,10 +54,11 @@ class StravaAPI:
             end_of_week = (start_of_week + timedelta(days=6)).replace(hour=23, minute=59, second=59, microsecond=999999)
             # Retrieve activities within the current week
             activities = self.client.get_activities(after=start_of_week, before=end_of_week)
-            activity_ids = [activity.id for activity in activities]
+            activity_ids_and_type = [(activity.id, activity.type) for activity in activities]
             detailed_activities=list()
-            for activity_id in activity_ids:
-                detailed_activities.append(self.client.get_activity(activity_id=activity_id))
+            for activity_id, activity_type in activity_ids_and_type:
+                if activity_type == "Run": # Only including runs
+                    detailed_activities.append(self.client.get_activity(activity_id=activity_id))
             return detailed_activities
         except RateLimitExceeded:
             print("Strava API rate limit exceeded. Please try again later.")
@@ -82,6 +77,32 @@ class StravaAPI:
             return None
 
 # HELPER METHODS FOR MAIN METHOD
+def get_index_of_key(dictionary, key_to_find):
+    index = 0
+    for key in dictionary:
+        if int(key) == int(key_to_find):
+            return index
+        index += 1
+    return -1  # Key not found in the dictionary
+
+def format_seconds(seconds):
+    # Calculate hours, minutes, and remaining seconds
+    hours, remainder = divmod(seconds.total_seconds(), 3600)
+    minutes, seconds = divmod(remainder, 60)
+    
+    # Format as HH:MM:SS
+    return f"{int(hours):02d}:{int(minutes):02d}:{int(seconds):02d}"
+
+def calculate_pace(time_seconds, distance_miles):
+    # Convert time to minutes
+    time_minutes = time_seconds / 60
+    
+    print(f"Time (seconds): {time_seconds}\nDistance: {distance_miles}")
+    # Calculate pace in minutes per mile
+    pace_minutes_per_mile = time_minutes / distance_miles
+    
+    return pace_minutes_per_mile
+
 def convert_activities_to_list(activities):
     """
         Converts the incoming activities to a list with 
@@ -91,12 +112,33 @@ def convert_activities_to_list(activities):
     for activity in activities:
         # This must line up with the fieldnames / headers from the CSV
         # TODO: Get all values we need, doing arithmetic as needed
+        print(activity.distance) # printing zero?
         activity_dict = {
-            "athlete_id": activity.athlete.id,
-            "id": activity.id,
-            "name": activity.name,
-            "type": activity.type
-            # Add more attributes as needed
+            "ATHLETE": athlete_names_parallel_arr[get_index_of_key(athlete_refresh_tokens, activity.athlete.id)],
+            "ACTIVITY ID": activity.id,
+            "RUN": activity.name,
+            "MOVING TIME": format_seconds(activity.moving_time), # Formatting to HH:MM:SS
+            "DISTANCE": activity.distance * 0.000621371, # Converting meters to miles
+            "PACE": calculate_pace(float(activity.moving_time.total_seconds()), float(activity.distance * 0.000621371)),
+            "FULL DATE": activity.start_date_local.strftime("%m/%d/%Y"),
+            "TIME": activity.start_date_local.strftime("%H:%M:%S"),
+            "DAY": activity.start_date_local.strftime("%a"),
+            "MONTH": activity.start_date_local.strftime("%m"),
+            "DATE": activity.start_date_local.strftime("%d"),
+            "YEAR": activity.start_date_local.strftime("%Y"),
+            "SPM AVG": activity.average_cadence * 2,
+            "HR AVG": activity.average_heartrate,
+            "WKT TYPE": activity.workout_type,
+            "DESCRIPTION": activity.description,
+            "TOTAL ELEV GAIN": activity.total_elevation_gain,
+            "MANUAL": activity.manual,
+            "MAX SPEED": activity.max_speed,
+            "CALORIES": activity.calories,
+            "ACHIEVEMENT COUNT": activity.achievement_count,
+            "KUDOS COUNT": activity.kudos_count,
+            "COMMENT COUNT": activity.comment_count,
+            "ATHLETE COUNT": activity.athlete_count
+            # Add more fields as needed
         }
         activities_list.append(activity_dict)
     return activities_list
@@ -138,10 +180,17 @@ if __name__ == "__main__":
 
     # Getting activities for each athlete
     athlete_count = 0
-    fieldnames = ["athlete_id", "id", "name", "type"]
+    fieldnames = [
+        "ATHLETE", "ACTIVITY ID", "RUN", "MOVING TIME", 
+        "DISTANCE", "PACE", "FULL DATE", "TIME", "DAY",
+        "MONTH", "DATE", "YEAR", "SPM AVG",	"HR AVG",	
+        "WKT TYPE", "DESCRIPTION", "TOTAL ELEV GAIN",
+        "MANUAL", "MAX SPEED", "CALORIES", "ACHIEVEMENT COUNT",
+        "KUDOS COUNT", "COMMENT COUNT", "ATHLETE COUNT"
+    ]
     file_path = f"python\code\datasetup\data\{ACTIVITIES_FILE_NAME}.csv"
     file_empty = not os.path.exists(file_path) or os.stat(file_path).st_size == 0
-    unique_column = "id"
+    unique_column = "ACTIVITY ID"
     existing_ids = load_existing_ids(file_path, unique_column)
     unique_ids = set(existing_ids)
     total_rows_added = 0
