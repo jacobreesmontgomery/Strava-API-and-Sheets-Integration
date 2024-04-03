@@ -156,6 +156,23 @@ def convert_activities_to_list(activities):
         activities_list.append(activity_dict)
     return activities_list
 
+def establish_recap_dicts(athlete_data_file, new_activities):
+    """
+        Establishes recap data to be added to the recap sheet
+        using the incoming new activities for the given athlete.
+    """
+    
+    recap_data = list()
+    
+    for activity in new_activities:
+        recap_dict = {
+            "ATHLETE": activity["ATHLETE"],
+            "TALLIED MILEAGE": tallyMileage()
+        }
+        recap_data.append(recap_dict)
+
+    return recap_data
+
 def load_existing_ids(file_path, column):
     """
         Loads the existing unique IDs from the given data file.
@@ -167,8 +184,55 @@ def load_existing_ids(file_path, column):
             existing_ids.add(int(activity[column]))
     return existing_ids
 
+def tally_time(run_times):
+    """
+        Tallies up all of the incoming run's times.
+    """    
+    total_duration = timedelta(hours=0, minutes=0, seconds=0)
+    for time in run_times:
+        total_duration = total_duration + timedelta(hours=int(time[:2]), minutes=int(time[3:5]), seconds=int(time[6:]))
+    return total_duration, str(total_duration)
+
+def get_longest_run_no_existing_data(new_athlete_runs):
+    """
+        Takes in the athlete's new data and determines the longest run
+        of that data.
+
+        NOTE: This is used in the context of their not being existing data
+        for the given athlete in the recap file.
+    """
+    longest_run = float(new_athlete_runs[0]["DISTANCE (MI)"])
+    longest_run_date = new_athlete_runs[0]["FULL DATE"]
+    for new_run in new_athlete_runs[1:]:
+        if float(new_run["DISTANCE (MI)"]) > longest_run:
+            longest_run = new_run["DISTANCE (MI)"]
+            longest_run_date = new_run["FULL DATE"]
+
+    return longest_run, longest_run_date
+
+def get_longest_run(new_athlete_runs, existing_recap_data):
+    """
+        Takes in the athlete's new data and determines the longest run
+        of that data WITH the existing recap data.
+
+        NOTE: This is used in the context of their being existing data
+        for the given athlete in the recap file.
+    """
+    longest_run = float(existing_recap_data["DISTANCE (MI)"])
+    longest_run_date = existing_recap_data["FULL DATE"]
+    for new_run in new_athlete_runs[1:]:
+        if float(new_run["DISTANCE (MI)"]) > longest_run:
+            longest_run = new_run["DISTANCE (MI)"]
+            longest_run_date = new_run["FULL DATE"]
+
+    return longest_run, longest_run_date
+
 # DRIVER
 if __name__ == "__main__":
+    """
+        Drives all of the main logic.
+    """
+    # Pulling in variables from our .env file
     client_id = os.getenv("CLIENT_ID")
     client_secret = os.getenv("CLIENT_SECRET")
     redirect_uri = os.getenv("REDIRECT_URI")
@@ -182,8 +246,9 @@ if __name__ == "__main__":
         access_token = authorization_client.exchange_refresh_token(refresh_token)
         strava_clients[athlete_id] = StravaAPI(access_token)
 
+    # VARIABLES
     athlete_count = 0
-    fieldnames = [
+    athlete_data_fieldnames = [
         "ATHLETE", "ACTIVITY ID", "RUN", "MOVING TIME", 
         "DISTANCE (MI)", "PACE (MIN/MI)", "FULL DATE", "TIME", "DAY",
         "MONTH", "DATE", "YEAR", "SPM AVG",	"HR AVG",	
@@ -192,17 +257,25 @@ if __name__ == "__main__":
         "KUDOS COUNT", "COMMENT COUNT", "ATHLETE COUNT",
         "FULL DATETIME"
     ]
-    file_path = f"python\code\datasetup\data\{ACTIVITIES_FILE_NAME}.csv"
+    athlete_data_file = f"python\code\datasetup\data\main_data\{ACTIVITIES_FILE_NAME}.csv"
     unique_column = "ACTIVITY ID"
-    existing_ids = load_existing_ids(file_path, unique_column)
+    existing_ids = load_existing_ids(athlete_data_file, unique_column)
     unique_ids = set(existing_ids)
     rows = []
-    # Establishing the activities to be added to CSV file(s)
+    recap_fieldnames = [
+        "ATHLETE", "TALLIED MILEAGE", "TALLIED TIME", 
+        "# OF RUNS", "MILEAGE AVG", "TIME AVG", 
+        "PACE AVG", "LONGEST RUN", "LONGEST RUN DATE"
+    ]
+    recap_filename = r'python\code\datasetup\data\recap\ATHLETE_WEEK_RECAP.csv'
+
+    # Acquiring new activities to be appended to the relevant CSV files
     for athlete_id, strava_client in strava_clients.items():
         activities = convert_activities_to_list(strava_client.get_activities_this_week(athlete_id))
         rows_added = 0
         if activities:
             for activity in activities:
+                # TODO: Update this if conditional (or add another one) to check if we have certain fields updated (see todo list)
                 if activity[unique_column] not in unique_ids:
                     rows.append(activity)
                     unique_ids.add(activity[unique_column])
@@ -215,11 +288,79 @@ if __name__ == "__main__":
     # Sorting all new rows by the "FULL DATETIME" field
     rows.sort(key=lambda x: datetime.strptime(x['FULL DATETIME'], '%Y-%m-%d %H:%M:%S'))
 
-    # Append sorted rows to the CSV file
-    file_empty = not os.path.exists(file_path) or os.stat(file_path).st_size == 0
-    with open(file_path, 'a', newline='') as csv_file:
-        writer = csv.DictWriter(csv_file, fieldnames=fieldnames, delimiter=',')
-        if file_empty:
+    # Append sorted rows to the main ATHLETE_DATA.csv file
+    with open(athlete_data_file, 'a', newline='') as csv_file:
+        writer = csv.DictWriter(csv_file, fieldnames=athlete_data_fieldnames, delimiter=',')
+        if not os.path.exists(athlete_data_file) or os.stat(athlete_data_file).st_size == 0:
             writer.writeheader()
         writer.writerows(rows)
-        print(f"{len(rows)} rows were added to {file_path}.")
+        print(f"{len(rows)} rows were added to {athlete_data_file}.")
+
+    # Establish/update athlete's weekly stats files
+    for athlete_name in athlete_names_parallel_arr:
+        new_athlete_runs = [activity for activity in rows if str(activity["ATHLETE"].upper()) == athlete_name.upper()]
+        print(f"Athlete {athlete_name} has {len(new_athlete_runs)} new runs for this week. Activities: {new_athlete_runs}")
+        if len(new_athlete_runs) == 0:
+            continue # No new runs, move on to the next athlete
+        
+        ### WEEKLY STATS
+        # Writing the new athlete X's data to their weekly stats file
+        athlete_week_file = f"python\code\datasetup\data\weekly_stats\{athlete_name.upper()}_WEEK_STATS.csv"
+        with open(athlete_week_file, 'a+', newline='') as athlete_stat_file:
+            writer = csv.DictWriter(athlete_stat_file, fieldnames=athlete_data_fieldnames, delimiter=',')
+            if not os.path.exists(athlete_week_file) or os.stat(athlete_week_file).st_size == 0:
+                writer.writeheader()
+            writer.writerows(new_athlete_runs) # Writing the new runs to the athlete's CSV file
+            print(f"Added {len(new_athlete_runs)} rows to CSV file {athlete_week_file}.")
+
+        ### RECAP STATS
+        # Reading existing data for athlete X in the recap file
+        existing_recap_data = {}
+        with open(recap_filename, 'r', newline='') as recap_file: 
+            reader = csv.DictReader(recap_file, fieldnames=recap_fieldnames, delimiter=',')
+            for recap_data_row in reader:
+                # Only accounting for the given athlete's data
+                if str(recap_data_row["ATHLETE"]).upper() == athlete_name.upper():
+                    existing_recap_data.append(recap_data_row)
+                    break
+        
+        # Updating existing data with new values for athlete X in the recap file
+        with open(recap_filename, 'a', newline='') as recap_file:
+            writer = csv.DictWriter(recap_file, fieldnames=recap_fieldnames, delimiter=',')
+            if not os.path.exists(recap_filename) or os.stat(recap_filename).st_size == 0:
+                writer.writeheader()
+
+            if not existing_recap_data:
+                print(f"There is no existing recap data for athlete {athlete_name}. Adding their data...")
+                # Adding the new data
+                existing_recap_data["ATHLETE"] = athlete_name.upper()
+                key_to_find = "DISTANCE (MI)"
+                run_distances = [float(d[key_to_find]) for d in new_athlete_runs if key_to_find in d]
+                existing_recap_data["TALLIED MILEAGE"] = round(sum(run_distances), 2)
+                key_to_find = "MOVING TIME"
+                run_times = [d[key_to_find] for d in new_athlete_runs if key_to_find in d]
+                tallied_time_timedelta, tallied_time_str = tally_time(run_times)
+                existing_recap_data["TALLIED TIME"] = tallied_time_str
+                existing_recap_data["# OF RUNS"] = len(new_athlete_runs)
+                existing_recap_data["MILEAGE AVG"] = existing_recap_data["TALLIED MILEAGE"] / existing_recap_data["# OF RUNS"]
+                existing_recap_data["TIME AVG"] = str(tallied_time_timedelta / existing_recap_data["# OF RUNS"])
+                existing_recap_data["PACE AVG"] = str(tallied_time_timedelta / existing_recap_data["TALLIED MILEAGE"])
+                longest_run, longest_run_date = get_longest_run_no_existing_data(new_athlete_runs)
+                existing_recap_data["LONGEST RUN"] = longest_run
+                existing_recap_data["LONGEST RUN DATE"] = longest_run_date
+            else:    
+                print(f"Existing recap data was found for athlete {athlete_name}. Updating their data...")
+                # Modifying the existing data
+                existing_recap_data["TALLIED MILEAGE"] = round(float(existing_recap_data["TALLIED MILEAGE"]) + sum(float(new_athlete_runs["DISTANCE (MI)"])), 2)
+                existing_recap_data["TALLIED TIME"] = tally_time(new_athlete_runs["MOVING TIME"])
+                existing_recap_data["# OF RUNS"] = int(existing_recap_data["# OF RUNS"]) + len(new_athlete_runs)
+                existing_recap_data["MILEAGE AVG"] = existing_recap_data["TALLIED MILEAGE"] / existing_recap_data["# OF RUNS"]
+                existing_recap_data["TIME AVG"] = existing_recap_data["TALLIED TIME"] / existing_recap_data["# OF RUNS"]
+                existing_recap_data["PACE AVG"] = existing_recap_data["TALLIED TIME"] / existing_recap_data["TALLIED MILEAGE"]
+                longest_run, longest_run_date = get_longest_run(new_athlete_runs, existing_recap_data)
+                existing_recap_data["LONGEST RUN"] = longest_run
+                existing_recap_data["LONGEST RUN DATE"] = longest_run_date
+            
+            writer.writerow(existing_recap_data) # Appending new recap data        
+        
+    # NOTE: Create another class / migrate the above logic to its own location, resultantly consolidating the main method
