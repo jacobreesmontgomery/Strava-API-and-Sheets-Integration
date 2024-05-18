@@ -260,7 +260,7 @@ def query_existing_recap_data(athlete_name):
         Queries for existing recap data.
     """
     existing_recap_data = dict()
-    with open(recap_filename, 'a+', newline='') as recap_file: 
+    with open(recap_filename, 'r+', newline='') as recap_file: 
         # Writing headers if they don't exist
         writer = csv.DictWriter(recap_file, fieldnames=recap_fieldnames, delimiter=',')
         if not os.path.exists(recap_filename) or os.stat(recap_filename).st_size == 0:
