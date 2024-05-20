@@ -212,8 +212,13 @@ def get_longest_run_no_existing_data(new_athlete_runs):
     longest_run = float(new_athlete_runs[0]["DISTANCE (MI)"])
     longest_run_date = new_athlete_runs[0]["FULL DATE"]
     for new_run in new_athlete_runs[1:]:
-        if float(new_run["DISTANCE (MI)"]) > longest_run:
-            longest_run = new_run["DISTANCE (MI)"]
+        try:
+            new_run_distance = float(new_run["DISTANCE (MI)"])
+        except ValueError as e:
+            print(f"Error: {e}")  # Output: Error: could not convert string to float: 'abc'
+
+        if new_run_distance > longest_run:
+            longest_run = new_run_distance
             longest_run_date = new_run["FULL DATE"]
 
     return longest_run, longest_run_date
@@ -229,8 +234,13 @@ def get_longest_run(new_athlete_runs, existing_recap_data):
     longest_run = float(existing_recap_data.get('DISTANCE (MI)'))
     longest_run_date = existing_recap_data.get('FULL DATE')
     for new_run in new_athlete_runs[1:]:
-        if float(new_run["DISTANCE (MI)"]) > longest_run:
-            longest_run = new_run["DISTANCE (MI)"]
+        try:
+            new_run_distance = float(new_run["DISTANCE (MI)"])
+        except ValueError as e:
+            print(f"Error: {e}")  # Output: Error: could not convert string to float: 'abc'
+        
+        if new_run_distance > longest_run:
+            longest_run = new_run_distance
             longest_run_date = new_run["FULL DATE"]
 
     return longest_run, longest_run_date
@@ -295,13 +305,13 @@ def update_athlete_recap_data(existing_recap_data, athlete_name, new_athlete_run
             existing_recap_data["TALLIED MILEAGE"] = round(sum(run_distances), 2)
             key_to_find = "MOVING TIME"
             run_times = [d[key_to_find] for d in new_athlete_runs if key_to_find in d]
-            tallied_time_timedelta, tallied_time_str = tally_time(run_times)
+            tallied_time_timedelta, tallied_time_str = tally_time(run_times=run_times)
             existing_recap_data["TALLIED TIME"] = tallied_time_str
             existing_recap_data["# OF RUNS"] = len(new_athlete_runs)
-            existing_recap_data["MILEAGE AVG"] = existing_recap_data["TALLIED MILEAGE"] / existing_recap_data["# OF RUNS"]
+            existing_recap_data["MILEAGE AVG"] = round(float(existing_recap_data["TALLIED MILEAGE"]) / int(existing_recap_data["# OF RUNS"]), 2)
             existing_recap_data["TIME AVG"] = str(tallied_time_timedelta / existing_recap_data["# OF RUNS"])
             existing_recap_data["PACE AVG"] = str(tallied_time_timedelta / existing_recap_data["TALLIED MILEAGE"])
-            longest_run, longest_run_date = get_longest_run_no_existing_data(new_athlete_runs)
+            longest_run, longest_run_date = get_longest_run_no_existing_data(new_athlete_runs=new_athlete_runs)
             existing_recap_data["LONGEST RUN"] = longest_run
             existing_recap_data["LONGEST RUN DATE"] = longest_run_date
         else:    
@@ -315,12 +325,12 @@ def update_athlete_recap_data(existing_recap_data, athlete_name, new_athlete_run
             key_to_find = "MOVING TIME"
             run_times = [d[key_to_find] for d in new_athlete_runs if key_to_find in d]
             run_times.append(existing_recap_data.get('TALLIED TIME'))
-            existing_recap_data['TALLIED TIME'] = tally_time(run_times)
+            existing_recap_data['TALLIED TIME'] = tally_time(run_times=run_times)
             existing_recap_data['# OF RUNS'] = int(existing_recap_data.get('# OF RUNS')) + len(new_athlete_runs)
-            existing_recap_data['MILEAGE AVG'] = float(existing_recap_data.get('TALLIED MILEAGE')) / int(existing_recap_data.get('# OF RUNS'))
+            existing_recap_data['MILEAGE AVG'] = round(float(existing_recap_data.get('TALLIED MILEAGE')) / int(existing_recap_data.get('# OF RUNS')), 2)
             existing_recap_data['TIME AVG'] = float(existing_recap_data.get('TALLIED TIME')) / int(existing_recap_data.get('# OF RUNS'))
             existing_recap_data['PACE AVG'] = float(existing_recap_data.get('TALLIED TIME')) / float(existing_recap_data.get('TALLIED MILEAGE'))
-            longest_run, longest_run_date = get_longest_run(new_athlete_runs, existing_recap_data)
+            longest_run, longest_run_date = get_longest_run(new_athlete_runs=new_athlete_runs, existing_recap_data=existing_recap_data)
             existing_recap_data['LONGEST RUN'] = longest_run
             existing_recap_data['LONGEST RUN DATE'] = longest_run_date
         
