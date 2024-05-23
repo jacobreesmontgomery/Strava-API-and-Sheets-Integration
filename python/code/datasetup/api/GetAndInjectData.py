@@ -446,7 +446,7 @@ if __name__ == "__main__":
         print(f"{len(rows)} rows were added to {athlete_data_file}.")
 
     # Update weekly stat and recap files
-    existing_recap_rows = list()
+    recap_rows = list()
     for athlete_name in athlete_names_parallel_arr:
         # Acquiring any new runs
         new_athlete_runs = query_new_runs(rows=rows, athlete_name=athlete_name)
@@ -463,8 +463,9 @@ if __name__ == "__main__":
         existing_recap_data = query_existing_recap_data(athlete_name=athlete_name)
         
         # Updating the given athlete's recap data
-        existing_recap_rows.append(update_athlete_recap_data(existing_recap_data=existing_recap_data, athlete_name=athlete_name, new_athlete_runs=new_athlete_runs))      
+        recap_rows.append(update_athlete_recap_data(existing_recap_data=existing_recap_data, athlete_name=athlete_name, new_athlete_runs=new_athlete_runs))      
     
+    # Overwriting the recap data with data in recap_rows
     with open(recap_filename, 'w', newline='') as recap_file:
         # Writing headers if they don't exist
         writer = csv.DictWriter(recap_file, fieldnames=recap_fieldnames, delimiter=',')
@@ -472,7 +473,7 @@ if __name__ == "__main__":
             writer.writeheader()
         try:
             print(f"Before writing rows: {rows}")
-            writer.writerows(existing_recap_rows)
+            writer.writerows(recap_rows)
         except Exception as e:
             print(f"Error occurred while writing rows to the recap file: {e}")
             
