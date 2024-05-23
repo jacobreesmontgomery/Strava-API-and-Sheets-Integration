@@ -108,22 +108,30 @@ class StravaAPI:
 
 # HELPER METHODS FOR MAIN METHOD
 def get_index_of_key(dictionary, key_to_find):
+    """
+        TODO: Add description.
+    """
+    print(f"START of get_index_of_key() w/ arg(s)...\n\tdictionary: {dictionary}\n\tkey_to_find: {key_to_find}")
     index = 0
     for key in dictionary:
         if int(key) == int(key_to_find):
+            print(f"END of get_index_of_key() w/ return(s)...\n\tindex: {index}\n")
             return index
         index += 1
+    print(f"END of get_index_of_key() w/ return(s)...\n\tindex: -1\n")
     return -1  # Key not found in the dictionary
 
 def format_seconds(seconds):
     """
         Formats seconds to the format of HH:MM:SS.
     """
+    print(f"\nSTART of format_seconds() w/ arg(s)...\n\tseconds: {seconds}")
     # Calculate hours, minutes, and remaining seconds
     hours, remainder = divmod(seconds.total_seconds(), 3600)
     minutes, seconds = divmod(remainder, 60)
     
     # Format as HH:MM:SS
+    print(f"\nEND of format_seconds() w/ return(s)...\n\t{int(hours):02d}:{int(minutes):02d}:{int(seconds):02d}\n")
     return f"{int(hours):02d}:{int(minutes):02d}:{int(seconds):02d}"
 
 def calculate_pace(total_seconds, distance_miles):
@@ -131,6 +139,7 @@ def calculate_pace(total_seconds, distance_miles):
         Calculates pace (MM:SS) using the total seconds and
         distance of the run (mi). 
     """
+    print(f"\nSTART of calculate_pace() w/ arg(s)...\n\ttotal_seconds: {total_seconds}\n\tdistance_miles: {distance_miles}")
     # Convert total seconds to minutes
     total_minutes = total_seconds / 60
     
@@ -141,6 +150,7 @@ def calculate_pace(total_seconds, distance_miles):
     pace_seconds = int(pace_minutes_per_mile * 60)
     minutes, seconds = divmod(pace_seconds, 60)
     
+    print(f"\nEND of calculate_pace() w/ return(s)...\n\t{minutes:02d}:{seconds:02d}\n")
     return f"{minutes:02d}:{seconds:02d}"
 
 def convert_activities_to_list_of_dicts(activities):
@@ -148,6 +158,7 @@ def convert_activities_to_list_of_dicts(activities):
         Converts the incoming activities to a list with 
         the desired columns and values.
     """
+    print(f"\nSTART of convert_activities_to_list_of_dicts() w/ arg(s)...\n\tactivities: {activities}")
     activities_list = list()
     for activity in activities:
         activity_dict = {
@@ -179,26 +190,55 @@ def convert_activities_to_list_of_dicts(activities):
             # Add more fields as needed
         }
         activities_list.append(activity_dict)
+    print(f"\nEND of convert_activities_to_list_of_dicts() w/ return(s)...\n\tactivities_list: {activities_list}\n")
     return activities_list
 
 def load_existing_ids(file_path, column):
     """
         Loads the existing unique IDs from the given data file.
     """
+    print(f"\nSTART of load_existing_ids() w/ arg(s)...\n\tfile_path: {file_path}\n\tcolumn: {column}\n")
     existing_ids = set()
     with open(file_path, mode='r') as file:
         reader = csv.DictReader(file)
         for activity in reader:
             existing_ids.add(int(activity[column]))
+    print(f"\nEND of load_existing_ids() w/ return(s)...\n\texisting_ids: {existing_ids}\n")
     return existing_ids
+
+def format_to_hhmmss(time_str):
+    """
+        Format a string to HH:MM:SS.
+    """
+    print(f"\nSTART of format_to_hhmmss() w/ arg(s)...\n\ttime_str: {time_str}")
+    # Split the time string by colon
+    parts = time_str.split(':')
+    
+    if len(parts) != 3:
+        raise ValueError(f"Incorrect time format: {time_str}")
+    
+    # Pad each part with leading zeros to ensure two digits
+    hours = parts[0].zfill(2)
+    minutes = parts[1].zfill(2)
+    seconds = parts[2].zfill(2)
+    
+    # Join the parts back together with colons
+    formatted_time = f"{hours}:{minutes}:{seconds}"
+    print(f"END of format_to_hhmmss() w/ return(s)...\n\tformatted_time: {formatted_time}\n")
+    return formatted_time
 
 def tally_time(run_times):
     """
         Tallies up all of the incoming run's times.
-    """    
+    """   
+    print(f"\nSTART of tally_time() w/ argument(s): \n\trun_times: {run_times}") 
     total_duration = timedelta(hours=0, minutes=0, seconds=0)
     for time in run_times:
+        time = format_to_hhmmss(time_str=time)
+        if len(time) != 8 or time[2] != ':' or time[5] != ':':
+            raise ValueError(f"Incorrect time format: {time}")
         total_duration = total_duration + timedelta(hours=int(time[:2]), minutes=int(time[3:5]), seconds=int(time[6:]))
+    print(f"END of tally_time() w/ return(s)... \n\ttotal_duration: {total_duration}\n\tstr(total_duration): {str(total_duration)}\n")
     return total_duration, str(total_duration)
 
 def get_longest_run_no_existing_data(new_athlete_runs):
@@ -209,6 +249,7 @@ def get_longest_run_no_existing_data(new_athlete_runs):
         NOTE: This is used in the context of their not being existing data
         for the given athlete in the recap file.
     """
+    print(f"\nSTART of get_longest_run_no_existing_data()\n\tnew_athlete_runs: {new_athlete_runs}")
     longest_run = float(new_athlete_runs[0]["DISTANCE (MI)"])
     longest_run_date = new_athlete_runs[0]["FULL DATE"]
     for new_run in new_athlete_runs[1:]:
@@ -220,7 +261,7 @@ def get_longest_run_no_existing_data(new_athlete_runs):
         if new_run_distance > longest_run:
             longest_run = new_run_distance
             longest_run_date = new_run["FULL DATE"]
-
+    print(f"END of get_longest_run_no_existing_data()\n\tlongest_run: {longest_run}\n\tlongest_run_date: {longest_run_date}\n")
     return longest_run, longest_run_date
 
 def get_longest_run(new_athlete_runs, existing_recap_data):
@@ -231,8 +272,10 @@ def get_longest_run(new_athlete_runs, existing_recap_data):
         NOTE: This is used in the context of their being existing data
         for the given athlete in the recap file.
     """
-    longest_run = float(existing_recap_data.get('DISTANCE (MI)'))
-    longest_run_date = existing_recap_data.get('FULL DATE')
+    print(f"\nSTART of get_longest_run()\n\tnew_athlete_runs: {new_athlete_runs}\n\texisting_recap_data: {existing_recap_data}")
+    longest_run = float(existing_recap_data["LONGEST RUN"])
+    longest_run_date = existing_recap_data["LONGEST RUN DATE"]
+    print(f"longest_run: {longest_run}\nlongest_run_date: {longest_run_date}")
     for new_run in new_athlete_runs[1:]:
         try:
             new_run_distance = float(new_run["DISTANCE (MI)"])
@@ -242,21 +285,23 @@ def get_longest_run(new_athlete_runs, existing_recap_data):
         if new_run_distance > longest_run:
             longest_run = new_run_distance
             longest_run_date = new_run["FULL DATE"]
-
+    print(f"END of get_longest_run()\n\tlongest_run: {longest_run}\n\tlongest_run_date: {longest_run_date}\n")
     return longest_run, longest_run_date
 
 def query_new_runs(rows, athlete_name):
     """
         Queries for new runs for the given athlete.
     """
+    print(f"\nSTART of query_new_runs() w/ arg(s)...\n\trows: {rows}\n\tathlete_name: {athlete_name}")
     new_athlete_runs = [activity for activity in rows if str(activity["ATHLETE"].upper()) == athlete_name.upper()]
-    print(f"Athlete {athlete_name} has {len(new_athlete_runs)} new runs for this week. Activities: {new_athlete_runs}")
+    print(f"END of query_new_runs() w/ return(s)...\n\tnew_athlete_runs: {new_athlete_runs}\n")
     return new_athlete_runs
 
 def write_athlete_data(new_athlete_runs):
     """
         Writes the incoming runs to the athlete's weekly stats file.
     """
+    print(f"\nSTART of write_athlete_data() w/ arg(s)...\n\tnew_athlete_runs: {new_athlete_runs}")
     athlete_week_file = f"python\code\datasetup\data\weekly_stats\{athlete_name.upper()}_WEEK_STATS.csv"
     with open(athlete_week_file, 'a+', newline='') as athlete_stat_file:
         writer = csv.DictWriter(athlete_stat_file, fieldnames=athlete_data_fieldnames, delimiter=',')
@@ -264,11 +309,13 @@ def write_athlete_data(new_athlete_runs):
             writer.writeheader()
         writer.writerows(new_athlete_runs) # Writing the new runs to the athlete's CSV file
         print(f"Added {len(new_athlete_runs)} rows to CSV file {athlete_week_file}.")
+    print(f"END of write_athlete_data()\n")
 
 def query_existing_recap_data(athlete_name):
     """
         Queries for existing recap data.
     """
+    print(f"\nSTART of query_existing_recap_data() w/ arg(s)...\n\tathlete_name: {athlete_name}")
     existing_recap_data = dict()
     with open(recap_filename, 'r+', newline='') as recap_file: 
         # Writing headers if they don't exist
@@ -284,57 +331,72 @@ def query_existing_recap_data(athlete_name):
                 print(f'Adding recap_data_row to existing_recap_data of type {type(existing_recap_data)}')
                 existing_recap_data.update(recap_data_row)
                 return existing_recap_data
+    print(f"END of query_existing_recap_data() w/ return(s)...\n\texisting_recap_data: {existing_recap_data}\n")
     return existing_recap_data
+
+def read_csv(file_path):
+    """
+        Read all rows from a CSV file.
+    """
+    print(f"\nSTART of read_csv() w/ arg(s)...\n\tfile_path: {file_path}")
+    rows = []
+    with open(file_path, mode='r', newline='') as file:
+        reader = csv.DictReader(file, fieldnames=recap_fieldnames, delimiter=',')
+        # try:
+        #     next(reader) # Skipping the header
+        # except StopIteration:
+        #     return rows
+        rows = list(reader)
+    print(f"END of read_csv() w/ return(s)...\n\trows: {rows}\n")
+    return rows
 
 def update_athlete_recap_data(existing_recap_data, athlete_name, new_athlete_runs):
     """
         Updates the given athlete's recap data.
     """
-    with open(recap_filename, 'a', newline='') as recap_file:
-        # Writing headers if they don't exist
-        writer = csv.DictWriter(recap_file, fieldnames=recap_fieldnames, delimiter=',')
-        if not os.path.exists(recap_filename) or os.stat(recap_filename).st_size == 0:
-            writer.writeheader()
+    print(f"\nSTART of update_athlete_recap_data() w/ arg(s)...\n\texisting_recap_data: {existing_recap_data}\n\tathlete_name: {athlete_name}\n\tnew_athlete_runs: {new_athlete_runs}")
 
-        if not existing_recap_data:
-            print(f"There is no existing recap data for athlete {athlete_name}. Adding their data...")
-            # Adding the new data
-            existing_recap_data["ATHLETE"] = athlete_name.upper()
-            key_to_find = "DISTANCE (MI)"
-            run_distances = [float(d[key_to_find]) for d in new_athlete_runs if key_to_find in d]
-            existing_recap_data["TALLIED MILEAGE"] = round(sum(run_distances), 2)
-            key_to_find = "MOVING TIME"
-            run_times = [d[key_to_find] for d in new_athlete_runs if key_to_find in d]
-            tallied_time_timedelta, tallied_time_str = tally_time(run_times=run_times)
-            existing_recap_data["TALLIED TIME"] = tallied_time_str
-            existing_recap_data["# OF RUNS"] = len(new_athlete_runs)
-            existing_recap_data["MILEAGE AVG"] = round(float(existing_recap_data["TALLIED MILEAGE"]) / int(existing_recap_data["# OF RUNS"]), 2)
-            existing_recap_data["TIME AVG"] = str(tallied_time_timedelta / existing_recap_data["# OF RUNS"])
-            existing_recap_data["PACE AVG"] = str(tallied_time_timedelta / existing_recap_data["TALLIED MILEAGE"])
-            longest_run, longest_run_date = get_longest_run_no_existing_data(new_athlete_runs=new_athlete_runs)
-            existing_recap_data["LONGEST RUN"] = longest_run
-            existing_recap_data["LONGEST RUN DATE"] = longest_run_date
-        else:    
-            print(f"Existing recap data was found for athlete {athlete_name}. Updating their data...")
-            for col in recap_fieldnames:
-                print(f"{col}: {existing_recap_data.get(col)}")
-            # Modifying the existing data
-            key_to_find = 'DISTANCE (MI)'
-            run_distances = [float(d[key_to_find]) for d in new_athlete_runs if key_to_find in d]
-            existing_recap_data['TALLIED MILEAGE'] = round(float(existing_recap_data.get('TALLIED MILEAGE')) + sum(run_distances), 2)
-            key_to_find = "MOVING TIME"
-            run_times = [d[key_to_find] for d in new_athlete_runs if key_to_find in d]
-            run_times.append(existing_recap_data.get('TALLIED TIME'))
-            existing_recap_data['TALLIED TIME'] = tally_time(run_times=run_times)
-            existing_recap_data['# OF RUNS'] = int(existing_recap_data.get('# OF RUNS')) + len(new_athlete_runs)
-            existing_recap_data['MILEAGE AVG'] = round(float(existing_recap_data.get('TALLIED MILEAGE')) / int(existing_recap_data.get('# OF RUNS')), 2)
-            existing_recap_data['TIME AVG'] = float(existing_recap_data.get('TALLIED TIME')) / int(existing_recap_data.get('# OF RUNS'))
-            existing_recap_data['PACE AVG'] = float(existing_recap_data.get('TALLIED TIME')) / float(existing_recap_data.get('TALLIED MILEAGE'))
-            longest_run, longest_run_date = get_longest_run(new_athlete_runs=new_athlete_runs, existing_recap_data=existing_recap_data)
-            existing_recap_data['LONGEST RUN'] = longest_run
-            existing_recap_data['LONGEST RUN DATE'] = longest_run_date
-        
-        writer.writerow(existing_recap_data) # Appending new recap data 
+    if not existing_recap_data:
+        print(f"There is no existing recap data for athlete {athlete_name}. Adding their data...")
+        # Adding the new data
+        existing_recap_data["ATHLETE"] = athlete_name.upper()
+        key_to_find = "DISTANCE (MI)"
+        run_distances = [float(d[key_to_find]) for d in new_athlete_runs if key_to_find in d]
+        existing_recap_data["TALLIED MILEAGE"] = round(sum(run_distances), 2)
+        key_to_find = "MOVING TIME"
+        run_times = [d[key_to_find] for d in new_athlete_runs if key_to_find in d]
+        tallied_time_timedelta, tallied_time_str = tally_time(run_times=run_times)
+        existing_recap_data["TALLIED TIME"] = tallied_time_str
+        existing_recap_data["# OF RUNS"] = len(new_athlete_runs)
+        existing_recap_data["MILEAGE AVG"] = round(float(existing_recap_data["TALLIED MILEAGE"]) / int(existing_recap_data["# OF RUNS"]), 2)
+        existing_recap_data["TIME AVG"] = str(tallied_time_timedelta / existing_recap_data["# OF RUNS"])
+        existing_recap_data["PACE AVG"] = str(tallied_time_timedelta / existing_recap_data["TALLIED MILEAGE"])
+        longest_run, longest_run_date = get_longest_run_no_existing_data(new_athlete_runs=new_athlete_runs)
+        existing_recap_data["LONGEST RUN"] = longest_run
+        existing_recap_data["LONGEST RUN DATE"] = longest_run_date
+    else:    
+        print(f"Existing recap data was found for athlete {athlete_name}. Updating their data...")
+        for col in recap_fieldnames:
+            print(f"{col}: {existing_recap_data[col]}")
+        # Modifying the existing data
+        key_to_find = "DISTANCE (MI)"
+        run_distances = [float(d[key_to_find]) for d in new_athlete_runs if key_to_find in d]
+        existing_recap_data["TALLIED MILEAGE"] = round(float(existing_recap_data["TALLIED MILEAGE"]) + sum(run_distances), 2)
+        key_to_find = "MOVING TIME"
+        run_times = [d[key_to_find] for d in new_athlete_runs if key_to_find in d]
+        run_times.append(existing_recap_data["TALLIED TIME"])
+        tallied_time_timedelta, tallied_time_str = tally_time(run_times=run_times)
+        existing_recap_data["TALLIED TIME"] = tallied_time_str
+        existing_recap_data["# OF RUNS"] = int(existing_recap_data["# OF RUNS"]) + len(new_athlete_runs)
+        existing_recap_data["MILEAGE AVG"] = round(float(existing_recap_data["TALLIED MILEAGE"]) / int(existing_recap_data["# OF RUNS"]), 2)
+        existing_recap_data["TIME AVG"] = str(tallied_time_timedelta / existing_recap_data["# OF RUNS"])
+        existing_recap_data["PACE AVG"] = str(tallied_time_timedelta / existing_recap_data["TALLIED MILEAGE"])
+        longest_run, longest_run_date = get_longest_run(new_athlete_runs=new_athlete_runs, existing_recap_data=existing_recap_data)
+        existing_recap_data["LONGEST RUN"] = longest_run
+        existing_recap_data["LONGEST RUN DATE"] = longest_run_date
+    
+    print(f"END of update_athlete_recap_data() w/ return(s)...\n\texisting_recap_data: {existing_recap_data}\n")    
+    return existing_recap_data
 
 # DRIVER
 if __name__ == "__main__":
@@ -384,21 +446,34 @@ if __name__ == "__main__":
         print(f"{len(rows)} rows were added to {athlete_data_file}.")
 
     # Update weekly stat and recap files
+    existing_recap_rows = list()
     for athlete_name in athlete_names_parallel_arr:
         # Acquiring any new runs
         new_athlete_runs = query_new_runs(rows=rows, athlete_name=athlete_name)
-        if len(new_athlete_runs) == 0:
-            continue # No new runs, skip to the next athlete
+        # if len(new_athlete_runs) == 0:
+        #     continue # No new runs, skip to the next athlete
         
         ### WEEKLY STATS
         # Writing the new athlete X's data to their weekly stats file
-        write_athlete_data(new_athlete_runs=new_athlete_runs)
+        if len(new_athlete_runs) > 0:
+            write_athlete_data(new_athlete_runs=new_athlete_runs)
 
         ### RECAP STATS
         # Querying for existing recap data
         existing_recap_data = query_existing_recap_data(athlete_name=athlete_name)
         
         # Updating the given athlete's recap data
-        update_athlete_recap_data(existing_recap_data=existing_recap_data, athlete_name=athlete_name, new_athlete_runs=new_athlete_runs)       
-        
+        existing_recap_rows.append(update_athlete_recap_data(existing_recap_data=existing_recap_data, athlete_name=athlete_name, new_athlete_runs=new_athlete_runs))      
+    
+    with open(recap_filename, 'w', newline='') as recap_file:
+        # Writing headers if they don't exist
+        writer = csv.DictWriter(recap_file, fieldnames=recap_fieldnames, delimiter=',')
+        if not os.path.exists(recap_filename) or os.stat(recap_filename).st_size == 0:
+            writer.writeheader()
+        try:
+            print(f"Before writing rows: {rows}")
+            writer.writerows(existing_recap_rows)
+        except Exception as e:
+            print(f"Error occurred while writing rows to the recap file: {e}")
+            
     # NOTE: Create another class / migrate the above logic to its own location, resultantly consolidating the main method
