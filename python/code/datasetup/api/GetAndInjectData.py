@@ -166,7 +166,7 @@ def convert_activities_to_list_of_dicts(activities):
             "ACTIVITY ID": activity.id,
             "RUN": activity.name,
             "MOVING TIME": format_seconds(activity.moving_time), # Formatting to HH:MM:SS
-            "DISTANCE (MI)": round(float(activity.distance) / 1609.34, 2), # Converting meters to miles
+            "DISTANCE (MI)": f"{round(float(activity.distance) / 1609.34, 2):.2f}", # Converting meters to miles
             "PACE (MIN/MI)": calculate_pace(float(activity.moving_time.total_seconds()), float(activity.distance * 0.000621371)),
             "FULL DATE": activity.start_date_local.strftime("%m/%d/%Y"),
             "TIME": activity.start_date_local.strftime("%I:%M:%S %p"),
@@ -174,14 +174,14 @@ def convert_activities_to_list_of_dicts(activities):
             "MONTH": activity.start_date_local.strftime("%m"),
             "DATE": activity.start_date_local.strftime("%d"),
             "YEAR": activity.start_date_local.strftime("%Y"),
-            "SPM AVG": round(activity.average_cadence * 2, 2) if activity.average_cadence else "NA",
-            "HR AVG": round(activity.average_heartrate, 2) if activity.average_heartrate else "NA",
+            "SPM AVG": f"{round(activity.average_cadence * 2, 2):.2f}" if activity.average_cadence else "NA",
+            "HR AVG": f"{round(activity.average_heartrate, 2):.2f}" if activity.average_heartrate else "NA",
             "WKT TYPE": activity.workout_type,
             "DESCRIPTION": activity.description,
-            "TOTAL ELEV GAIN (FT)": round(float(str(activity.total_elevation_gain).split()[0]) * 3.28084, 2),
+            "TOTAL ELEV GAIN (FT)": f"{round(float(str(activity.total_elevation_gain).split()[0]) * 3.28084, 2):.2f}",
             "MANUAL": activity.manual,
-            "MAX SPEED (FT/S)": round(float(str(activity.max_speed).split()[0]) * 3.28084, 2),
-            "CALORIES": activity.calories,
+            "MAX SPEED (FT/S)": f"{round(float(str(activity.max_speed).split()[0]) * 3.28084, 2):.2f}",
+            "CALORIES": round(activity.calories, 0),
             "ACHIEVEMENT COUNT": activity.achievement_count,
             "KUDOS COUNT": activity.kudos_count,
             "COMMENT COUNT": activity.comment_count,
@@ -226,6 +226,38 @@ def format_to_hhmmss(time_str):
     formatted_time = f"{hours}:{minutes}:{seconds}"
     print(f"END of format_to_hhmmss() w/ return(s)...\n\tformatted_time: {formatted_time}\n")
     return formatted_time
+
+def time_str_to_seconds(time_str):
+    """
+
+    """
+    hours, minutes, seconds = map(int, time_str.split(':'))
+    return hours * 3600 + minutes * 60 + seconds
+
+def divide_time_by_number(time_str, divisor):
+    """
+
+    """
+    total_seconds = time_str_to_seconds(time_str)
+    divided_seconds = total_seconds / divisor
+    return divided_seconds
+
+def seconds_to_time_str(total_seconds):
+    """
+
+    """
+    hours = int(total_seconds / 3600)
+    minutes = int((total_seconds % 3600) / 60)
+    seconds = int(total_seconds % 60)
+    return f"{hours:02}:{minutes:02}:{seconds:02}"
+
+def divide_time_str_by_number(time_str, divisor):
+    """
+
+    """
+    total_seconds = time_str_to_seconds(time_str)
+    divided_seconds = total_seconds / divisor
+    return seconds_to_time_str(divided_seconds)
 
 def tally_time(run_times):
     """
@@ -325,10 +357,8 @@ def query_existing_recap_data(athlete_name):
         reader = csv.DictReader(recap_file, fieldnames=recap_fieldnames, delimiter=',')
         next(reader) # Skipping header
         for recap_data_row in reader:
-            print(f'Recap data row type: {type(recap_data_row)}')
             # Only accounting for the given athlete's data
             if str(recap_data_row["ATHLETE"]).upper() == athlete_name.upper():
-                print(f'Adding recap_data_row to existing_recap_data of type {type(existing_recap_data)}')
                 existing_recap_data.update(recap_data_row)
                 return existing_recap_data
     print(f"END of query_existing_recap_data() w/ return(s)...\n\texisting_recap_data: {existing_recap_data}\n")
@@ -356,21 +386,22 @@ def update_athlete_recap_data(existing_recap_data, athlete_name, new_athlete_run
     """
     print(f"\nSTART of update_athlete_recap_data() w/ arg(s)...\n\texisting_recap_data: {existing_recap_data}\n\tathlete_name: {athlete_name}\n\tnew_athlete_runs: {new_athlete_runs}")
 
+    # TODO: Consolidate below if else, lots of code reuse
     if not existing_recap_data:
         print(f"There is no existing recap data for athlete {athlete_name}. Adding their data...")
         # Adding the new data
         existing_recap_data["ATHLETE"] = athlete_name.upper()
         key_to_find = "DISTANCE (MI)"
         run_distances = [float(d[key_to_find]) for d in new_athlete_runs if key_to_find in d]
-        existing_recap_data["TALLIED MILEAGE"] = round(sum(run_distances), 2)
+        existing_recap_data["TALLIED MILEAGE"] = f"{round(sum(run_distances), 2):.2f}"
         key_to_find = "MOVING TIME"
         run_times = [d[key_to_find] for d in new_athlete_runs if key_to_find in d]
         tallied_time_timedelta, tallied_time_str = tally_time(run_times=run_times)
         existing_recap_data["TALLIED TIME"] = tallied_time_str
         existing_recap_data["# OF RUNS"] = len(new_athlete_runs)
-        existing_recap_data["MILEAGE AVG"] = round(float(existing_recap_data["TALLIED MILEAGE"]) / int(existing_recap_data["# OF RUNS"]), 2)
-        existing_recap_data["TIME AVG"] = str(tallied_time_timedelta / existing_recap_data["# OF RUNS"])
-        existing_recap_data["PACE AVG"] = str(tallied_time_timedelta / existing_recap_data["TALLIED MILEAGE"])
+        existing_recap_data["MILEAGE AVG"] = f"{round(float(existing_recap_data["TALLIED MILEAGE"]) / int(existing_recap_data["# OF RUNS"]), 2):.2f}"
+        existing_recap_data["TIME AVG"] = divide_time_str_by_number(tallied_time_str, int(existing_recap_data["# OF RUNS"]))
+        existing_recap_data["PACE AVG"] = divide_time_str_by_number(tallied_time_str, float(existing_recap_data["TALLIED MILEAGE"]))
         longest_run, longest_run_date = get_longest_run_no_existing_data(new_athlete_runs=new_athlete_runs)
         existing_recap_data["LONGEST RUN"] = longest_run
         existing_recap_data["LONGEST RUN DATE"] = longest_run_date
@@ -381,16 +412,16 @@ def update_athlete_recap_data(existing_recap_data, athlete_name, new_athlete_run
         # Modifying the existing data
         key_to_find = "DISTANCE (MI)"
         run_distances = [float(d[key_to_find]) for d in new_athlete_runs if key_to_find in d]
-        existing_recap_data["TALLIED MILEAGE"] = round(float(existing_recap_data["TALLIED MILEAGE"]) + sum(run_distances), 2)
+        existing_recap_data["TALLIED MILEAGE"] = f"{round(float(existing_recap_data["TALLIED MILEAGE"]) + sum(run_distances), 2):.2f}"
         key_to_find = "MOVING TIME"
         run_times = [d[key_to_find] for d in new_athlete_runs if key_to_find in d]
         run_times.append(existing_recap_data["TALLIED TIME"])
         tallied_time_timedelta, tallied_time_str = tally_time(run_times=run_times)
         existing_recap_data["TALLIED TIME"] = tallied_time_str
         existing_recap_data["# OF RUNS"] = int(existing_recap_data["# OF RUNS"]) + len(new_athlete_runs)
-        existing_recap_data["MILEAGE AVG"] = round(float(existing_recap_data["TALLIED MILEAGE"]) / int(existing_recap_data["# OF RUNS"]), 2)
-        existing_recap_data["TIME AVG"] = str(tallied_time_timedelta / existing_recap_data["# OF RUNS"])
-        existing_recap_data["PACE AVG"] = str(tallied_time_timedelta / existing_recap_data["TALLIED MILEAGE"])
+        existing_recap_data["MILEAGE AVG"] = f"{round(float(existing_recap_data["TALLIED MILEAGE"]) / int(existing_recap_data["# OF RUNS"]), 2):.2f}"
+        existing_recap_data["TIME AVG"] = divide_time_str_by_number(tallied_time_str, int(existing_recap_data["# OF RUNS"]))
+        existing_recap_data["PACE AVG"] = divide_time_str_by_number(tallied_time_str, float(existing_recap_data["TALLIED MILEAGE"]))
         longest_run, longest_run_date = get_longest_run(new_athlete_runs=new_athlete_runs, existing_recap_data=existing_recap_data)
         existing_recap_data["LONGEST RUN"] = longest_run
         existing_recap_data["LONGEST RUN DATE"] = longest_run_date
@@ -417,15 +448,12 @@ if __name__ == "__main__":
     # Acquiring new activities to be appended to the relevant CSV files
     for athlete_id, strava_client in strava_clients.items():
         activities = convert_activities_to_list_of_dicts(strava_client.get_activities_this_week(athlete_id))
-        print(f'Activities type: {type(activities)}')
         rows_added = 0
         if activities:
             for activity in activities:
-                print(f'Activity type: {type(activity)}')
                 # TODO: Update this if conditional (or add another one) to check if we have certain fields updated (see todo list)
                 if activity[unique_column] not in unique_ids:
                     cleaned_activity = {key: emoji.demojize(str(value)) if not isinstance(value, str) else emoji.demojize(value) for key, value in activity.items()}
-                    print(f'Cleaned activity type: {type(cleaned_activity)}')
                     rows.append(cleaned_activity)
                     unique_ids.add(cleaned_activity[unique_column])
                     rows_added += 1
