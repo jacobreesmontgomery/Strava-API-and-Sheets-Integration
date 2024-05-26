@@ -6,9 +6,9 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     console.log("Headers: ", headerStats);
 
-    var rowData = document.getElementById("row-data").getAttribute("data-argument");
-    rowData = rowData.slice(1, -1).split(",");
-    rowData = rowData.map(function(item) {
+    var recapData = document.getElementById("recap-data").getAttribute("data-argument");
+    recapData = recapData.slice(1, -1).split(",");
+    recapData = recapData.map(function(item) {
         if (item != "" || item) {
             return item.replace(/[\[\]']/g, '').trim();
         } else {
@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }).filter(item => item != "" && item);
 
     NUM_HEADERS = headerStats.length;
-    NUM_ATHLETES = rowData.length / NUM_HEADERS;
+    NUM_ATHLETES = recapData.length / NUM_HEADERS;
     var arr = new Array(NUM_ATHLETES);
     for (var i = 0; i < arr.length; i++) {
         arr[i] = new Array(NUM_HEADERS);
@@ -25,24 +25,24 @@ document.addEventListener('DOMContentLoaded', function() {
     counter = 0;
     for (var i = 0; i < arr.length; i++) {
         for (var j = 0; j < arr[i].length; j++) {
-            arr[i][j] = rowData[counter];
+            arr[i][j] = recapData[counter];
             counter++;
         }
     }
-    rowData = arr; // Overwriting rowData with the populated 2D array
-    console.log("Row data: ", rowData);
+    recapData = arr; // Overwriting recapData with the populated 2D array
+    console.log("Recap data: ", recapData);
 
     // Populate table with initial data
-    populateTable(headerStats, rowData);
+    populateTable(headerStats, recapData);
 
     // Setting up columns to be sortable
     createSortableColumns();
 });
 
 /**
- *  Populates the table with its headers and row data.
+ *  Populates the table with its headers and recap data.
  * */ 
-function populateTable(headerStats, rowData) {
+function populateTable(headerStats, recapData) {
     const tableHeader = document.querySelector('#dataTable thead');
     tableHeader.innerHTML = '';
 
@@ -75,7 +75,7 @@ function populateTable(headerStats, rowData) {
     const tableBody = document.querySelector('#dataTable tbody');
     tableBody.innerHTML = '';
 
-    rowData.forEach(item => {
+    recapData.forEach(item => {
         const row = document.createElement('tr');
         Object.values(item).forEach(value => {
             const cell = document.createElement('td');

@@ -40,7 +40,7 @@ def run_script(spreadsheet, sheet_name):
         activities_df = pandas.DataFrame(goons_sheet.get_values(f"A2:P10000"), columns=goons_sheet.get_values("A1:P1"))
     elif (sheet_name == "GOONS RECAP"):
         activities_df = pandas.DataFrame(goons_sheet.get_values(f"A4:{3 + NUM_ATHLETES}"), columns=goons_sheet.get_values("A3:M3"))
-    activities_df.to_csv(f"python\code\datasetup\data\{sheet_name.upper()}_ACTIVITIES.csv", index=False, sep=",")
+    activities_df.to_csv(f"python\code\datasetup\data\main_data\{sheet_name.upper()}_ACTIVITIES.csv", index=False, sep=",")
     
     print('Finished the script at {}'.format(datetime.datetime.now())) # Closing print
 
