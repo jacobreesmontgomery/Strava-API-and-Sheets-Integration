@@ -372,10 +372,6 @@ def read_csv(file_path):
     rows = []
     with open(file_path, mode='r', newline='') as file:
         reader = csv.DictReader(file, fieldnames=recap_fieldnames, delimiter=',')
-        # try:
-        #     next(reader) # Skipping the header
-        # except StopIteration:
-        #     return rows
         rows = list(reader)
     print(f"END of read_csv() w/ return(s)...\n\trows: {rows}\n")
     return rows
@@ -478,9 +474,7 @@ if __name__ == "__main__":
     for athlete_name in athlete_names_parallel_arr:
         # Acquiring any new runs
         new_athlete_runs = query_new_runs(rows=rows, athlete_name=athlete_name)
-        # if len(new_athlete_runs) == 0:
-        #     continue # No new runs, skip to the next athlete
-        
+
         ### WEEKLY STATS
         # Writing the new athlete X's data to their weekly stats file
         if len(new_athlete_runs) > 0:
@@ -491,7 +485,8 @@ if __name__ == "__main__":
         existing_recap_data = query_existing_recap_data(athlete_name=athlete_name)
         
         # Updating the given athlete's recap data
-        recap_rows.append(update_athlete_recap_data(existing_recap_data=existing_recap_data, athlete_name=athlete_name, new_athlete_runs=new_athlete_runs))      
+        if len(new_athlete_runs) > 0:
+            recap_rows.append(update_athlete_recap_data(existing_recap_data=existing_recap_data, athlete_name=athlete_name, new_athlete_runs=new_athlete_runs))      
     
     # Overwriting the recap data with data in recap_rows
     with open(recap_filename, 'w', newline='') as recap_file:
