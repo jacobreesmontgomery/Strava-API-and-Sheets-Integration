@@ -25,8 +25,6 @@ def clearRecapData():
     clear_csv(csv_file_path)
     print(f"Cleared CSV file at {csv_file_path}.")
 
-clearRecapData()
-
 # Clearance will happen every Monday at 12 AM
 schedule.every().monday.at("00:00").do(clearRecapData)
 

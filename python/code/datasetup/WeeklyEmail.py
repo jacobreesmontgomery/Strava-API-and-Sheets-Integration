@@ -111,6 +111,9 @@ def read_csv(file_path, fieldnames, athlete, columns_to_include=None):
     return runData
 
 def job():
+    """
+        Drives the main logic, including sending the emails to each athlete.
+    """
     columns_to_include_weekly =["FULL DATE", "TIME", "MOVING TIME", "DISTANCE (MI)", "PACE (MIN/MI)", "SPM AVG", "HR AVG", "DESCRIPTION", "TOTAL ELEV GAIN (FT)"]
     columns_to_include_recap = ["TALLIED MILEAGE", "TALLIED TIME", "# OF RUNS", "MILEAGE AVG", "TIME AVG", "PACE AVG", "LONGEST RUN", "LONGEST RUN DATE"]
     # i = 0 # for testing purposes

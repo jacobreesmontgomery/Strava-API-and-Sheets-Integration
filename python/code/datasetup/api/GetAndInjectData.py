@@ -499,3 +499,5 @@ if __name__ == "__main__":
             print(f"Error occurred while writing rows to the recap file: {e}")
             
     # NOTE: Create another class / migrate the above logic to its own location, resultantly consolidating the main method
+
+# trigger main logic on a set schedule
