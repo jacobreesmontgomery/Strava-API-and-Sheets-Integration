@@ -12,6 +12,8 @@ import time
 from dotenv import load_dotenv
 import csv
 from jinja2 import Environment, FileSystemLoader
+import requests
+import random
 
 # Loading environment variables from the .env file
 load_dotenv()
@@ -110,6 +112,17 @@ def read_csv(file_path, fieldnames, athlete, columns_to_include=None):
     print(f"END of read_csv() w/ return(s)...\n\trunData: {runData}\n")
     return runData
 
+def get_inspirational_quote():
+    url = "https://type.fit/api/quotes"
+    response = requests.get(url)
+    if response.status_code == 200:
+        quotes = response.json()
+        # Filter inspirational quotes if needed, or pick a random one
+        quote = random.choice(quotes)
+        return f'"{quote["text"]}" - {quote.get("author")}'
+    else:
+        return "Quote not available at the moment."
+
 def job():
     """
         Drives the main logic, including sending the emails to each athlete.
@@ -128,7 +141,12 @@ def job():
         template = env.get_template('email_template.html')
         
         # Render the template with context
-        body = template.render(athlete_name=ATHLETE_NICKNAMES_PARALLEL_ARR[0], eachTrainingDay=eachTrainingDay, recapOfWeek=recapOfWeek)
+        body = template.render(
+            athlete_name=ATHLETE_NICKNAMES_PARALLEL_ARR[0], 
+            eachTrainingDay=eachTrainingDay, 
+            recapOfWeek=recapOfWeek,
+            quote=get_inspirational_quote()
+        )
 
         send_email(
             subject='Weekly Recap',
