@@ -129,12 +129,24 @@ def job():
     """
     columns_to_include_weekly =["FULL DATE", "TIME", "MOVING TIME", "DISTANCE (MI)", "PACE (MIN/MI)", "SPM AVG", "HR AVG", "DESCRIPTION", "TOTAL ELEV GAIN (FT)"]
     columns_to_include_recap = ["TALLIED MILEAGE", "TALLIED TIME", "# OF RUNS", "MILEAGE AVG", "TIME AVG", "PACE AVG", "LONGEST RUN", "LONGEST RUN DATE"]
-    # i = 0 # for testing purposes
+    i = 0
     for athlete in ATHLETE_NAMES_PARALLEL_ARR:
-        eachTrainingDay = read_csv(file_path=f"python\code\datasetup\data\weekly_stats\{athlete}_WEEK_STATS.csv", fieldnames=ATHLETE_DATA_FIELDNAMES, athlete="", columns_to_include=columns_to_include_weekly)
-        recapOfWeek = read_csv(file_path=r"python\code\datasetup\data\recap\ATHLETE_WEEK_RECAP.csv", fieldnames=RECAP_FIELDNAMES, athlete=athlete.upper(), columns_to_include=columns_to_include_recap)
-        
-        print(f"eachTrainingDay: \n\t{eachTrainingDay}\nrecapOfWeek: \n\t{recapOfWeek}")
+        print(f"Compiling email for {athlete}...")
+
+        # TRAINING DAYS
+        file_path=f"python\code\datasetup\data\weekly_stats\{athlete}_WEEK_STATS.csv"
+        if not os.path.exists(file_path):
+            continue # skip to next athlete if they don't have a stat sheet
+        eachTrainingDay = read_csv(file_path=file_path, fieldnames=ATHLETE_DATA_FIELDNAMES, athlete="", columns_to_include=columns_to_include_weekly)
+        print(f"eachTrainingDay: \n\t{eachTrainingDay}")
+
+        # WEEK RECAP
+        file_path=r"python\code\datasetup\data\recap\ATHLETE_WEEK_RECAP.csv"
+        if not os.path.exists(file_path):
+            print(f"File {file_path} does not exist. Cannot acquire recap data.")
+            break # Get outta here, this should exist
+        recapOfWeek = read_csv(file_path=file_path, fieldnames=RECAP_FIELDNAMES, athlete=athlete.upper(), columns_to_include=columns_to_include_recap)
+        print(f"recapOfWeek: \n\t{recapOfWeek}")
 
         # Load the template
         env = Environment(loader=FileSystemLoader(r'python\code\datasetup\templates'))
@@ -142,21 +154,22 @@ def job():
         
         # Render the template with context
         body = template.render(
-            athlete_name=ATHLETE_NICKNAMES_PARALLEL_ARR[0], 
+            athlete_name=ATHLETE_NICKNAMES_PARALLEL_ARR[i], 
             eachTrainingDay=eachTrainingDay, 
             recapOfWeek=recapOfWeek,
             quote=get_inspirational_quote()
         )
 
-        send_email(
-            subject='Weekly Recap',
-            body_html=body,
-            to=ATHLETE_EMAILS_PARALLEL_ARR[0]
-        )
-        # i += 1 # for testing purposes (to only email myself)
-        # break
-
-# job() # for testing purposes
+        try:
+            send_email(
+                subject='Weekly Recap',
+                body_html=body,
+                to=ATHLETE_EMAILS_PARALLEL_ARR[i]
+            )
+            print(f"Email was successfully sent to {athlete}!")
+        except:
+            print(f"Email failed to be sent to athlete {athlete}.") 
+        i += 1
 
 # Schedule the job to run every Sunday at 8 PM
 schedule.every().sunday.at("20:00").do(job)
