@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Weekly Recap</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        p {
+            font-size: 1rem;
+            margin: 0.5rem 0;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 1.25rem;
+        }
+        th, td {
+            border: 0.0625rem solid #ddd;
+            padding: 0.5rem;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        .container {
+            padding: 1.25rem;
+            background-color: #fff;
+            border: 0.0625rem solid #ccc;
+            border-radius: 0.3125rem;
+            max-width: 50rem;
+            margin: 0 auto;
+        }
+        .header {
+            margin-bottom: 1.25rem;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 1.5rem;
+            color: #4CAF50;
+        }
+        .fill-out-form-container {
+            margin: 1.25rem 0;
+            padding: 0.9375rem;
+            background-color: #f9f9f9;
+            border: 0.0625rem solid #ddd;
+            border-radius: 0.3125rem;
+            text-align: center;
+        }
+        .fill-out-form-container p {
+            margin-bottom: 0.5rem;
+        }
+        .fill-out-form-container a {
+            display: inline-block;
+            padding: 0.25rem 0.50rem;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 0.25rem;
+            transition: background-color 0.3s ease;
+        }
+        .fill-out-form-container a:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Weekly Recap</h1>
+            <p>Hey, {{ athlete_name }}!</p>
+        </div>
+        <br />
+        <p>Here is a recap of your training week:</p>
+        <table>
+            <thead>
+                <tr>
+                    {% for col in eachTrainingDay[0].keys() %}
+                    <th>{{ col }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in eachTrainingDay %}
+                <tr>
+                    {% for col in row.values() %}
+                    <td>{{ col }}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <br />
+        <p>Here is your week's final stats:</p>
+        <table>
+            <thead>
+                <tr>
+                    {% for col in recapOfWeek[0].keys() %}
+                    <th>{{ col }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in recapOfWeek %}
+                <tr>
+                    {% for col in row.values() %}
+                    <td>{{ col }}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <br />
+        <div class="fill-out-form-container">
+            <p>For those of you who are actively coached, please fill out this recap form <a href="https://docs.google.com/forms/d/e/1FAIpQLSfKU-1C74EF1C-YDiQbniEFbHtwnNqFYaMHd7Cza7gLbe3Z_Q/viewform?usp=sf_link" target="_blank">here</a>.</p>
+        </div>
+        <br />
+        <p><i><b>NOTE</b>: If you would like to be removed from this automated mailing list, please reply to this email requesting such!</i></p>
+        <br />
+        <p>Keep up the great work! 🚀</p>
+        <br />
+        <div>
+            <h1>Quote of the Week</h1>
+            <p>{{ quote }}</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -31,23 +31,11 @@ redirect_uri = os.getenv("REDIRECT_URI")
 athlete_refresh_tokens = json.loads(os.getenv("ATHLETE_REFRESH_TOKENS"))
 athlete_names_parallel_arr = json.loads(os.getenv("ATHLETE_NAMES_PARALLEL_ARR"))
 athlete_count = 0
-athlete_data_fieldnames = [
-    "ATHLETE", "ACTIVITY ID", "RUN", "MOVING TIME", 
-    "DISTANCE (MI)", "PACE (MIN/MI)", "FULL DATE", "TIME", "DAY",
-    "MONTH", "DATE", "YEAR", "SPM AVG",	"HR AVG",	
-    "WKT TYPE", "DESCRIPTION", "TOTAL ELEV GAIN (FT)",
-    "MANUAL", "MAX SPEED (FT/S)", "CALORIES", "ACHIEVEMENT COUNT",
-    "KUDOS COUNT", "COMMENT COUNT", "ATHLETE COUNT",
-    "FULL DATETIME"
-]
+ATHLETE_DATA_FIELDNAMES = json.loads(os.getenv("ATHLETE_DATA_FIELDNAMES"))
 athlete_data_file = f"python\code\datasetup\data\main_data\{ACTIVITIES_FILE_NAME}.csv"
 unique_column = "ACTIVITY ID"
 rows = list()
-recap_fieldnames = [
-    "ATHLETE", "TALLIED MILEAGE", "TALLIED TIME", 
-    "# OF RUNS", "MILEAGE AVG", "TIME AVG", 
-    "PACE AVG", "LONGEST RUN", "LONGEST RUN DATE"
-]
+RECAP_FIELDNAMES = json.loads(os.getenv("RECAP_FIELDNAMES"))
 recap_filename = r'python\code\datasetup\data\recap\ATHLETE_WEEK_RECAP.csv'
 
 # CLASSES
@@ -336,7 +324,7 @@ def write_athlete_data(new_athlete_runs):
     print(f"\nSTART of write_athlete_data() w/ arg(s)...\n\tnew_athlete_runs: {new_athlete_runs}")
     athlete_week_file = f"python\code\datasetup\data\weekly_stats\{athlete_name.upper()}_WEEK_STATS.csv"
     with open(athlete_week_file, 'a+', newline='') as athlete_stat_file:
-        writer = csv.DictWriter(athlete_stat_file, fieldnames=athlete_data_fieldnames, delimiter=',')
+        writer = csv.DictWriter(athlete_stat_file, fieldnames=ATHLETE_DATA_FIELDNAMES, delimiter=',')
         if not os.path.exists(athlete_week_file) or os.stat(athlete_week_file).st_size == 0:
             writer.writeheader()
         writer.writerows(new_athlete_runs) # Writing the new runs to the athlete's CSV file
@@ -351,11 +339,17 @@ def query_existing_recap_data(athlete_name):
     existing_recap_data = dict()
     with open(recap_filename, 'r+', newline='') as recap_file: 
         # Writing headers if they don't exist
-        writer = csv.DictWriter(recap_file, fieldnames=recap_fieldnames, delimiter=',')
+        writer = csv.DictWriter(recap_file, fieldnames=RECAP_FIELDNAMES, delimiter=',')
         if not os.path.exists(recap_filename) or os.stat(recap_filename).st_size == 0:
             writer.writeheader()
-        reader = csv.DictReader(recap_file, fieldnames=recap_fieldnames, delimiter=',')
-        next(reader) # Skipping header
+            recap_file.seek(0)  # Move the file pointer back to the start of the file
+        reader = csv.DictReader(recap_file, fieldnames=RECAP_FIELDNAMES, delimiter=',')
+        
+        try:
+            next(reader)  # Skipping header
+        except StopIteration:
+            return existing_recap_data  # Return if the file is empty
+        
         for recap_data_row in reader:
             # Only accounting for the given athlete's data
             if str(recap_data_row["ATHLETE"]).upper() == athlete_name.upper():
@@ -371,11 +365,7 @@ def read_csv(file_path):
     print(f"\nSTART of read_csv() w/ arg(s)...\n\tfile_path: {file_path}")
     rows = []
     with open(file_path, mode='r', newline='') as file:
-        reader = csv.DictReader(file, fieldnames=recap_fieldnames, delimiter=',')
-        # try:
-        #     next(reader) # Skipping the header
-        # except StopIteration:
-        #     return rows
+        reader = csv.DictReader(file, fieldnames=RECAP_FIELDNAMES, delimiter=',')
         rows = list(reader)
     print(f"END of read_csv() w/ return(s)...\n\trows: {rows}\n")
     return rows
@@ -407,7 +397,7 @@ def update_athlete_recap_data(existing_recap_data, athlete_name, new_athlete_run
         existing_recap_data["LONGEST RUN DATE"] = longest_run_date
     else:    
         print(f"Existing recap data was found for athlete {athlete_name}. Updating their data...")
-        for col in recap_fieldnames:
+        for col in RECAP_FIELDNAMES:
             print(f"{col}: {existing_recap_data[col]}")
         # Modifying the existing data
         key_to_find = "DISTANCE (MI)"
@@ -467,7 +457,7 @@ if __name__ == "__main__":
     
     # Append sorted rows to the main ATHLETE_DATA.csv file
     with open(athlete_data_file, 'a', newline='') as csv_file:
-        writer = csv.DictWriter(csv_file, fieldnames=athlete_data_fieldnames, delimiter=',')
+        writer = csv.DictWriter(csv_file, fieldnames=ATHLETE_DATA_FIELDNAMES, delimiter=',')
         if not os.path.exists(athlete_data_file) or os.stat(athlete_data_file).st_size == 0:
             writer.writeheader()
         writer.writerows(rows)
@@ -475,12 +465,11 @@ if __name__ == "__main__":
 
     # Update weekly stat and recap files
     recap_rows = list()
+    new_runs = False
     for athlete_name in athlete_names_parallel_arr:
         # Acquiring any new runs
         new_athlete_runs = query_new_runs(rows=rows, athlete_name=athlete_name)
-        # if len(new_athlete_runs) == 0:
-        #     continue # No new runs, skip to the next athlete
-        
+
         ### WEEKLY STATS
         # Writing the new athlete X's data to their weekly stats file
         if len(new_athlete_runs) > 0:
@@ -489,14 +478,18 @@ if __name__ == "__main__":
         ### RECAP STATS
         # Querying for existing recap data
         existing_recap_data = query_existing_recap_data(athlete_name=athlete_name)
-        
+        print(f"JACOB - Existing recap data for athlete {athlete_name}: \n{existing_recap_data}")
         # Updating the given athlete's recap data
-        recap_rows.append(update_athlete_recap_data(existing_recap_data=existing_recap_data, athlete_name=athlete_name, new_athlete_runs=new_athlete_runs))      
+        if len(new_athlete_runs) > 0:
+            recap_rows.append(update_athlete_recap_data(existing_recap_data=existing_recap_data, athlete_name=athlete_name, new_athlete_runs=new_athlete_runs))      
+        else:
+            if existing_recap_data:
+                recap_rows.append(existing_recap_data) # No change in data for this athlete, appending existing data.
     
     # Overwriting the recap data with data in recap_rows
     with open(recap_filename, 'w', newline='') as recap_file:
         # Writing headers if they don't exist
-        writer = csv.DictWriter(recap_file, fieldnames=recap_fieldnames, delimiter=',')
+        writer = csv.DictWriter(recap_file, fieldnames=RECAP_FIELDNAMES, delimiter=',')
         if not os.path.exists(recap_filename) or os.stat(recap_filename).st_size == 0:
             writer.writeheader()
         try:
@@ -506,3 +499,5 @@ if __name__ == "__main__":
             print(f"Error occurred while writing rows to the recap file: {e}")
             
     # NOTE: Create another class / migrate the above logic to its own location, resultantly consolidating the main method
+
+# trigger main logic on a set schedule
