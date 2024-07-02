@@ -346,11 +346,11 @@ def main():
             print(f"Error occurred while writing rows to the recap file: {e}")
 
 # testing
-main()
+# main()
 
 # Schedule the job to run every Sunday at 7:30 PM
-# schedule.every().sunday.at("19:30").do(main)
+schedule.every().sunday.at("19:30").do(main)
 
-# while True:
-#     schedule.run_pending()
-#     time.sleep(1)
+while True:
+    schedule.run_pending()
+    time.sleep(1)
