@@ -10,15 +10,15 @@ OVERVIEW: This file will be responsible for extracting data from my
 """
 
 # IMPORTS
-from stravalib.client import Client
-from stravalib.exc import RateLimitExceeded
 from datetime import datetime, timedelta
-from stravalib.client import Client
+from StravaAPI import StravaAPI, StravaAuthorization
 import csv
 import os
 from dotenv import load_dotenv
 import json
 import emoji
+import schedule
+import time
 
 # Loading environment variables from the .env file
 load_dotenv()
@@ -38,61 +38,6 @@ rows = list()
 RECAP_FIELDNAMES = json.loads(os.getenv("RECAP_FIELDNAMES"))
 recap_filename = r'python\code\datasetup\data\recap\ATHLETE_WEEK_RECAP.csv'
 
-# CLASSES
-class StravaAuthorization:
-    """
-        Responsible for authorization of a given athlete and acquiring their newest access token.
-    """
-    def __init__(self, client_id, client_secret, redirect_uri):
-        self.client_id = client_id
-        self.client_secret = client_secret
-        self.redirect_uri = redirect_uri
-        self.client = Client()
-
-    def get_authorization_url(self):
-        return self.client.authorization_url(client_id=self.client_id, redirect_uri=self.redirect_uri)
-    
-    def exchange_refresh_token(self, refresh_token):
-        token_response = self.client.refresh_access_token(client_id=self.client_id, client_secret=self.client_secret, refresh_token=refresh_token)
-        return token_response['access_token']
-
-class StravaAPI:
-    """
-        Responsible for making calls to the Strava API for activity data.
-    """
-    def __init__(self, access_token):
-        self.access_token = access_token
-        self.client = Client(access_token)
-
-    def get_activities_this_week(self, athlete_id):
-        try:
-            # Calculate the start and end of the current week in UTC
-            today = datetime.now()
-            start_of_week = (today - timedelta(days=today.weekday())).replace(hour=0, minute=0, second=0, microsecond=0)
-            end_of_week = (start_of_week + timedelta(days=6)).replace(hour=23, minute=59, second=59, microsecond=999999)
-            # Retrieve activities within the current week
-            activities = self.client.get_activities(after=start_of_week, before=end_of_week)
-            activity_ids_and_type = [(activity.id, activity.type) for activity in activities]
-            detailed_activities = list()
-            for activity_id, activity_type in activity_ids_and_type:
-                if activity_type == "Run": # Only including runs
-                    detailed_activities.append(self.client.get_activity(activity_id=activity_id))
-            return detailed_activities
-        except RateLimitExceeded:
-            print("Strava API rate limit exceeded. Please try again later.")
-            return None
-        except Exception as e:
-            print(f"Failed to retrieve this week's activities for athlete {athlete_id}.")
-            return None
-    
-    def get_activities(self, athlete_id):
-        try:
-            client = self.client
-            activities = client.get_activities()
-            return list(activities)
-        except Exception as e:
-            print(f"Failed to retrieve activities for athlete ID {athlete_id}: {e}")
-            return None
 
 # HELPER METHODS FOR MAIN METHOD
 def get_index_of_key(dictionary, key_to_find):
@@ -109,6 +54,7 @@ def get_index_of_key(dictionary, key_to_find):
     print(f"END of get_index_of_key() w/ return(s)...\n\tindex: -1\n")
     return -1  # Key not found in the dictionary
 
+
 def format_seconds(seconds):
     """
         Formats seconds to the format of HH:MM:SS.
@@ -121,6 +67,7 @@ def format_seconds(seconds):
     # Format as HH:MM:SS
     print(f"\nEND of format_seconds() w/ return(s)...\n\t{int(hours):02d}:{int(minutes):02d}:{int(seconds):02d}\n")
     return f"{int(hours):02d}:{int(minutes):02d}:{int(seconds):02d}"
+
 
 def calculate_pace(total_seconds, distance_miles):
     """
@@ -140,6 +87,7 @@ def calculate_pace(total_seconds, distance_miles):
     
     print(f"\nEND of calculate_pace() w/ return(s)...\n\t{minutes:02d}:{seconds:02d}\n")
     return f"{minutes:02d}:{seconds:02d}"
+
 
 def convert_activities_to_list_of_dicts(activities):
     """
@@ -181,6 +129,7 @@ def convert_activities_to_list_of_dicts(activities):
     print(f"\nEND of convert_activities_to_list_of_dicts() w/ return(s)...\n\tactivities_list: {activities_list}\n")
     return activities_list
 
+
 def load_existing_ids(file_path, column):
     """
         Loads the existing unique IDs from the given data file.
@@ -193,6 +142,7 @@ def load_existing_ids(file_path, column):
             existing_ids.add(int(activity[column]))
     print(f"\nEND of load_existing_ids() w/ return(s)...\n\texisting_ids: {existing_ids}\n")
     return existing_ids
+
 
 def format_to_hhmmss(time_str):
     """
@@ -215,12 +165,14 @@ def format_to_hhmmss(time_str):
     print(f"END of format_to_hhmmss() w/ return(s)...\n\tformatted_time: {formatted_time}\n")
     return formatted_time
 
+
 def time_str_to_seconds(time_str):
     """
 
     """
     hours, minutes, seconds = map(int, time_str.split(':'))
     return hours * 3600 + minutes * 60 + seconds
+
 
 def divide_time_by_number(time_str, divisor):
     """
@@ -229,6 +181,7 @@ def divide_time_by_number(time_str, divisor):
     total_seconds = time_str_to_seconds(time_str)
     divided_seconds = total_seconds / divisor
     return divided_seconds
+
 
 def seconds_to_time_str(total_seconds):
     """
@@ -239,6 +192,7 @@ def seconds_to_time_str(total_seconds):
     seconds = int(total_seconds % 60)
     return f"{hours:02}:{minutes:02}:{seconds:02}"
 
+
 def divide_time_str_by_number(time_str, divisor):
     """
 
@@ -246,6 +200,7 @@ def divide_time_str_by_number(time_str, divisor):
     total_seconds = time_str_to_seconds(time_str)
     divided_seconds = total_seconds / divisor
     return seconds_to_time_str(divided_seconds)
+
 
 def tally_time(run_times):
     """
@@ -260,6 +215,7 @@ def tally_time(run_times):
         total_duration = total_duration + timedelta(hours=int(time[:2]), minutes=int(time[3:5]), seconds=int(time[6:]))
     print(f"END of tally_time() w/ return(s)... \n\ttotal_duration: {total_duration}\n\tstr(total_duration): {str(total_duration)}\n")
     return total_duration, str(total_duration)
+
 
 def get_longest_run_no_existing_data(new_athlete_runs):
     """
@@ -283,6 +239,7 @@ def get_longest_run_no_existing_data(new_athlete_runs):
             longest_run_date = new_run["FULL DATE"]
     print(f"END of get_longest_run_no_existing_data()\n\tlongest_run: {longest_run}\n\tlongest_run_date: {longest_run_date}\n")
     return longest_run, longest_run_date
+
 
 def get_longest_run(new_athlete_runs, existing_recap_data):
     """
@@ -308,6 +265,7 @@ def get_longest_run(new_athlete_runs, existing_recap_data):
     print(f"END of get_longest_run()\n\tlongest_run: {longest_run}\n\tlongest_run_date: {longest_run_date}\n")
     return longest_run, longest_run_date
 
+
 def query_new_runs(rows, athlete_name):
     """
         Queries for new runs for the given athlete.
@@ -317,7 +275,8 @@ def query_new_runs(rows, athlete_name):
     print(f"END of query_new_runs() w/ return(s)...\n\tnew_athlete_runs: {new_athlete_runs}\n")
     return new_athlete_runs
 
-def write_athlete_data(new_athlete_runs):
+
+def write_athlete_data(new_athlete_runs, athlete_name):
     """
         Writes the incoming runs to the athlete's weekly stats file.
     """
@@ -330,6 +289,7 @@ def write_athlete_data(new_athlete_runs):
         writer.writerows(new_athlete_runs) # Writing the new runs to the athlete's CSV file
         print(f"Added {len(new_athlete_runs)} rows to CSV file {athlete_week_file}.")
     print(f"END of write_athlete_data()\n")
+
 
 def query_existing_recap_data(athlete_name):
     """
@@ -358,6 +318,7 @@ def query_existing_recap_data(athlete_name):
     print(f"END of query_existing_recap_data() w/ return(s)...\n\texisting_recap_data: {existing_recap_data}\n")
     return existing_recap_data
 
+
 def read_csv(file_path):
     """
         Read all rows from a CSV file.
@@ -369,6 +330,7 @@ def read_csv(file_path):
         rows = list(reader)
     print(f"END of read_csv() w/ return(s)...\n\trows: {rows}\n")
     return rows
+
 
 def update_athlete_recap_data(existing_recap_data, athlete_name, new_athlete_runs):
     """
@@ -419,8 +381,8 @@ def update_athlete_recap_data(existing_recap_data, athlete_name, new_athlete_run
     print(f"END of update_athlete_recap_data() w/ return(s)...\n\texisting_recap_data: {existing_recap_data}\n")    
     return existing_recap_data
 
-# DRIVER
-if __name__ == "__main__":
+
+def main():
     """
         Drives all of the main logic.
     """
@@ -435,6 +397,7 @@ if __name__ == "__main__":
     existing_ids = load_existing_ids(athlete_data_file, unique_column)
     unique_ids = set(existing_ids)
 
+    athlete_count = 0
     # Acquiring new activities to be appended to the relevant CSV files
     for athlete_id, strava_client in strava_clients.items():
         activities = convert_activities_to_list_of_dicts(strava_client.get_activities_this_week(athlete_id))
@@ -465,7 +428,6 @@ if __name__ == "__main__":
 
     # Update weekly stat and recap files
     recap_rows = list()
-    new_runs = False
     for athlete_name in athlete_names_parallel_arr:
         # Acquiring any new runs
         new_athlete_runs = query_new_runs(rows=rows, athlete_name=athlete_name)
@@ -473,7 +435,7 @@ if __name__ == "__main__":
         ### WEEKLY STATS
         # Writing the new athlete X's data to their weekly stats file
         if len(new_athlete_runs) > 0:
-            write_athlete_data(new_athlete_runs=new_athlete_runs)
+            write_athlete_data(new_athlete_runs=new_athlete_runs, athlete_name=athlete_name)
 
         ### RECAP STATS
         # Querying for existing recap data
@@ -497,7 +459,13 @@ if __name__ == "__main__":
             writer.writerows(recap_rows)
         except Exception as e:
             print(f"Error occurred while writing rows to the recap file: {e}")
-            
-    # NOTE: Create another class / migrate the above logic to its own location, resultantly consolidating the main method
 
-# trigger main logic on a set schedule
+# testing
+main()
+
+# Schedule the job to run every Sunday at 7:30 PM
+schedule.every().sunday.at("19:30").do(main)
+
+while True:
+    schedule.run_pending()
+    time.sleep(1)

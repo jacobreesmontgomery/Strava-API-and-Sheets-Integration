@@ -5,3 +5,4 @@ recap
 main_data
 credentials.json
 token.json
+python/code/datasetup/api/__pycache__/
