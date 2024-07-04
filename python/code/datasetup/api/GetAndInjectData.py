@@ -349,7 +349,7 @@ def main():
 # main()
 
 # Schedule the job to run every Sunday at 7:30 PM
-schedule.every().sunday.at("19:30").do(main)
+schedule.every().day.at("19:30").do(main)
 
 while True:
     schedule.run_pending()
