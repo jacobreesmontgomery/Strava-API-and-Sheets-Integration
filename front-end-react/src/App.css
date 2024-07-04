@@ -1,0 +1,26 @@
+/* General Styles */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f4f4f9;
+  color: #333;
+}
+
+.App {
+  text-align: center;
+}
+
+.content {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+h2 {
+  font-size: 2em;
+  margin-bottom: 20px;
+  color: #333;
+}

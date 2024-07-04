@@ -5,22 +5,22 @@ OVERVIEW: This file will drive the front-end webpage.
 """
 
 # IMPORTS
-from flask import Flask, render_template, send_file
+from flask import Flask, send_file, jsonify
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
-import csv 
+import csv
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 # Use creds to create a client to interact with the Google Drive API
 scope = ['https://www.googleapis.com/auth/drive']
 creds = ServiceAccountCredentials.from_json_keyfile_name("C:/Users/17178/Documents/Coding Stuff/client_secret.json", scope)
 client = gspread.authorize(creds)
-
-# Opening the Strava API sheet
 sheet = client.open("Goons Activities - Strava API")
 
-# HELPER METHODS
+### HELPER METHODS ###
 def get_header_stats(csvFile):
     """
         Return an array containing the columns from the first row
@@ -59,35 +59,24 @@ def get_row_data(csvFile):
     print(f"END of get_row_stats() w/ return(s)...\n\trowData: {rowData}")
     return rowData
 
-@app.route('/')
-def index():
-    return render_template('index.html')
-
-@app.route('/basic_stats')
+### ENDPOINTS ###
+@app.route('/api/basic-stats')
 def basic_stats():
     """
         Drives the rendering of the 'Basic Stats' page with data from "ATHLETE_WEEK_RECAP.csv."
     """
-    return render_template(
-        'basic_stats.html', 
-        headerStats=get_header_stats(r"python\code\datasetup\data\recap\ATHLETE_WEEK_RECAP.csv"), 
-        rowData=get_row_data(r"python\code\datasetup\data\recap\ATHLETE_WEEK_RECAP.csv")
-    )
+    headerStats=get_header_stats(r"python\code\datasetup\data\recap\ATHLETE_WEEK_RECAP.csv")
+    rowData=get_row_data(r"python\code\datasetup\data\recap\ATHLETE_WEEK_RECAP.csv")
+    return jsonify({ 'headerStats': headerStats, 'rowData': rowData }) 
 
-@app.route('/database')
+@app.route('/api/database')
 def database():
     """
         Drives the rendering of the 'Database' page with data from "ATHLETE_DATA.csv."
     """
-    # TODO: Fix this method. Looks like the fields are populating, they're just not populating to the database page.
-    # might be an issue with the renderer / script being used.
-
-    # Read in data from the ATHLETE_DATA.csv file and pass it through
-    return render_template(
-        'database.html', 
-        headerStats=get_header_stats(r"python\code\datasetup\data\main_data\ATHLETE_DATA.csv"), 
-        rowData=get_row_data(r"python\code\datasetup\data\main_data\ATHLETE_DATA.csv")
-    )
+    headerStats=get_header_stats(r"python\code\datasetup\data\main_data\ATHLETE_DATA.csv")
+    rowData=get_row_data(r"python\code\datasetup\data\main_data\ATHLETE_DATA.csv")
+    return jsonify({ 'headerStats': headerStats, 'rowData': rowData })
 
 @app.route('/files/<path:filename>')
 def serve_file(filename):
@@ -98,4 +87,4 @@ def serve_file(filename):
     return send_file(directory + '/' + filename)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=5000)
