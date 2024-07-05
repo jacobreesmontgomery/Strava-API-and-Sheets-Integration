@@ -2,21 +2,12 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import Table from '../Table/Table.tsx';
+import "../../App.css"
 
-const Container = styled.div`
-    max-width: 50rem;
-    margin: 0 auto;
-    padding: 1.25rem;
-    background-color: #ffffff;
-    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
-    border-radius: 0.5rem;
-`;
-
-const Title = styled.h2`
-    font-size: 150%;
-    margin-bottom: 1.25rem;
-    color: #333;
-`;
+// CAVEAT TO THIS: Must be updated any time an update is made to the .env file for these two variables
+const ATHLETE_DATA_FIELDNAMES = ["ATHLETE", "ACTIVITY ID", "RUN", "MOVING TIME", "DISTANCE (MI)", "PACE (MIN/MI)", "FULL DATE", "TIME", "DAY", "MONTH", "DATE", "YEAR", "SPM AVG", "HR AVG", "WKT TYPE", "DESCRIPTION", "TOTAL ELEV GAIN (FT)", "MANUAL", "MAX SPEED (FT/S)", "CALORIES", "ACHIEVEMENT COUNT", "KUDOS COUNT", "COMMENT COUNT", "ATHLETE COUNT", "FULL DATETIME"]
+const ATHLETE_DATA_FILTERED_FIELDNAMES = ["ATHLETE", "RUN", "MOVING TIME", "DISTANCE (MI)", "PACE (MIN/MI)", "SPM AVG", "HR AVG", "WKT TYPE", "DESCRIPTION", "TOTAL ELEV GAIN (FT)", "FULL DATETIME"]
+const INDICES_TO_FILTER = ATHLETE_DATA_FILTERED_FIELDNAMES.map(field => ATHLETE_DATA_FIELDNAMES.indexOf(field));
 
 function Database() {
     const [headerStats, setHeaderStats] = useState<string[]>([]);
@@ -27,14 +18,22 @@ function Database() {
     useEffect(() => {
         axios.get('http://127.0.0.1:5000/api/database')
         .then(response => {
-            setHeaderStats(response.data.headerStats);
-            setRowData(response.data.rowData);
+            setHeaderStats(filterHeaderStats(response.data.headerStats));
+            setRowData(filterRowData(response.data.rowData));
             setFilters(new Array(response.data.headerStats.length).fill(''));
         })
         .catch(error => {
             console.error("There was an error fetching the data!", error);
         });
     }, []);
+
+    const filterHeaderStats = (headerStats: string[]) => {
+        return headerStats.filter(header => ATHLETE_DATA_FILTERED_FIELDNAMES.includes(header));
+    }
+
+    const filterRowData = (rowData: string[][]) => {
+        return rowData.map(row => INDICES_TO_FILTER.map(index => row[index]));
+    }
 
     const handleSort = (key: string) => {
         let direction: 'ascending' | 'descending' = 'ascending';
@@ -51,8 +50,8 @@ function Database() {
     };
 
     return (
-        <Container>
-            <Title>Database</Title>
+        <div className='stats-container'>
+            <h2>Database</h2>
             <Table
                 headers={headerStats}
                 rowData={rowData}
@@ -61,7 +60,7 @@ function Database() {
                 filters={filters}
                 handleFilterChange={handleFilterChange}
             />
-        </Container>
+        </div>
     );
 }
 

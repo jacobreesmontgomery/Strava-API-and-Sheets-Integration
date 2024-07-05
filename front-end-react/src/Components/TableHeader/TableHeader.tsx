@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import ArrowIcon from '../ArrowIcon/ArrowIcon.tsx';
 
 const ThStyled = styled.th<{ $colCount: number }>`
-    background-color: #f4f4f9;
+    background-color: #333;
     color: #333;
     padding: 0.75rem;
     text-align: center;
@@ -16,6 +16,7 @@ const ThContent = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    color: white;
 `;
 
 const FilterInput = styled.input`
@@ -35,7 +36,7 @@ interface ThProps {
     onFilterChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const Th: React.FC<ThProps> = ({
+const TableHeader: React.FC<ThProps> = ({
     header,
     isSorted,
     isAscending,
@@ -58,4 +59,4 @@ const Th: React.FC<ThProps> = ({
     </ThStyled>
 );
 
-export default Th;
+export default TableHeader;

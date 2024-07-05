@@ -2,21 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import Table from '../Table/Table.tsx';
-
-const Container = styled.div`
-  max-width: 50rem;
-  margin: 0 auto;
-  padding: 1.25rem;
-  background-color: #ffffff;
-  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
-  border-radius: 0.5rem;
-`;
-
-const Title = styled.h2`
-  font-size: 150%;
-  margin-bottom: 1.25rem;
-  color: #333;
-`;
+import "../../App.css"
 
 const BasicStats = () => {
   const [headerStats, setHeaderStats] = useState<string[]>([]);
@@ -51,8 +37,8 @@ const BasicStats = () => {
   };
 
   return (
-    <Container>
-      <Title>Basic Stats</Title>
+    <div className='stats-container'>
+      <h2>Basic Stats</h2>
       <Table
         headers={headerStats}
         rowData={rowData}
@@ -61,7 +47,7 @@ const BasicStats = () => {
         filters={filters}
         handleFilterChange={handleFilterChange}
       />
-    </Container>
+    </div>
   );
 };
 

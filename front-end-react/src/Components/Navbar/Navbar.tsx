@@ -4,7 +4,7 @@ import styled from 'styled-components'
 const NavbarContainer = styled.div`
     background-color: #333;
     padding: 10px;
-    color: white;
+    color: #fc4c02;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -20,7 +20,7 @@ const NavbarLinks = styled.div`
 `;
 
 const NavbarLink = styled.a`
-    color: white;
+    color: #fc4c02;
     text-decoration: none;
     padding: 5px 10px;
     border-radius: 5px;
