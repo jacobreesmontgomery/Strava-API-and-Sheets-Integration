@@ -38,7 +38,7 @@ function Database() {
     const handleSort = (key: string) => {
         let direction: 'ascending' | 'descending' = 'ascending';
         if (sortConfig && sortConfig.key === key && sortConfig.direction === 'ascending') {
-        direction = 'descending';
+            direction = 'descending';
         }
         setSortConfig({ key, direction });
     };
@@ -64,4 +64,4 @@ function Database() {
     );
 }
 
-export default Database
+export default Database;
