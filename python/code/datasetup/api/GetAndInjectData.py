@@ -17,8 +17,6 @@ import os
 from dotenv import load_dotenv
 import json
 import emoji
-import schedule
-import time
 import sys
 
 package_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'utilities'))
@@ -345,12 +343,4 @@ def main():
         except Exception as e:
             print(f"Error occurred while writing rows to the recap file: {e}")
 
-# testing
-# main()
-
-# Schedule the job to run every Sunday at 7:30 PM
-schedule.every().day.at("19:30").do(main)
-
-while True:
-    schedule.run_pending()
-    time.sleep(1)
+main() # Runs every Sunday at 7:30 PM Eastern Standard Time
