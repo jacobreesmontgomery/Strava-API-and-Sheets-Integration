@@ -2,36 +2,37 @@ import React from 'react';
 import styled from 'styled-components';
 import Th from '../TableHeader/TableHeader.tsx';
 
-const TableStyled = styled.table`
+const TableStyled = styled.div`
     width: 100%;
-    border-collapse: collapse;
-    max-height: 18.75rem; /* Adjust max-height as needed */
+    display: flex;
+    flex-direction: column;
+    max-height: 32rem;
 `;
 
-// TODO: Fix issue with table dimensions. When block display is on, I can
-// use the scroller. But with it, the columns get out of line. Without it, 
-// they are in line but then I have no scroller.
-const TableHeaders = styled.thead`
+const TableHeaders = styled.div`
+    display: flex;
     background-color: #f4f4f9;
-    /* display: block; */
 `;
 
-const TableData = styled.td`
-    padding: 0.75rem;
-    text-align: center;
-    border-bottom: 0.0625rem solid #ddd;
-`;
-
-const TableBody = styled.tbody`
-    max-height: 21.875rem; /* Adjust height as needed */
+const TableBody = styled.div`
+    display: flex;
+    flex-direction: column;
     overflow-y: auto; /* Add vertical scrollbar */
-    /* display: block; Ensure proper layout */
 `;
 
-const TableRow = styled.tr`
+const TableRow = styled.div`
+    display: flex;
     &:nth-child(even) {
         background-color: #f4f4f9;
     }
+`;
+
+const TableData = styled.div`
+    padding: 0.75rem;
+    flex: 1;
+    text-align: left;
+    border-bottom: 0.0625rem solid #ddd;
+    box-sizing: border-box;
 `;
 
 interface TableProps {
@@ -76,20 +77,18 @@ const Table: React.FC<TableProps> = ({
     return (
         <TableStyled>
             <TableHeaders>
-                <tr>
-                    {headers.map((header, index) => (
-                        <Th
-                            key={index}
-                            header={header}
-                            isSorted={sortConfig?.key === header}
-                            isAscending={sortConfig?.direction === 'ascending'}
-                            onClick={() => handleSort(header)}
-                            colCount={headers.length}
-                            filterValue={filters[index]}
-                            onFilterChange={(e) => handleFilterChange(index, e.target.value)}
-                        />
-                    ))}
-                    </tr>
+                {headers.map((header, index) => (
+                    <Th
+                        key={index}
+                        header={header}
+                        isSorted={sortConfig?.key === header}
+                        isAscending={sortConfig?.direction === 'ascending'}
+                        onClick={() => handleSort(header)}
+                        colCount={headers.length}
+                        filterValue={filters[index]}
+                        onFilterChange={(e) => handleFilterChange(index, e.target.value)}
+                    />
+                ))}
             </TableHeaders>
             <TableBody>
                 {filteredData.map((row, rowIndex) => (

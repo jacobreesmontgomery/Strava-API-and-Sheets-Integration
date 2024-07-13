@@ -2,21 +2,24 @@ import React from 'react';
 import styled from 'styled-components';
 import ArrowIcon from '../ArrowIcon/ArrowIcon.tsx';
 
-const ThStyled = styled.th<{ $colCount: number }>`
+const ThStyled = styled.div<{ $colCount: number }>`
     background-color: #333;
-    color: #333;
+    color: #fff;
     padding: 0.75rem;
     text-align: center;
     cursor: pointer;
-    width: ${props => `calc(100% / ${props.$colCount})`};
-    position: relative;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
 `;
 
 const ThContent = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
 `;
 
 const FilterInput = styled.input`
