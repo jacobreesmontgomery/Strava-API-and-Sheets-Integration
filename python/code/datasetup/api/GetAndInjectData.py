@@ -10,15 +10,33 @@ OVERVIEW: This file will be responsible for extracting data from my
 """
 
 # IMPORTS
-from stravalib.client import Client
-from stravalib.exc import RateLimitExceeded
-from datetime import datetime, timedelta
-from stravalib.client import Client
+from datetime import datetime
+from StravaAPI import StravaAPI, StravaAuthorization
 import csv
 import os
 from dotenv import load_dotenv
 import json
 import emoji
+import sys
+
+package_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'utilities'))
+
+# Add the directory to sys.path
+sys.path.insert(0, package_path)
+
+# Now you can import the methods from the package
+from utilities import (
+    get_index_of_key,
+    format_seconds,
+    calculate_pace,
+    format_to_hhmmss,
+    time_str_to_seconds,
+    divide_time_by_number,
+    seconds_to_time_str,
+    divide_time_str_by_number,
+    tally_time,
+    read_csv
+)
 
 # Loading environment variables from the .env file
 load_dotenv()
@@ -38,109 +56,8 @@ rows = list()
 RECAP_FIELDNAMES = json.loads(os.getenv("RECAP_FIELDNAMES"))
 recap_filename = r'python\code\datasetup\data\recap\ATHLETE_WEEK_RECAP.csv'
 
-# CLASSES
-class StravaAuthorization:
-    """
-        Responsible for authorization of a given athlete and acquiring their newest access token.
-    """
-    def __init__(self, client_id, client_secret, redirect_uri):
-        self.client_id = client_id
-        self.client_secret = client_secret
-        self.redirect_uri = redirect_uri
-        self.client = Client()
-
-    def get_authorization_url(self):
-        return self.client.authorization_url(client_id=self.client_id, redirect_uri=self.redirect_uri)
-    
-    def exchange_refresh_token(self, refresh_token):
-        token_response = self.client.refresh_access_token(client_id=self.client_id, client_secret=self.client_secret, refresh_token=refresh_token)
-        return token_response['access_token']
-
-class StravaAPI:
-    """
-        Responsible for making calls to the Strava API for activity data.
-    """
-    def __init__(self, access_token):
-        self.access_token = access_token
-        self.client = Client(access_token)
-
-    def get_activities_this_week(self, athlete_id):
-        try:
-            # Calculate the start and end of the current week in UTC
-            today = datetime.now()
-            start_of_week = (today - timedelta(days=today.weekday())).replace(hour=0, minute=0, second=0, microsecond=0)
-            end_of_week = (start_of_week + timedelta(days=6)).replace(hour=23, minute=59, second=59, microsecond=999999)
-            # Retrieve activities within the current week
-            activities = self.client.get_activities(after=start_of_week, before=end_of_week)
-            activity_ids_and_type = [(activity.id, activity.type) for activity in activities]
-            detailed_activities = list()
-            for activity_id, activity_type in activity_ids_and_type:
-                if activity_type == "Run": # Only including runs
-                    detailed_activities.append(self.client.get_activity(activity_id=activity_id))
-            return detailed_activities
-        except RateLimitExceeded:
-            print("Strava API rate limit exceeded. Please try again later.")
-            return None
-        except Exception as e:
-            print(f"Failed to retrieve this week's activities for athlete {athlete_id}.")
-            return None
-    
-    def get_activities(self, athlete_id):
-        try:
-            client = self.client
-            activities = client.get_activities()
-            return list(activities)
-        except Exception as e:
-            print(f"Failed to retrieve activities for athlete ID {athlete_id}: {e}")
-            return None
 
 # HELPER METHODS FOR MAIN METHOD
-def get_index_of_key(dictionary, key_to_find):
-    """
-        TODO: Add description.
-    """
-    print(f"START of get_index_of_key() w/ arg(s)...\n\tdictionary: {dictionary}\n\tkey_to_find: {key_to_find}")
-    index = 0
-    for key in dictionary:
-        if int(key) == int(key_to_find):
-            print(f"END of get_index_of_key() w/ return(s)...\n\tindex: {index}\n")
-            return index
-        index += 1
-    print(f"END of get_index_of_key() w/ return(s)...\n\tindex: -1\n")
-    return -1  # Key not found in the dictionary
-
-def format_seconds(seconds):
-    """
-        Formats seconds to the format of HH:MM:SS.
-    """
-    print(f"\nSTART of format_seconds() w/ arg(s)...\n\tseconds: {seconds}")
-    # Calculate hours, minutes, and remaining seconds
-    hours, remainder = divmod(seconds.total_seconds(), 3600)
-    minutes, seconds = divmod(remainder, 60)
-    
-    # Format as HH:MM:SS
-    print(f"\nEND of format_seconds() w/ return(s)...\n\t{int(hours):02d}:{int(minutes):02d}:{int(seconds):02d}\n")
-    return f"{int(hours):02d}:{int(minutes):02d}:{int(seconds):02d}"
-
-def calculate_pace(total_seconds, distance_miles):
-    """
-        Calculates pace (MM:SS) using the total seconds and
-        distance of the run (mi). 
-    """
-    print(f"\nSTART of calculate_pace() w/ arg(s)...\n\ttotal_seconds: {total_seconds}\n\tdistance_miles: {distance_miles}")
-    # Convert total seconds to minutes
-    total_minutes = total_seconds / 60
-    
-    # Calculate pace in minutes per mile
-    pace_minutes_per_mile = total_minutes / distance_miles
-    
-    # Convert pace to MM:SS format
-    pace_seconds = int(pace_minutes_per_mile * 60)
-    minutes, seconds = divmod(pace_seconds, 60)
-    
-    print(f"\nEND of calculate_pace() w/ return(s)...\n\t{minutes:02d}:{seconds:02d}\n")
-    return f"{minutes:02d}:{seconds:02d}"
-
 def convert_activities_to_list_of_dicts(activities):
     """
         Converts the incoming activities to a list with 
@@ -181,6 +98,7 @@ def convert_activities_to_list_of_dicts(activities):
     print(f"\nEND of convert_activities_to_list_of_dicts() w/ return(s)...\n\tactivities_list: {activities_list}\n")
     return activities_list
 
+
 def load_existing_ids(file_path, column):
     """
         Loads the existing unique IDs from the given data file.
@@ -194,72 +112,6 @@ def load_existing_ids(file_path, column):
     print(f"\nEND of load_existing_ids() w/ return(s)...\n\texisting_ids: {existing_ids}\n")
     return existing_ids
 
-def format_to_hhmmss(time_str):
-    """
-        Format a string to HH:MM:SS.
-    """
-    print(f"\nSTART of format_to_hhmmss() w/ arg(s)...\n\ttime_str: {time_str}")
-    # Split the time string by colon
-    parts = time_str.split(':')
-    
-    if len(parts) != 3:
-        raise ValueError(f"Incorrect time format: {time_str}")
-    
-    # Pad each part with leading zeros to ensure two digits
-    hours = parts[0].zfill(2)
-    minutes = parts[1].zfill(2)
-    seconds = parts[2].zfill(2)
-    
-    # Join the parts back together with colons
-    formatted_time = f"{hours}:{minutes}:{seconds}"
-    print(f"END of format_to_hhmmss() w/ return(s)...\n\tformatted_time: {formatted_time}\n")
-    return formatted_time
-
-def time_str_to_seconds(time_str):
-    """
-
-    """
-    hours, minutes, seconds = map(int, time_str.split(':'))
-    return hours * 3600 + minutes * 60 + seconds
-
-def divide_time_by_number(time_str, divisor):
-    """
-
-    """
-    total_seconds = time_str_to_seconds(time_str)
-    divided_seconds = total_seconds / divisor
-    return divided_seconds
-
-def seconds_to_time_str(total_seconds):
-    """
-
-    """
-    hours = int(total_seconds / 3600)
-    minutes = int((total_seconds % 3600) / 60)
-    seconds = int(total_seconds % 60)
-    return f"{hours:02}:{minutes:02}:{seconds:02}"
-
-def divide_time_str_by_number(time_str, divisor):
-    """
-
-    """
-    total_seconds = time_str_to_seconds(time_str)
-    divided_seconds = total_seconds / divisor
-    return seconds_to_time_str(divided_seconds)
-
-def tally_time(run_times):
-    """
-        Tallies up all of the incoming run's times.
-    """   
-    print(f"\nSTART of tally_time() w/ argument(s): \n\trun_times: {run_times}") 
-    total_duration = timedelta(hours=0, minutes=0, seconds=0)
-    for time in run_times:
-        time = format_to_hhmmss(time_str=time)
-        if len(time) != 8 or time[2] != ':' or time[5] != ':':
-            raise ValueError(f"Incorrect time format: {time}")
-        total_duration = total_duration + timedelta(hours=int(time[:2]), minutes=int(time[3:5]), seconds=int(time[6:]))
-    print(f"END of tally_time() w/ return(s)... \n\ttotal_duration: {total_duration}\n\tstr(total_duration): {str(total_duration)}\n")
-    return total_duration, str(total_duration)
 
 def get_longest_run_no_existing_data(new_athlete_runs):
     """
@@ -283,6 +135,7 @@ def get_longest_run_no_existing_data(new_athlete_runs):
             longest_run_date = new_run["FULL DATE"]
     print(f"END of get_longest_run_no_existing_data()\n\tlongest_run: {longest_run}\n\tlongest_run_date: {longest_run_date}\n")
     return longest_run, longest_run_date
+
 
 def get_longest_run(new_athlete_runs, existing_recap_data):
     """
@@ -308,6 +161,7 @@ def get_longest_run(new_athlete_runs, existing_recap_data):
     print(f"END of get_longest_run()\n\tlongest_run: {longest_run}\n\tlongest_run_date: {longest_run_date}\n")
     return longest_run, longest_run_date
 
+
 def query_new_runs(rows, athlete_name):
     """
         Queries for new runs for the given athlete.
@@ -317,7 +171,8 @@ def query_new_runs(rows, athlete_name):
     print(f"END of query_new_runs() w/ return(s)...\n\tnew_athlete_runs: {new_athlete_runs}\n")
     return new_athlete_runs
 
-def write_athlete_data(new_athlete_runs):
+
+def write_athlete_data(new_athlete_runs, athlete_name):
     """
         Writes the incoming runs to the athlete's weekly stats file.
     """
@@ -330,6 +185,7 @@ def write_athlete_data(new_athlete_runs):
         writer.writerows(new_athlete_runs) # Writing the new runs to the athlete's CSV file
         print(f"Added {len(new_athlete_runs)} rows to CSV file {athlete_week_file}.")
     print(f"END of write_athlete_data()\n")
+
 
 def query_existing_recap_data(athlete_name):
     """
@@ -358,17 +214,6 @@ def query_existing_recap_data(athlete_name):
     print(f"END of query_existing_recap_data() w/ return(s)...\n\texisting_recap_data: {existing_recap_data}\n")
     return existing_recap_data
 
-def read_csv(file_path):
-    """
-        Read all rows from a CSV file.
-    """
-    print(f"\nSTART of read_csv() w/ arg(s)...\n\tfile_path: {file_path}")
-    rows = []
-    with open(file_path, mode='r', newline='') as file:
-        reader = csv.DictReader(file, fieldnames=RECAP_FIELDNAMES, delimiter=',')
-        rows = list(reader)
-    print(f"END of read_csv() w/ return(s)...\n\trows: {rows}\n")
-    return rows
 
 def update_athlete_recap_data(existing_recap_data, athlete_name, new_athlete_runs):
     """
@@ -419,8 +264,8 @@ def update_athlete_recap_data(existing_recap_data, athlete_name, new_athlete_run
     print(f"END of update_athlete_recap_data() w/ return(s)...\n\texisting_recap_data: {existing_recap_data}\n")    
     return existing_recap_data
 
-# DRIVER
-if __name__ == "__main__":
+
+def main():
     """
         Drives all of the main logic.
     """
@@ -435,6 +280,7 @@ if __name__ == "__main__":
     existing_ids = load_existing_ids(athlete_data_file, unique_column)
     unique_ids = set(existing_ids)
 
+    athlete_count = 0
     # Acquiring new activities to be appended to the relevant CSV files
     for athlete_id, strava_client in strava_clients.items():
         activities = convert_activities_to_list_of_dicts(strava_client.get_activities_this_week(athlete_id))
@@ -465,7 +311,6 @@ if __name__ == "__main__":
 
     # Update weekly stat and recap files
     recap_rows = list()
-    new_runs = False
     for athlete_name in athlete_names_parallel_arr:
         # Acquiring any new runs
         new_athlete_runs = query_new_runs(rows=rows, athlete_name=athlete_name)
@@ -473,7 +318,7 @@ if __name__ == "__main__":
         ### WEEKLY STATS
         # Writing the new athlete X's data to their weekly stats file
         if len(new_athlete_runs) > 0:
-            write_athlete_data(new_athlete_runs=new_athlete_runs)
+            write_athlete_data(new_athlete_runs=new_athlete_runs, athlete_name=athlete_name)
 
         ### RECAP STATS
         # Querying for existing recap data
@@ -497,7 +342,5 @@ if __name__ == "__main__":
             writer.writerows(recap_rows)
         except Exception as e:
             print(f"Error occurred while writing rows to the recap file: {e}")
-            
-    # NOTE: Create another class / migrate the above logic to its own location, resultantly consolidating the main method
 
-# trigger main logic on a set schedule
+main() # Runs every Sunday at 7:30 PM Eastern Standard Time

@@ -7,8 +7,6 @@ from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
-import schedule
-import time
 from dotenv import load_dotenv
 import csv
 from jinja2 import Environment, FileSystemLoader
@@ -171,9 +169,4 @@ def job():
             print(f"Email failed to be sent to athlete {athlete}.") 
         i += 1
 
-# Schedule the job to run every Sunday at 8 PM
-schedule.every().sunday.at("20:00").do(job)
-
-while True:
-    schedule.run_pending()
-    time.sleep(1)
+job() # Runs every Sunday at 8 PM Eastern Time

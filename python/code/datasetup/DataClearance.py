@@ -1,5 +1,3 @@
-import schedule
-import time
 import os
 from dotenv import load_dotenv
 import json
@@ -25,9 +23,4 @@ def clearRecapData():
     clear_csv(csv_file_path)
     print(f"Cleared CSV file at {csv_file_path}.")
 
-# Clearance will happen every Monday at 12 AM
-schedule.every().monday.at("00:00").do(clearRecapData)
-
-while True:
-    schedule.run_pending()
-    time.sleep(1)
+clearRecapData()  # Clears recap data every Monday at 12 AM
