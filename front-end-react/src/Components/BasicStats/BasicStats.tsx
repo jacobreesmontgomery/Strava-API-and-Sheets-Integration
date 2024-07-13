@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import styled from 'styled-components';
 import Table from '../Table/Table.tsx';
-import "../../App.css"
 
 const BasicStats = () => {
   const [headerStats, setHeaderStats] = useState<string[]>([]);
