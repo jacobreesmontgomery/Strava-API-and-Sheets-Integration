@@ -1,5 +1,19 @@
 {
   "dependencies": {
+    "axios": "^1.7.2",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
     "flask": "^0.2.10"
-  }
+  },
+  "name": "strava-api-and-sheets-integration",
+  "version": "1.0.0",
+  "description": "This is a front-end web-based Python application which will pull data from the GOONS_ACTIVITIES.csv file--updated daily by this app's DataSetup.py file--and do various things with that data such as data visualization, data analysis, etc.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

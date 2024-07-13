@@ -74,18 +74,6 @@ async def database():
     rowData = get_row_data(r"python\code\datasetup\data\main_data\ATHLETE_DATA.csv")
     return {"headerStats": headerStats, "rowData": rowData}
 
-@app.get("/files/{filename:path}")
-async def serve_file(filename: str):
-    """
-        Allows local files to be referenced via the FastAPI endpoint.
-    """
-    directory = 'C:/Users/17178/Desktop/GITHUB_PROJECTS/Strava-API-and-Sheets-Integration/python/code/'
-    file_path = f"{directory}/{filename}"
-    try:
-        return FileResponse(file_path)
-    except Exception as e:
-        raise HTTPException(status_code=404, detail=str(e))
-
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="127.0.0.1", port=5000)
+    uvicorn.run(app, host="localhost", port=5000)

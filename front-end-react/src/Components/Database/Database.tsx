@@ -16,7 +16,7 @@ function Database() {
     const [filters, setFilters] = useState<string[]>([]);
 
     useEffect(() => {
-        axios.get('http://127.0.0.1:5000/api/database')
+        axios.get('http://localhost:5001/api/database')
         .then(response => {
             setHeaderStats(filterHeaderStats(response.data.headerStats));
             setRowData(filterRowData(response.data.rowData));
