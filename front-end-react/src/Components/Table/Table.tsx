@@ -31,8 +31,10 @@ const TableData = styled.div`
     padding: 0.75rem;
     flex: 1;
     text-align: left;
-    border-bottom: 0.0625rem solid #ddd;
+    border-bottom: 1px solid #ddd; /* Bottom border for cells */
+    border-right: 1px solid #ddd; /* Right border for cells */
     box-sizing: border-box;
+    overflow: hidden; /* Hide overflow */
 `;
 
 interface TableProps {
