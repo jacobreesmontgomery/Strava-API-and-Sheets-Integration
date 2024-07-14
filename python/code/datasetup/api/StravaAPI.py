@@ -19,6 +19,10 @@ class StravaAuthorization:
     def exchange_refresh_token(self, refresh_token):
         token_response = self.client.refresh_access_token(client_id=self.client_id, client_secret=self.client_secret, refresh_token=refresh_token)
         return token_response['access_token']
+    
+    def exchange_authorization_code(self, code):
+        token_response = self.client.exchange_code_for_token(client_id=self.client_id, client_secret=self.client_secret, code=code)
+        return token_response
 
 class StravaAPI:
     """
