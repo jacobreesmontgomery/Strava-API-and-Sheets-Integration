@@ -30,12 +30,16 @@ creds = ServiceAccountCredentials.from_json_keyfile_name("C:/Users/17178/Documen
 client = gspread.authorize(creds)
 sheet = client.open("Goons Activities - Strava API")
 
+ATHLETE_WEEK_RECAP_CSV = "C:/Users/17178/Desktop/GITHUB_PROJECTS/Strava-API-and-Sheets-Integration/python/code/datasetup/data/recap/ATHLETE_WEEK_RECAP.csv"
+ATHLETE_DATA_CSV = "C:/Users/17178/Desktop/GITHUB_PROJECTS/Strava-API-and-Sheets-Integration/python/code/datasetup/data/main_data/ATHLETE_DATA.csv"
+
 ### HELPER METHODS ###
 def get_header_stats(csvFile: str) -> List[str]:
     """
         Return an array containing the columns from the first row
         of the csvFile file.
     """
+
     headerStats = []
     with open(csvFile) as csvfile:
         reader = csv.reader(csvfile, delimiter=',')
@@ -61,8 +65,8 @@ async def basic_stats():
     """
         Drives the rendering of the 'Basic Stats' page with data from "ATHLETE_WEEK_RECAP.csv."
     """
-    headerStats = get_header_stats(r"python\code\datasetup\data\recap\ATHLETE_WEEK_RECAP.csv")
-    rowData = get_row_data(r"python\code\datasetup\data\recap\ATHLETE_WEEK_RECAP.csv")
+    headerStats = get_header_stats(ATHLETE_WEEK_RECAP_CSV)
+    rowData = get_row_data(ATHLETE_WEEK_RECAP_CSV)
     return {"headerStats": headerStats, "rowData": rowData}
 
 @app.get("/api/database")
@@ -70,8 +74,8 @@ async def database():
     """
         Drives the rendering of the 'Database' page with data from "ATHLETE_DATA.csv."
     """
-    headerStats = get_header_stats(r"python\code\datasetup\data\main_data\ATHLETE_DATA.csv")
-    rowData = get_row_data(r"python\code\datasetup\data\main_data\ATHLETE_DATA.csv")
+    headerStats = get_header_stats(ATHLETE_DATA_CSV)
+    rowData = get_row_data(ATHLETE_DATA_CSV)
     return {"headerStats": headerStats, "rowData": rowData}
 
 if __name__ == "__main__":
