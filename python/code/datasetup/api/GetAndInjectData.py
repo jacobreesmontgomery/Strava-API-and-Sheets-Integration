@@ -20,22 +20,14 @@ import emoji
 import sys
 
 package_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'utilities'))
-
-# Add the directory to sys.path
 sys.path.insert(0, package_path)
 
-# Now you can import the methods from the package
 from utilities import (
     get_index_of_key,
     format_seconds,
     calculate_pace,
-    format_to_hhmmss,
-    time_str_to_seconds,
-    divide_time_by_number,
-    seconds_to_time_str,
     divide_time_str_by_number,
-    tally_time,
-    read_csv
+    tally_time
 )
 
 # Loading environment variables from the .env file
