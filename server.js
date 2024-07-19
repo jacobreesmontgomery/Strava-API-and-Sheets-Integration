@@ -41,10 +41,13 @@ app.get('/api/database', async (req, res) => {
 
 // TODO: Fix this, not working
 app.get('/api/strava_auth', async (req, res) => {
+    console.log('Redirecting to Strava OAuth');
     try {
         const response = await axios.get(`${backendUrl}/api/strava_auth`);
+        console.log(`Response: ${response.data}`);
         res.json(response.data);
     } catch (error) {
+        console.log(`Error: ${error.message}`);
         res.status(error.response? error.response.status : 500).json({
             message: error.message,
         });

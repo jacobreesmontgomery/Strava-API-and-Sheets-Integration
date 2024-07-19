@@ -47,9 +47,52 @@ unique_column = "ACTIVITY ID"
 rows = list()
 RECAP_FIELDNAMES = json.loads(os.getenv("RECAP_FIELDNAMES"))
 recap_filename = r'python\code\datasetup\data\recap\ATHLETE_WEEK_RECAP.csv'
-
+OPTIONAL_FIELDS = os.getenv("OPTIONAL_FIELDS")
 
 # HELPER METHODS FOR MAIN METHOD
+def parse_description(description = ""):
+    """
+        The user can optionally include RPE, rating, and average power in their activity description.
+        If included, we'll parse these fields out and include them in the returned dictionary.
+
+        Example description: "RPE:3|RATING:8|POWER:135. Good run! No issues."
+
+        Args:
+            description (str): The activity description string.
+        
+        Returns:
+            The parsed RPE, rating, and average power, if present in the description.
+    """
+    print(f"\nSTART of parse_description() w/ arg(s)...\n\tdescription: {description}")
+    rpe = rating = avgPower = "N/A" # Default to "N/A" if these aren't found in the description
+    fieldsArr = description.split("|")
+    for i in range(len(fieldsArr)):
+        fieldArr = fieldsArr[i].split(":")
+        # Process the field name
+        fieldArr[0] = fieldArr[0].strip().upper()
+        if len(fieldArr[0]) == 0 or not fieldArr[0].isalpha() or fieldArr[0] not in OPTIONAL_FIELDS:
+            print(f"Error: Field [{fieldArr[0]}] is invalid.")
+            continue
+        # Process the value
+        fieldArr[1] = fieldArr[1].strip()
+        if len(fieldArr[1]) > 1:
+            print(f"Error: Field [{fieldArr[0]}] value [{fieldArr[1]}] is too long.")
+            continue
+        try:
+            fieldArr[1] = int(fieldArr[1])
+        except ValueError:
+            print(f"Error: Could not convert value [{fieldArr[1]}] to an integer.")
+            continue
+        # Assign the value to the appropriate field
+        if (fieldArr[0] == "RPE"):
+            rpe = fieldArr[1] | "N/A"
+        elif (fieldArr[0] == "RATING"):
+            rating = fieldArr[1] | "N/A"
+        elif (fieldArr[0] == "POWER"):
+            avgPower = fieldArr[1] | "N/A"
+    print(f"END of parse_description() w/ return(s)... \n\trpe: {rpe}, rating: {rating}, avgPower: {avgPower}\n")
+    return rpe, rating, avgPower
+
 def convert_activities_to_list_of_dicts(activities):
     """
         Converts the incoming activities to a list with 
@@ -58,6 +101,7 @@ def convert_activities_to_list_of_dicts(activities):
     print(f"\nSTART of convert_activities_to_list_of_dicts() w/ arg(s)...\n\tactivities: {activities}")
     activities_list = list()
     for activity in activities:
+        rpe, rating, avgPower = parse_description(activity.description)
         activity_dict = {
             "ATHLETE": athlete_names_parallel_arr[get_index_of_key(athlete_refresh_tokens, activity.athlete.id)].upper(),
             "ACTIVITY ID": activity.id,
@@ -83,7 +127,10 @@ def convert_activities_to_list_of_dicts(activities):
             "KUDOS COUNT": activity.kudos_count,
             "COMMENT COUNT": activity.comment_count,
             "ATHLETE COUNT": activity.athlete_count,
-            "FULL DATETIME": activity.start_date_local.strftime("%Y-%m-%d %H:%M:%S")
+            "FULL DATETIME": activity.start_date_local.strftime("%Y-%m-%d %H:%M:%S"),
+            "RPE": rpe,
+            "RATING": rating,
+            "AVG POWER": avgPower
             # Add more fields as needed
         }
         activities_list.append(activity_dict)

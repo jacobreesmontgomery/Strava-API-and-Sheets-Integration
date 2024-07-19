@@ -148,13 +148,16 @@ async def callback(code: str):
         # TODO: Might need to update this callback URL
         auth = StravaAuthorization(CLIENT_ID, CLIENT_SECRET, f"{REDIRECT_URI}")
         token_response = auth.exchange_authorization_code(code)
+        logging.info(f"Got authorization code [{code}].")
 
         refresh_token = token_response['refresh_token']
         athlete_id = token_response['athlete']['id']
         athlete_name = token_response['athlete']['username']
+        logging.info(f"Received refresh token [{refresh_token}], athlete ID [{athlete_id}], and name [{athlete_name}].")
 
         ATHLETE_REFRESH_TOKENS = os.getenv("ATHLETE_REFRESH_TOKENS", "{}")
         ATHLETE_REFRESH_TOKENS = eval(ATHLETE_REFRESH_TOKENS)
+        logging.info(f"ATHLETE_REFRESH_TOKENS updated: {ATHLETE_REFRESH_TOKENS}.")
 
         if athlete_id and refresh_token:
             ATHLETE_REFRESH_TOKENS[athlete_id] = refresh_token
@@ -162,13 +165,16 @@ async def callback(code: str):
 
         ATHLETE_NAMES_PARALLEL_ARR = os.getenv("ATHLETE_NAMES_PARALLEL_ARR", "[]")
         ATHLETE_NAMES_PARALLEL_ARR = eval(ATHLETE_NAMES_PARALLEL_ARR)
+        logging.info(f"Received athlete names: {ATHLETE_NAMES_PARALLEL_ARR}")
 
         if athlete_name:
             ATHLETE_NAMES_PARALLEL_ARR.append(athlete_name)
             os.environ["ATHLETE_NAMES_PARALLEL_ARR"] = str(ATHLETE_NAMES_PARALLEL_ARR)
 
+        logging.info(f"Calling on update_env_file()")
         update_env_file(os.environ["ATHLETE_REFRESH_TOKENS"], os.environ["ATHLETE_NAMES_PARALLEL_ARR"])
-
+        logging.info(f"Updated.env file.")
+        
         message = "Authentication successful!"
         message_type = "success"
     except Exception as e:
