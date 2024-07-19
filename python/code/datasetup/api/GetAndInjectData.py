@@ -47,37 +47,45 @@ unique_column = "ACTIVITY ID"
 rows = list()
 RECAP_FIELDNAMES = json.loads(os.getenv("RECAP_FIELDNAMES"))
 recap_filename = r'python\code\datasetup\data\recap\ATHLETE_WEEK_RECAP.csv'
-OPTIONAL_FIELDS = os.getenv("OPTIONAL_FIELDS")
+OPTIONAL_FIELDNAMES = os.getenv("OPTIONAL_FIELDNAMES")
+
+# TODO: Update recap data to include the averages for the newly added optional fieldnames
+
 
 # HELPER METHODS FOR MAIN METHOD
-def parse_description(description = ""):
+# TODO: Test this out. Get test class working.
+def parse_description(description):
     """
-        The user can optionally include RPE, rating, and average power in their activity description.
+        The user can optionally include RPE, rating, average power, and a sleep rating in their activity description.
         If included, we'll parse these fields out and include them in the returned dictionary.
 
-        Example description: "RPE:3|RATING:8|POWER:135. Good run! No issues."
+        Example description: "RPE:3|RATING:8|POWER:135|SLEEP:8. Good run! No issues."
 
         Args:
             description (str): The activity description string.
         
         Returns:
-            The parsed RPE, rating, and average power, if present in the description.
+            The parsed RPE, rating, average power, and sleep rating, if present in the description.
     """
     print(f"\nSTART of parse_description() w/ arg(s)...\n\tdescription: {description}")
-    rpe = rating = avgPower = "N/A" # Default to "N/A" if these aren't found in the description
-    fieldsArr = description.split("|")
+    rpe = rating = avgPower = sleepRating = "N/A" # Default to "N/A" if these aren't found in the description
+    descArr = description.split(".")
+    fieldsArr = descArr[0].split("|")
     for i in range(len(fieldsArr)):
         fieldArr = fieldsArr[i].split(":")
+        if len(fieldArr) != 2 or len(fieldArr) == 0:
+            print(f"Error: Invalid field format in description. Expected 'FIELD:VALUE'.")
+            continue
+        elif not fieldArr or fieldArr == None:
+            print(f"Error: Empty field in description.")
+            continue
         # Process the field name
-        fieldArr[0] = fieldArr[0].strip().upper()
-        if len(fieldArr[0]) == 0 or not fieldArr[0].isalpha() or fieldArr[0] not in OPTIONAL_FIELDS:
-            print(f"Error: Field [{fieldArr[0]}] is invalid.")
+        fieldArr[0] = str(fieldArr[0]).strip().upper()
+        if fieldArr[0] not in OPTIONAL_FIELDNAMES:
+            print(f"Error: Field [{fieldArr[0]}] is not accepted for data ingestion at this time.")
             continue
         # Process the value
-        fieldArr[1] = fieldArr[1].strip()
-        if len(fieldArr[1]) > 1:
-            print(f"Error: Field [{fieldArr[0]}] value [{fieldArr[1]}] is too long.")
-            continue
+        fieldArr[1] = str(fieldArr[1]).strip()
         try:
             fieldArr[1] = int(fieldArr[1])
         except ValueError:
@@ -85,13 +93,15 @@ def parse_description(description = ""):
             continue
         # Assign the value to the appropriate field
         if (fieldArr[0] == "RPE"):
-            rpe = fieldArr[1] | "N/A"
+            rpe = fieldArr[1] if fieldArr[1] else "N/A"
         elif (fieldArr[0] == "RATING"):
-            rating = fieldArr[1] | "N/A"
+            rating = fieldArr[1] if fieldArr[1] else "N/A"
         elif (fieldArr[0] == "POWER"):
-            avgPower = fieldArr[1] | "N/A"
-    print(f"END of parse_description() w/ return(s)... \n\trpe: {rpe}, rating: {rating}, avgPower: {avgPower}\n")
-    return rpe, rating, avgPower
+            avgPower = fieldArr[1] if fieldArr[1] else "N/A"
+        elif (fieldArr[0] == "SLEEP"):
+            sleepRating = fieldArr[1] if fieldArr[1] else "N/A"
+    print(f"END of parse_description() w/ return(s)... \n\trpe: {rpe}, rating: {rating}, avgPower: {avgPower}, sleepRating: {sleepRating}\n")
+    return rpe, rating, avgPower, sleepRating
 
 def convert_activities_to_list_of_dicts(activities):
     """
@@ -101,7 +111,7 @@ def convert_activities_to_list_of_dicts(activities):
     print(f"\nSTART of convert_activities_to_list_of_dicts() w/ arg(s)...\n\tactivities: {activities}")
     activities_list = list()
     for activity in activities:
-        rpe, rating, avgPower = parse_description(activity.description)
+        rpe, runRating, avgPower, sleepRating = parse_description(activity.description if activity.description else "")
         activity_dict = {
             "ATHLETE": athlete_names_parallel_arr[get_index_of_key(athlete_refresh_tokens, activity.athlete.id)].upper(),
             "ACTIVITY ID": activity.id,
@@ -129,8 +139,9 @@ def convert_activities_to_list_of_dicts(activities):
             "ATHLETE COUNT": activity.athlete_count,
             "FULL DATETIME": activity.start_date_local.strftime("%Y-%m-%d %H:%M:%S"),
             "RPE": rpe,
-            "RATING": rating,
-            "AVG POWER": avgPower
+            "RATING": runRating,
+            "AVG POWER": avgPower,
+            "SLEEP RATING": sleepRating
             # Add more fields as needed
         }
         activities_list.append(activity_dict)
