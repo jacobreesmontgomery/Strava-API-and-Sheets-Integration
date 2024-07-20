@@ -15,8 +15,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/basic-stats" element={<BasicStats />} />
         <Route path="/database" element={<Database />} />
-        {/* TODO: Fix the below to work. Not working. */}
-        <Route path="/auth-result" component={<AuthResult />} />
+        <Route path="/auth-result" element={<AuthResult />} />
       </Routes>
     </Router>
   );

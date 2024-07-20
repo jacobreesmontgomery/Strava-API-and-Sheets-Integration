@@ -186,7 +186,7 @@ async def callback(code: str):
             update_env_file(os.environ["ATHLETE_REFRESH_TOKENS"], os.environ["ATHLETE_NAMES_PARALLEL_ARR"])
             logging.info(f"Updated the .env file.")
         
-        message = "Authentication successful!"
+        message = "You have been successfully authenticated!"
         message_type = "success"
     except Exception as e:
         message = "Authentication failed."
