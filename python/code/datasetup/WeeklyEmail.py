@@ -17,7 +17,6 @@ import random
 load_dotenv()
 ATHLETE_NAMES_PARALLEL_ARR = json.loads(os.getenv("ATHLETE_NAMES_PARALLEL_ARR"))
 ATHLETE_EMAILS_PARALLEL_ARR = json.loads(os.getenv("ATHLETE_EMAILS_PARALLEL_ARR"))
-ATHLETE_NICKNAMES_PARALLEL_ARR = json.loads(os.getenv("ATHLETE_NICKNAMES_PARALLEL_ARR")) 
 ATHLETE_DATA_FIELDNAMES = json.loads(os.getenv("ATHLETE_DATA_FIELDNAMES"))
 RECAP_FIELDNAMES = json.loads(os.getenv("RECAP_FIELDNAMES"))
 
@@ -152,7 +151,7 @@ def job():
         
         # Render the template with context
         body = template.render(
-            athlete_name=ATHLETE_NICKNAMES_PARALLEL_ARR[i], 
+            athlete_name=athlete.split()[0],  # TODO: Make sure this successfully extracts the first name
             eachTrainingDay=eachTrainingDay, 
             recapOfWeek=recapOfWeek,
             quote=get_inspirational_quote()

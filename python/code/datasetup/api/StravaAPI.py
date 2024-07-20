@@ -61,3 +61,12 @@ class StravaAPI:
         except Exception as e:
             print(f"Failed to retrieve activities for athlete ID {athlete_id}: {e}")
             return None
+        
+    def get_athlete_data(self):
+        try:
+            client = self.client
+            athlete_data = client.get_athlete()
+            return dict(athlete_data)
+        except Exception as e:
+            print(f"An error occurred while retrieving athlete data: {e}")
+            return None

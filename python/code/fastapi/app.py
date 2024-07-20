@@ -23,7 +23,7 @@ logger = logging.getLogger(__name__)
 
 # Ensure the correct path for imports
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from datasetup.api.StravaAPI import StravaAuthorization
+from datasetup.api.StravaAPI import StravaAuthorization, StravaAPI
 
 # Load environment variables
 load_dotenv()
@@ -88,7 +88,7 @@ def get_row_data(csvFile: str) -> List[List[str]]:
 
 
 def update_env_file(athlete_refresh_tokens, athlete_names):
-    env_file_path = ".env"
+    env_file_path = "C:/Users/17178/Desktop/GITHUB_PROJECTS/Strava-API-and-Sheets-Integration/python/.env"
     try:
         with open(env_file_path, "r") as file:
             lines = file.readlines()
@@ -128,8 +128,7 @@ async def database():
 @app.get("/api/strava_auth")
 async def strava_auth():
     logger.info(f"Redirecting to Strava Auth URL: {AUTH_EXCHANGE_LINK}")
-    # TODO: Fix this redirect, not working...
-    return RedirectResponse(url=AUTH_EXCHANGE_LINK)
+    return RedirectResponse(AUTH_EXCHANGE_LINK)
 
 
 @app.get("/")
@@ -141,39 +140,51 @@ async def root(request: Request):
     return {"message": "Welcome to the Strava OAuth Integration"}
 
 
+## TODO: Polish this up.
 @app.get("/api/callback")
 async def callback(code: str):
     logger.info(f"Callback received with code: {code}")
     try:
-        # TODO: Might need to update this callback URL
+        # Complete authorization 
         auth = StravaAuthorization(CLIENT_ID, CLIENT_SECRET, f"{REDIRECT_URI}")
+        
+        # Acquire a refresh token
         token_response = auth.exchange_authorization_code(code)
-        logging.info(f"Got authorization code [{code}].")
-
+        logging.info(f"Exchanged authorization code for token: {token_response}")
+        access_token = token_response['access_token']
         refresh_token = token_response['refresh_token']
-        athlete_id = token_response['athlete']['id']
-        athlete_name = token_response['athlete']['username']
-        logging.info(f"Received refresh token [{refresh_token}], athlete ID [{athlete_id}], and name [{athlete_name}].")
 
+        # Acquire athlete information with the access token
+        client = StravaAPI(access_token=access_token)
+        athlete_data = client.get_athlete_data()
+        logging.info(f"Retrieved athlete information: {athlete_data}")
+        athlete_id = str(athlete_data['id'])
+        athlete_name = athlete_data['firstname'] + ' ' + athlete_data['lastname']
+        logging.info(f"Received access token [{access_token}], refresh token [{refresh_token}], athlete ID [{athlete_id}], and name [{athlete_name}].")
+
+        # Update the .env file with the new information (if it's actually new)
+        entries_exist = False
         ATHLETE_REFRESH_TOKENS = os.getenv("ATHLETE_REFRESH_TOKENS", "{}")
         ATHLETE_REFRESH_TOKENS = eval(ATHLETE_REFRESH_TOKENS)
-        logging.info(f"ATHLETE_REFRESH_TOKENS updated: {ATHLETE_REFRESH_TOKENS}.")
-
-        if athlete_id and refresh_token:
+        if athlete_id and refresh_token and not ATHLETE_REFRESH_TOKENS.get(athlete_id):
             ATHLETE_REFRESH_TOKENS[athlete_id] = refresh_token
             os.environ["ATHLETE_REFRESH_TOKENS"] = str(ATHLETE_REFRESH_TOKENS)
+        else:
+            logging.info(f"The entry for athlete [{athlete_id}] already exists in the .env variable ATHLETE_REFRESH_TOKENS.")
+            entries_exist = True
 
         ATHLETE_NAMES_PARALLEL_ARR = os.getenv("ATHLETE_NAMES_PARALLEL_ARR", "[]")
         ATHLETE_NAMES_PARALLEL_ARR = eval(ATHLETE_NAMES_PARALLEL_ARR)
-        logging.info(f"Received athlete names: {ATHLETE_NAMES_PARALLEL_ARR}")
-
-        if athlete_name:
+        if athlete_name and not entries_exist: # Assuming if the above doesn't exist, this won't.
             ATHLETE_NAMES_PARALLEL_ARR.append(athlete_name)
             os.environ["ATHLETE_NAMES_PARALLEL_ARR"] = str(ATHLETE_NAMES_PARALLEL_ARR)
+        else:
+            logging.info(f"The entry for athlete [{athlete_id}] already exists in the .env variable ATHLETE_NAMES_PARALLEL_ARR.")
 
-        logging.info(f"Calling on update_env_file()")
-        update_env_file(os.environ["ATHLETE_REFRESH_TOKENS"], os.environ["ATHLETE_NAMES_PARALLEL_ARR"])
-        logging.info(f"Updated.env file.")
+        if not entries_exist: 
+            logging.info(f"Calling on update_env_file()")
+            update_env_file(os.environ["ATHLETE_REFRESH_TOKENS"], os.environ["ATHLETE_NAMES_PARALLEL_ARR"])
+            logging.info(f"Updated the .env file.")
         
         message = "Authentication successful!"
         message_type = "success"

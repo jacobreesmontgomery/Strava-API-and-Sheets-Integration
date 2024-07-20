@@ -5,12 +5,17 @@ const AuthResult = () => {
   const location = useLocation();
   const [message, setMessage] = useState('');
   const [messageType, setMessageType] = useState('');
+  console.log("In AuthResult");
 
   useEffect(() => {
+    console.log("Component mounted.")
     const queryParams = new URLSearchParams(location.search);
+    console.log(`Query params: ${queryParams}`);
     setMessage(queryParams.get('message') ?? '');    
     setMessageType(queryParams.get('message_type') ?? '');  
-    }, [location]);
+  }, [location]);
+
+  console.log("Right before return...");
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
