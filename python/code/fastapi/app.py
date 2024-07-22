@@ -86,18 +86,24 @@ def get_row_data(csvFile: str) -> List[List[str]]:
         logger.error(f"Error reading CSV file {csvFile}: {e}")
     return rowData
 
-
 def update_env_file(athlete_refresh_tokens, athlete_names):
     env_file_path = "C:/Users/17178/Desktop/GITHUB_PROJECTS/Strava-API-and-Sheets-Integration/python/.env"
     try:
+        logger.info(f"Incoming args:\nATHLETE_REFRESH_TOKENS: {athlete_refresh_tokens}\nATHLETE_NAMES_PARALLEL_ARR: {athlete_names}")
+
+        # Convert the dictionaries and lists to properly formatted strings
+        athlete_refresh_tokens_str = str(athlete_refresh_tokens).replace("'", '"')
+        athlete_names_str = str(athlete_names).replace("'", '"')
+                
         with open(env_file_path, "r") as file:
             lines = file.readlines()
+        
         with open(env_file_path, "w") as file:
             for line in lines:
                 if line.startswith("ATHLETE_REFRESH_TOKENS"):
-                    file.write(f"ATHLETE_REFRESH_TOKENS={athlete_refresh_tokens}\n")
+                    file.write(f'ATHLETE_REFRESH_TOKENS={athlete_refresh_tokens_str}\n')
                 elif line.startswith("ATHLETE_NAMES_PARALLEL_ARR"):
-                    file.write(f"ATHLETE_NAMES_PARALLEL_ARR={athlete_names}\n")
+                    file.write(f'ATHLETE_NAMES_PARALLEL_ARR={athlete_names_str}\n')
                 else:
                     file.write(line)
     except Exception as e:
@@ -140,7 +146,6 @@ async def root(request: Request):
     return {"message": "Welcome to the Strava OAuth Integration"}
 
 
-## TODO: Polish this up.
 @app.get("/api/callback")
 async def callback(code: str):
     logger.info(f"Callback received with code: {code}")
@@ -168,7 +173,7 @@ async def callback(code: str):
         ATHLETE_REFRESH_TOKENS = eval(ATHLETE_REFRESH_TOKENS)
         if athlete_id and refresh_token and not ATHLETE_REFRESH_TOKENS.get(athlete_id):
             ATHLETE_REFRESH_TOKENS[athlete_id] = refresh_token
-            os.environ["ATHLETE_REFRESH_TOKENS"] = str(ATHLETE_REFRESH_TOKENS)
+            os.environ["ATHLETE_REFRESH_TOKENS"] = str(ATHLETE_REFRESH_TOKENS).replace("'", '"')
         else:
             logging.info(f"The entry for athlete [{athlete_id}] already exists in the .env variable ATHLETE_REFRESH_TOKENS.")
             entries_exist = True
@@ -177,13 +182,13 @@ async def callback(code: str):
         ATHLETE_NAMES_PARALLEL_ARR = eval(ATHLETE_NAMES_PARALLEL_ARR)
         if athlete_name and not entries_exist: # Assuming if the above doesn't exist, this won't.
             ATHLETE_NAMES_PARALLEL_ARR.append(athlete_name)
-            os.environ["ATHLETE_NAMES_PARALLEL_ARR"] = str(ATHLETE_NAMES_PARALLEL_ARR)
+            os.environ["ATHLETE_NAMES_PARALLEL_ARR"] = str(ATHLETE_NAMES_PARALLEL_ARR).replace("'", '"')
         else:
             logging.info(f"The entry for athlete [{athlete_id}] already exists in the .env variable ATHLETE_NAMES_PARALLEL_ARR.")
 
         if not entries_exist: 
             logging.info(f"Calling on update_env_file()")
-            update_env_file(os.environ["ATHLETE_REFRESH_TOKENS"], os.environ["ATHLETE_NAMES_PARALLEL_ARR"])
+            update_env_file(ATHLETE_REFRESH_TOKENS, ATHLETE_NAMES_PARALLEL_ARR)
             logging.info(f"Updated the .env file.")
         
         message = "You have been successfully authenticated!"
