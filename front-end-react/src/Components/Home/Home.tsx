@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import AuthButton from '../AuthButton/AuthButton.tsx';
 
 const Content = styled.div`
     font-size: 1.1em;
@@ -32,30 +33,36 @@ const TableData = styled.td`
 
 function Home() {
     return (
-        <div className='stats-container'>
-            <h2>Welcome to The Goon Squad homepage!</h2>
-            <Content>
-                This page is for all of my goons! Here is a rundown of each tab...
-                <Table>
-                    <thead>
-                        <TableRow>
-                            <TableHeader>Tab</TableHeader>
-                            <TableHeader>Description</TableHeader>
-                        </TableRow>
-                    </thead>
-                    <tbody>
-                        <TableRow>
-                            <TableData>Basic Stats</TableData>
-                            <TableData>Holds basic stats on the current week of training for each athlete.</TableData>
-                        </TableRow>
-                        <TableRow>
-                            <TableData>Database</TableData>
-                            <TableData>Holds all of my goon's runs since the start of data acquisition.</TableData>
-                        </TableRow>
-                    </tbody>
-                </Table>
-            </Content>
-        </div>
+        <>
+            <div className='stats-container'>
+                <h2>Welcome to The Goon Squad homepage!</h2>
+                <Content>
+                    This page is for all of my goons! Here is a rundown of each tab...
+                    <Table>
+                        <thead>
+                            <TableRow>
+                                <TableHeader>Tab</TableHeader>
+                                <TableHeader>Description</TableHeader>
+                            </TableRow>
+                        </thead>
+                        <tbody>
+                            <TableRow>
+                                <TableData>Basic Stats</TableData>
+                                <TableData>Holds basic stats on the current week of training for each athlete.</TableData>
+                            </TableRow>
+                            <TableRow>
+                                <TableData>Database</TableData>
+                                <TableData>Holds all of my goon's runs since the start of data acquisition.</TableData>
+                            </TableRow>
+                        </tbody>
+                    </Table>
+                </Content>
+                <br /><br />
+                <center><AuthButton /></center>
+                <br />
+            </div>
+        </>
+
     );
 };
 

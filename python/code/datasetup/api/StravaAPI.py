@@ -19,6 +19,10 @@ class StravaAuthorization:
     def exchange_refresh_token(self, refresh_token):
         token_response = self.client.refresh_access_token(client_id=self.client_id, client_secret=self.client_secret, refresh_token=refresh_token)
         return token_response['access_token']
+    
+    def exchange_authorization_code(self, code):
+        token_response = self.client.exchange_code_for_token(client_id=self.client_id, client_secret=self.client_secret, code=code)
+        return token_response
 
 class StravaAPI:
     """
@@ -56,4 +60,13 @@ class StravaAPI:
             return list(activities)
         except Exception as e:
             print(f"Failed to retrieve activities for athlete ID {athlete_id}: {e}")
+            return None
+        
+    def get_athlete_data(self):
+        try:
+            client = self.client
+            athlete_data = client.get_athlete()
+            return dict(athlete_data)
+        except Exception as e:
+            print(f"An error occurred while retrieving athlete data: {e}")
             return None

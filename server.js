@@ -15,10 +15,11 @@ app.use(express.json());
 const directory = 'C:/Users/17178/Desktop/GITHUB_PROJECTS/Strava-API-and-Sheets-Integration/python/code';
 app.use('/files', express.static(directory));
 
+const backendUrl = 'http://localhost:5000';
 // Route to handle requests and forward to FastAPI backend
 app.get('/api/basic-stats', async (req, res) => {
     try {
-        const response = await axios.get('http://localhost:5000/api/basic-stats');
+        const response = await axios.get(`${backendUrl}/api/basic-stats`);
         res.json(response.data);
     } catch (error) {
         res.status(error.response ? error.response.status : 500).json({
@@ -29,7 +30,7 @@ app.get('/api/basic-stats', async (req, res) => {
 
 app.get('/api/database', async (req, res) => {
     try {
-        const response = await axios.get('http://localhost:5000/api/database');
+        const response = await axios.get(`${backendUrl}/api/database`);
         res.json(response.data);
     } catch (error) {
         res.status(error.response ? error.response.status : 500).json({
@@ -37,6 +38,11 @@ app.get('/api/database', async (req, res) => {
         });
     }
 });
+
+app.get('/api/strava_auth', async (req, res) => {
+    console.log('Redirecting to Strava OAuth');
+    res.redirect(`${backendUrl}/api/strava_auth`);
+})
 
 // Start the server
 app.listen(port, () => {

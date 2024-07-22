@@ -4,6 +4,7 @@ import Home from './Components/Home/Home.tsx';
 import BasicStats from './Components/BasicStats/BasicStats.tsx';
 import Database from './Components/Database/Database.tsx';
 import Navbar from './Components/Navbar/Navbar.tsx';
+import AuthResult from './Components/AuthResult/AuthResult.tsx';
 import './App.css';
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/basic-stats" element={<BasicStats />} />
         <Route path="/database" element={<Database />} />
+        <Route path="/auth-result" element={<AuthResult />} />
       </Routes>
     </Router>
   );
