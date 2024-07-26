@@ -128,6 +128,10 @@ def job():
     columns_to_include_recap = ["TALLIED MILEAGE", "TALLIED TIME", "# OF RUNS", "MILEAGE AVG", "TIME AVG", "PACE AVG", "LONGEST RUN", "LONGEST RUN DATE"]
     i = 0
     for athlete in ATHLETE_NAMES_PARALLEL_ARR:
+        if ATHLETE_EMAILS_PARALLEL_ARR[i] == "":
+            print(f"{athlete} has no assigned email address.")
+            i += 1 # Skipping anyone who has no associated email
+            continue
         print(f"Compiling email for {athlete}...")
 
         # TRAINING DAYS
@@ -165,7 +169,7 @@ def job():
             )
             print(f"Email was successfully sent to {athlete}!")
         except:
-            print(f"Email failed to be sent to athlete {athlete}.") 
+            print(f"Email failed to be sent to {athlete}.") 
         i += 1
 
 job() # Runs every Sunday at 8 PM Eastern Time
