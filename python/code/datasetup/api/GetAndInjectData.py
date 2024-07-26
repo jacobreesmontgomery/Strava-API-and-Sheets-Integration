@@ -314,11 +314,50 @@ def update_athlete_recap_data(existing_recap_data, athlete_name, new_athlete_run
     print(f"END of update_athlete_recap_data() w/ return(s)...\n\texisting_recap_data: {existing_recap_data}\n")    
     return existing_recap_data
 
+def handle_any_special_field_updates(activity):
+    """
+        Checks if a special field has been changed in an activity: title, description, and workout type.
+
+        Args:
+            activity (dict): An athlete's activity.
+    """
+    fieldChanged = [False, False, False]
+
+    # Read the CSV file into a list of dictionaries
+    with open(athlete_data_file, 'r', newline='') as data_file:
+        reader = csv.DictReader(data_file, fieldnames=ATHLETE_DATA_FIELDNAMES, delimiter=',')
+        data = list(reader)
+
+    print(f"This activity already exists in the athlete data file: {activity}")
+
+    # Update the matching row's special fields if they've changed 
+    for row in data:
+        if row["ACTIVITY ID"] == activity["ACTIVITY ID"]:
+            if row["RUN"] != activity["RUN"]:
+                fieldChanged[0] = True
+                row["RUN"] = activity["RUN"]
+            if row["DESCRIPTION"] != activity["DESCRIPTION"]:
+                fieldChanged[1] = True
+                row["DESCRIPTION"] = activity["DESCRIPTION"]
+            if row["WKT TYPE"] != activity["WKT TYPE"]:
+                fieldChanged[2] = True
+                row["WKT TYPE"] = activity["WKT TYPE"]
+            break # Row has been updated, exit this for loop
+    
+    # Write the updated data back to the CSV file if any fields have changed
+    if any(fieldChanged):
+        changedFields = [field for field, changed in zip(["TITLE", "DESCRIPTION", "WKT TYPE"], fieldChanged) if changed]
+        print(f"The following fields have changed: {', '.join(changedFields)}")
+        with open(athlete_data_file, 'w', newline='') as data_file:
+            writer = csv.DictWriter(data_file, fieldnames=ATHLETE_DATA_FIELDNAMES)
+            writer.writerows(data)
 
 def main():
     """
         Drives all of the main logic.
     """
+    # TODO: Simplify this, break the logic apart into helper methods. Too long!!
+
     # Initialize StravaAPI instances for each athlete
     strava_clients = {}
     for athlete_id, refresh_token in athlete_refresh_tokens.items():
@@ -343,6 +382,10 @@ def main():
                     rows.append(cleaned_activity)
                     unique_ids.add(cleaned_activity[unique_column])
                     rows_added += 1
+                    continue
+                else:
+                    cleaned_activity = {key: emoji.demojize(str(value)) if not isinstance(value, str) else emoji.demojize(value) for key, value in activity.items()}
+                    handle_any_special_field_updates(activity=cleaned_activity)
         else:
             print(f"No activities were retrieved for athlete {athlete_names_parallel_arr[athlete_count]}.")
         print(f"{rows_added} new rows were found for athlete {athlete_names_parallel_arr[athlete_count]}.")
@@ -373,7 +416,7 @@ def main():
         ### RECAP STATS
         # Querying for existing recap data
         existing_recap_data = query_existing_recap_data(athlete_name=athlete_name)
-        print(f"JACOB - Existing recap data for athlete {athlete_name}: \n{existing_recap_data}")
+
         # Updating the given athlete's recap data
         if len(new_athlete_runs) > 0:
             recap_rows.append(update_athlete_recap_data(existing_recap_data=existing_recap_data, athlete_name=athlete_name, new_athlete_runs=new_athlete_runs))      
