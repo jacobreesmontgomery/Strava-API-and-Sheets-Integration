@@ -350,7 +350,6 @@ def handle_any_special_field_updates(activity):
         print(f"The following fields have changed: {', '.join(changedFields)}")
         with open(athlete_data_file, 'w', newline='') as data_file:
             writer = csv.DictWriter(data_file, fieldnames=ATHLETE_DATA_FIELDNAMES)
-            writer.writeheader()
             writer.writerows(data)
 
 def main():
