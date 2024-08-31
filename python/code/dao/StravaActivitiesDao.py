@@ -2,24 +2,57 @@ class StravaActivitiesDao:
     def __init__(self, db_service):
         self.db_service = db_service
 
-    def create_activity(self, athlete_id, athlete, activity_id, run, moving_time, distance_mi, pace_min_mi, full_date, time, day, month, date, year, spm_avg, hr_avg, wkt_type, description, total_elev_gain_ft, manual, max_speed_ft_s, calories, achievement_count, kudos_count, comment_count, athlete_count, full_datetime, rpe, rating, avg_power, sleep_rating):
+    def upsert_activity(self, activity_data):
         connection = self.db_service.get_connection()
         try:
             with connection.cursor() as cursor:
                 cursor.execute(
                     """
-                    INSERT INTO strava_api.activities (athlete_id, athlete, activity_id, run, moving_time, distance_mi, pace_min_mi, full_date, time, day, month, date, year, spm_avg, hr_avg, wkt_type, description, total_elev_gain_ft, manual, max_speed_ft_s, calories, achievement_count, kudos_count, comment_count, athlete_count, full_datetime, rpe, rating, avg_power, sleep_rating)
-                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-                    RETURNING activity_id
+                    INSERT INTO strava_api.activities (
+                        athlete_id, athlete, activity_id, run, moving_time, distance_mi, pace_min_mi,
+                        full_date, time, day, month, date, year, spm_avg, hr_avg, wkt_type,
+                        description, total_elev_gain_ft, manual, max_speed_ft_s, calories,
+                        achievement_count, kudos_count, comment_count, athlete_count, full_datetime,
+                        rpe, rating, avg_power, sleep_rating
+                    ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                    ON CONFLICT (activity_id) 
+                    DO UPDATE SET 
+                        athlete_id = EXCLUDED.athlete_id,
+                        athlete = EXCLUDED.athlete,
+                        run = EXCLUDED.run,
+                        moving_time = EXCLUDED.moving_time,
+                        distance_mi = EXCLUDED.distance_mi,
+                        pace_min_mi = EXCLUDED.pace_min_mi,
+                        full_date = EXCLUDED.full_date,
+                        time = EXCLUDED.time,
+                        day = EXCLUDED.day,
+                        month = EXCLUDED.month,
+                        date = EXCLUDED.date,
+                        year = EXCLUDED.year,
+                        spm_avg = EXCLUDED.spm_avg,
+                        hr_avg = EXCLUDED.hr_avg,
+                        wkt_type = EXCLUDED.wkt_type,
+                        description = EXCLUDED.description,
+                        total_elev_gain_ft = EXCLUDED.total_elev_gain_ft,
+                        manual = EXCLUDED.manual,
+                        max_speed_ft_s = EXCLUDED.max_speed_ft_s,
+                        calories = EXCLUDED.calories,
+                        achievement_count = EXCLUDED.achievement_count,
+                        kudos_count = EXCLUDED.kudos_count,
+                        comment_count = EXCLUDED.comment_count,
+                        athlete_count = EXCLUDED.athlete_count,
+                        full_datetime = EXCLUDED.full_datetime,
+                        rpe = EXCLUDED.rpe,
+                        rating = EXCLUDED.rating,
+                        avg_power = EXCLUDED.avg_power,
+                        sleep_rating = EXCLUDED.sleep_rating
                     """,
-                    (athlete_id, athlete, activity_id, run, moving_time, distance_mi, pace_min_mi, full_date, time, day, month, date, year, spm_avg, hr_avg, wkt_type, description, total_elev_gain_ft, manual, max_speed_ft_s, calories, achievement_count, kudos_count, comment_count, athlete_count, full_datetime, rpe, rating, avg_power, sleep_rating)
+                    activity_data
                 )
-                returned_id = cursor.fetchone()[0]
                 connection.commit()
-                return returned_id
         except Exception as e:
             connection.rollback()
-            print(f"Error creating activity: {e}")
+            print(f"Error upserting activity: {e}")
         finally:
             self.db_service.release_connection(connection)
 
