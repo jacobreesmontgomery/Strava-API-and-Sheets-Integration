@@ -2,17 +2,17 @@ class StravaAthleteDao:
     def __init__(self, db_service):
         self.db_service = db_service
 
-    def create_athlete(self, athlete_id, name, refresh_token, email):
+    def create_athlete(self, athlete_id, athlete_name, refresh_token, email):
         connection = self.db_service.get_connection()
         try:
             with connection.cursor() as cursor:
                 cursor.execute(
                     """
-                    INSERT INTO strava_api.athlete (athlete_id, name, refresh_token, email)
+                    INSERT INTO strava_api.athlete (athlete_id, athlete_athlete_name, refresh_token, email)
                     VALUES (%s, %s, %s, %s)
                     RETURNING athlete_id
                     """,
-                    (athlete_id, name, refresh_token, email)
+                    (athlete_id, athlete_name, refresh_token, email)
                 )
                 returned_id = cursor.fetchone()[0]
                 connection.commit()
@@ -29,7 +29,7 @@ class StravaAthleteDao:
             with connection.cursor() as cursor:
                 cursor.execute(
                     """
-                    SELECT athlete_id, name, refresh_token, email
+                    SELECT athlete_id, athlete_athlete_name, refresh_token, email
                     FROM strava_api.athlete
                     WHERE athlete_id = %s
                     """,
@@ -41,15 +41,15 @@ class StravaAthleteDao:
         finally:
             self.db_service.release_connection(connection)
 
-    def update_athlete(self, athlete_id, name=None, refresh_token=None, email=None):
+    def update_athlete(self, athlete_id, athlete_name=None, refresh_token=None, email=None):
         connection = self.db_service.get_connection()
         try:
             with connection.cursor() as cursor:
                 query = "UPDATE strava_api.athlete SET "
                 params = []
-                if name is not None:
-                    query += "name = %s, "
-                    params.append(name)
+                if athlete_name is not None:
+                    query += "athlete_name = %s, "
+                    params.append(athlete_name)
                 if refresh_token is not None:
                     query += "refresh_token = %s, "
                     params.append(refresh_token)
