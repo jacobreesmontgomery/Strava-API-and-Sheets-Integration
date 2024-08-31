@@ -4,7 +4,7 @@ CREATE SCHEMA IF NOT EXISTS strava_api;
 -- Create the athlete table
 CREATE TABLE IF NOT EXISTS strava_api.athlete (
     athlete_id BIGINT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
+    athlete_name VARCHAR(255) NOT NULL,
     refresh_token VARCHAR(255) NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL
 );
