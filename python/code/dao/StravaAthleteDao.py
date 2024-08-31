@@ -40,6 +40,24 @@ class StravaAthleteDao:
             print(f"Error getting athlete: {e}")
         finally:
             self.db_service.release_connection(connection)
+    
+    def get_athlete_id(self, athlete_name):
+        connection = self.db_service.get_connection()
+        try:
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    """
+                    SELECT athlete_id
+                    FROM strava_api.athlete
+                    WHERE athlete_name = %s
+                    """,
+                    (athlete_name)
+                )
+                return cursor.fetchone()[0]
+        except Exception as e:
+            print(f"Error getting athlete ID: {e}")
+        finally:
+            self.db_service.release_connection(connection)
 
     def update_athlete(self, athlete_id, athlete_name=None, refresh_token=None, email=None):
         connection = self.db_service.get_connection()

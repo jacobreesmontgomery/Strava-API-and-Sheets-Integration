@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS strava_api.activities (
     year INT,
     spm_avg FLOAT,
     hr_avg FLOAT,
-    wkt_type VARCHAR(255),
+    wkt_type INT,
     description TEXT,
     total_elev_gain_ft FLOAT,
     manual BOOLEAN,
@@ -39,8 +39,8 @@ CREATE TABLE IF NOT EXISTS strava_api.activities (
     full_datetime TIMESTAMP,
     rpe INT,
     rating INT,
-    avg_power VARCHAR(255),
-    sleep_rating VARCHAR(255),
+    avg_power INT,
+    sleep_rating INT,
     CONSTRAINT fk_athlete
         FOREIGN KEY (athlete_id)
         REFERENCES strava_api.athlete (athlete_id)

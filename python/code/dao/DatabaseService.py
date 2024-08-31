@@ -13,7 +13,7 @@ db_config = {
 }
 
 class DatabaseService:
-    def __init__(self, db_config):
+    def __init__(self):
         self.db_config = db_config
         self.connection_pool = pool.SimpleConnectionPool(
             1, 10,
