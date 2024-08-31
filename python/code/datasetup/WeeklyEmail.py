@@ -109,14 +109,16 @@ def read_csv(file_path, fieldnames, athlete, columns_to_include=None):
     print(f"END of read_csv() w/ return(s)...\n\trunData: {runData}\n")
     return runData
 
+# TODO: Fix this shiz. Not working. Quote is empty. Womp womp.
 def get_inspirational_quote():
     url = "https://type.fit/api/quotes"
     response = requests.get(url)
     if response.status_code == 200:
-        quotes = response.json()
-        # Filter inspirational quotes if needed, or pick a random one
+        quotes = response.text.splitlines()  # Split the response into lines
         quote = random.choice(quotes)
-        return f'"{quote["text"]}" - {quote.get("author")}'
+        author_start_index = quote.find("-") + 2  # Find the index of the author's name
+        author = quote[author_start_index:].strip()  # Extract the author's name
+        return f'"{quote[:author_start_index - 2]}" - {author}'
     else:
         return "Quote not available at the moment."
 
@@ -135,32 +137,37 @@ def job():
         print(f"Compiling email for {athlete}...")
 
         # TRAINING DAYS
-        file_path=f"python\code\datasetup\data\weekly_stats\{athlete}_WEEK_STATS.csv"
+        file_path = rf"C:\Users\17178\Desktop\GITHUB_PROJECTS\Strava-API-and-Sheets-Integration\python\code\datasetup\data\weekly_stats\{athlete}_WEEK_STATS.csv"
         if not os.path.exists(file_path):
             continue # skip to next athlete if they don't have a stat sheet
         eachTrainingDay = read_csv(file_path=file_path, fieldnames=ATHLETE_DATA_FIELDNAMES, athlete="", columns_to_include=columns_to_include_weekly)
         print(f"eachTrainingDay: \n\t{eachTrainingDay}")
+        if (len(eachTrainingDay) == 0):
+            print(f"No training days for athlete {athlete} were found. Avoiding email to this athlete.")
+            i += 1
+            continue
 
         # WEEK RECAP
-        file_path=r"python\code\datasetup\data\recap\ATHLETE_WEEK_RECAP.csv"
+        file_path = r"C:\Users\17178\Desktop\GITHUB_PROJECTS\Strava-API-and-Sheets-Integration\python\code\datasetup\data\recap\ATHLETE_WEEK_RECAP.csv"
         if not os.path.exists(file_path):
             print(f"File {file_path} does not exist. Cannot acquire recap data.")
             break # Get outta here, this should exist
         recapOfWeek = read_csv(file_path=file_path, fieldnames=RECAP_FIELDNAMES, athlete=athlete.upper(), columns_to_include=columns_to_include_recap)
         print(f"recapOfWeek: \n\t{recapOfWeek}")
+        # TODO: Account for where file is empty (athlete has no activities)
 
         # Load the template
-        env = Environment(loader=FileSystemLoader(r'python\code\datasetup\templates'))
+        env = Environment(loader=FileSystemLoader(r'C:\Users\17178\Desktop\GITHUB_PROJECTS\Strava-API-and-Sheets-Integration\python\code\datasetup\templates'))
         template = env.get_template('email_template.html')
         
         # Render the template with context
         body = template.render(
-            athlete_name=athlete.split()[0],  # TODO: Make sure this successfully extracts the first name
+            athlete_name=str(athlete).split()[0],  # TODO: Make sure this successfully extracts the first name
             eachTrainingDay=eachTrainingDay, 
             recapOfWeek=recapOfWeek,
             quote=get_inspirational_quote()
         )
-
+        
         try:
             send_email(
                 subject='Weekly Recap',

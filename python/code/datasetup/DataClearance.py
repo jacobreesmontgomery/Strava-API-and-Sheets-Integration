@@ -15,11 +15,11 @@ def clear_csv(file_path):
 def clearRecapData():
     # Clearing each athlete's weekly stats
     for athlete in athlete_names_parallel_arr:
-        csv_file_path = f"python\code\datasetup\data\weekly_stats\{athlete}_WEEK_STATS.csv"
+        csv_file_path = rf"C:\Users\17178\Desktop\GITHUB_PROJECTS\Strava-API-and-Sheets-Integration\python\code\datasetup\data\weekly_stats\{athlete}_WEEK_STATS.csv"
         clear_csv(csv_file_path)
         print(f"Cleared CSV file at {csv_file_path}.")
     # Clearing the week's recap data
-    csv_file_path = r"python\code\datasetup\data\recap\ATHLETE_WEEK_RECAP.csv"
+    csv_file_path = r"C:\Users\17178\Desktop\GITHUB_PROJECTS\Strava-API-and-Sheets-Integration\python\code\datasetup\data\recap\ATHLETE_WEEK_RECAP.csv"
     clear_csv(csv_file_path)
     print(f"Cleared CSV file at {csv_file_path}.")
 

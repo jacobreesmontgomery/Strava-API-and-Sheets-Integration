@@ -18,6 +18,7 @@ from dotenv import load_dotenv
 import json
 import emoji
 import sys
+import re
 
 package_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'utilities'))
 sys.path.insert(0, package_path)
@@ -42,18 +43,17 @@ athlete_refresh_tokens = json.loads(os.getenv("ATHLETE_REFRESH_TOKENS"))
 athlete_names_parallel_arr = json.loads(os.getenv("ATHLETE_NAMES_PARALLEL_ARR"))
 athlete_count = 0
 ATHLETE_DATA_FIELDNAMES = json.loads(os.getenv("ATHLETE_DATA_FIELDNAMES"))
-athlete_data_file = f"python\code\datasetup\data\main_data\{ACTIVITIES_FILE_NAME}.csv"
+athlete_data_file = r"C:\Users\17178\Desktop\GITHUB_PROJECTS\Strava-API-and-Sheets-Integration\python\code\datasetup\data\main_data\ATHLETE_DATA.csv"
 unique_column = "ACTIVITY ID"
 rows = list()
 RECAP_FIELDNAMES = json.loads(os.getenv("RECAP_FIELDNAMES"))
-recap_filename = r'python\code\datasetup\data\recap\ATHLETE_WEEK_RECAP.csv'
+recap_filename = r'C:\Users\17178\Desktop\GITHUB_PROJECTS\Strava-API-and-Sheets-Integration\python\code\datasetup\data\recap\ATHLETE_WEEK_RECAP.csv'
 OPTIONAL_FIELDNAMES = os.getenv("OPTIONAL_FIELDNAMES")
 
 # TODO: Update recap data to include the averages for the newly added optional fieldnames
 
 
 # HELPER METHODS FOR MAIN METHOD
-# TODO: Test this out. Get test class working.
 def parse_description(description):
     """
         The user can optionally include RPE, rating, average power, and a sleep rating in their activity description.
@@ -67,41 +67,25 @@ def parse_description(description):
         Returns:
             The parsed RPE, rating, average power, and sleep rating, if present in the description.
     """
-    print(f"\nSTART of parse_description() w/ arg(s)...\n\tdescription: {description}")
-    rpe = rating = avgPower = sleepRating = "N/A" # Default to "N/A" if these aren't found in the description
-    descArr = description.split(".")
-    fieldsArr = descArr[0].split("|")
-    for i in range(len(fieldsArr)):
-        fieldArr = fieldsArr[i].split(":")
-        if len(fieldArr) != 2 or len(fieldArr) == 0:
-            print(f"Error: Invalid field format in description. Expected 'FIELD:VALUE'.")
-            continue
-        elif not fieldArr or fieldArr == None:
-            print(f"Error: Empty field in description.")
-            continue
-        # Process the field name
-        fieldArr[0] = str(fieldArr[0]).strip().upper()
-        if fieldArr[0] not in OPTIONAL_FIELDNAMES:
-            print(f"Error: Field [{fieldArr[0]}] is not accepted for data ingestion at this time.")
-            continue
-        # Process the value
-        fieldArr[1] = str(fieldArr[1]).strip()
-        try:
-            fieldArr[1] = int(fieldArr[1])
-        except ValueError:
-            print(f"Error: Could not convert value [{fieldArr[1]}] to an integer.")
-            continue
-        # Assign the value to the appropriate field
-        if (fieldArr[0] == "RPE"):
-            rpe = fieldArr[1] if fieldArr[1] else "N/A"
-        elif (fieldArr[0] == "RATING"):
-            rating = fieldArr[1] if fieldArr[1] else "N/A"
-        elif (fieldArr[0] == "POWER"):
-            avgPower = fieldArr[1] if fieldArr[1] else "N/A"
-        elif (fieldArr[0] == "SLEEP"):
-            sleepRating = fieldArr[1] if fieldArr[1] else "N/A"
+    OPTIONAL_FIELDNAMES = ["RPE", "RATING", "POWER", "SLEEP"]    
+    fields = {key: "N/A" for key in OPTIONAL_FIELDNAMES}
+    print(f"fields: {fields}")
+    pattern = r'(\w+):\s*(\d+)'
+    matches = re.findall(pattern, description)
+    
+    for key, value in matches:
+        key = str(key).strip().upper()
+        if key in OPTIONAL_FIELDNAMES:
+            fields[key] = str(value).strip('. ')
+    
+    rpe = fields["RPE"]
+    rating = fields["RATING"]
+    avgPower = fields["POWER"]
+    sleepRating = fields["SLEEP"]
+    
     print(f"END of parse_description() w/ return(s)... \n\trpe: {rpe}, rating: {rating}, avgPower: {avgPower}, sleepRating: {sleepRating}\n")
     return rpe, rating, avgPower, sleepRating
+
 
 def convert_activities_to_list_of_dicts(activities):
     """
@@ -227,7 +211,7 @@ def write_athlete_data(new_athlete_runs, athlete_name):
         Writes the incoming runs to the athlete's weekly stats file.
     """
     print(f"\nSTART of write_athlete_data() w/ arg(s)...\n\tnew_athlete_runs: {new_athlete_runs}")
-    athlete_week_file = f"python\code\datasetup\data\weekly_stats\{athlete_name.upper()}_WEEK_STATS.csv"
+    athlete_week_file = rf"C:\Users\17178\Desktop\GITHUB_PROJECTS\Strava-API-and-Sheets-Integration\python\code\datasetup\data\weekly_stats\{athlete_name.upper()}_WEEK_STATS.csv"
     with open(athlete_week_file, 'a+', newline='') as athlete_stat_file:
         writer = csv.DictWriter(athlete_stat_file, fieldnames=ATHLETE_DATA_FIELDNAMES, delimiter=',')
         if not os.path.exists(athlete_week_file) or os.stat(athlete_week_file).st_size == 0:
