@@ -3,6 +3,7 @@ class StravaActivitiesDao:
         self.db_service = db_service
 
     def upsert_activity(self, activity_data):
+        print(f"Upserting activity to strava_api.activities:\n{activity_data}")
         connection = self.db_service.get_connection()
         try:
             with connection.cursor() as cursor:

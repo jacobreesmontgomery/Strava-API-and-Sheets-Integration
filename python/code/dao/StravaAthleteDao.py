@@ -42,6 +42,7 @@ class StravaAthleteDao:
             self.db_service.release_connection(connection)
     
     def get_athlete_id(self, athlete_name):
+        print(f"Getting athlete ID for '{athlete_name}'...")
         connection = self.db_service.get_connection()
         try:
             with connection.cursor() as cursor:
@@ -51,9 +52,11 @@ class StravaAthleteDao:
                     FROM strava_api.athlete
                     WHERE athlete_name = %s
                     """,
-                    (athlete_name)
+                    (athlete_name,)
                 )
-                return cursor.fetchone()[0]
+                result = cursor.fetchone()
+                print(f"Result: {result}")
+                return result[0]
         except Exception as e:
             print(f"Error getting athlete ID: {e}")
         finally:
