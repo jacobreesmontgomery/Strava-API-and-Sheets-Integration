@@ -1,3 +1,5 @@
+ATHLETE_TABLE_NAME = "strava_api.athlete"
+
 class StravaAthleteDao:
     def __init__(self, db_service):
         self.db_service = db_service
@@ -8,11 +10,11 @@ class StravaAthleteDao:
             with connection.cursor() as cursor:
                 cursor.execute(
                     """
-                    INSERT INTO strava_api.athlete (athlete_id, athlete_athlete_name, refresh_token, email)
+                    INSERT INTO %s (athlete_id, athlete_name, refresh_token, email)
                     VALUES (%s, %s, %s, %s)
                     RETURNING athlete_id
                     """,
-                    (athlete_id, athlete_name, refresh_token, email)
+                    (ATHLETE_TABLE_NAME, athlete_id, athlete_name, refresh_token, email)
                 )
                 returned_id = cursor.fetchone()[0]
                 connection.commit()
@@ -29,11 +31,11 @@ class StravaAthleteDao:
             with connection.cursor() as cursor:
                 cursor.execute(
                     """
-                    SELECT athlete_id, athlete_athlete_name, refresh_token, email
-                    FROM strava_api.athlete
+                    SELECT athlete_id, athlete_name, refresh_token, email
+                    FROM %s
                     WHERE athlete_id = %s
                     """,
-                    (athlete_id)
+                    (ATHLETE_TABLE_NAME, athlete_id)
                 )
                 return cursor.fetchone()
         except Exception as e:
@@ -49,10 +51,10 @@ class StravaAthleteDao:
                 cursor.execute(
                     """
                     SELECT athlete_id
-                    FROM strava_api.athlete
+                    FROM %s
                     WHERE athlete_name = %s
                     """,
-                    (athlete_name,)
+                    (ATHLETE_TABLE_NAME, athlete_name,)
                 )
                 result = cursor.fetchone()
                 print(f"Result: {result}")
@@ -66,7 +68,7 @@ class StravaAthleteDao:
         connection = self.db_service.get_connection()
         try:
             with connection.cursor() as cursor:
-                query = "UPDATE strava_api.athlete SET "
+                query = f"UPDATE ${ATHLETE_TABLE_NAME} SET "
                 params = []
                 if athlete_name is not None:
                     query += "athlete_name = %s, "
@@ -92,8 +94,8 @@ class StravaAthleteDao:
         try:
             with connection.cursor() as cursor:
                 cursor.execute(
-                    "DELETE FROM strava_api.athlete WHERE athlete_id = %s",
-                    (athlete_id)
+                    "DELETE FROM %s WHERE athlete_id = %s",
+                    (ATHLETE_TABLE_NAME, athlete_id)
                 )
                 connection.commit()
         except Exception as e:
