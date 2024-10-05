@@ -1,15 +1,17 @@
+ACTIVITIES_TABLE_NAME = "strava_api.activities"
+
 class StravaActivitiesDao:
     def __init__(self, db_service):
         self.db_service = db_service
 
     def upsert_activity(self, activity_data):
-        print(f"Upserting activity to strava_api.activities:\n{activity_data}")
+        print(f"Upserting activity to ${ACTIVITIES_TABLE_NAME}:\n{activity_data}")
         connection = self.db_service.get_connection()
         try:
             with connection.cursor() as cursor:
                 cursor.execute(
                     """
-                    INSERT INTO strava_api.activities (
+                    INSERT INTO %s (
                         athlete_id, athlete, activity_id, run, moving_time, distance_mi, pace_min_mi,
                         full_date, time, day, month, date, year, spm_avg, hr_avg, wkt_type,
                         description, total_elev_gain_ft, manual, max_speed_ft_s, calories,
@@ -20,6 +22,7 @@ class StravaActivitiesDao:
                     DO UPDATE SET 
                         athlete_id = EXCLUDED.athlete_id,
                         athlete = EXCLUDED.athlete,
+                        activity_id= EXCLUDED.activity_id,
                         run = EXCLUDED.run,
                         moving_time = EXCLUDED.moving_time,
                         distance_mi = EXCLUDED.distance_mi,
@@ -48,7 +51,7 @@ class StravaActivitiesDao:
                         avg_power = EXCLUDED.avg_power,
                         sleep_rating = EXCLUDED.sleep_rating
                     """,
-                    activity_data
+                    (ACTIVITIES_TABLE_NAME, activity_data)
                 )
                 connection.commit()
         except Exception as e:
@@ -63,10 +66,10 @@ class StravaActivitiesDao:
             with connection.cursor() as cursor:
                 cursor.execute(
                     """
-                    SELECT * FROM strava_api.activities
+                    SELECT * FROM %s
                     WHERE activity_id = %s
                     """,
-                    (activity_id,)
+                    (ACTIVITIES_TABLE_NAME, activity_id)
                 )
                 return cursor.fetchone()
         except Exception as e:
@@ -78,7 +81,7 @@ class StravaActivitiesDao:
         connection = self.db_service.get_connection()
         try:
             with connection.cursor() as cursor:
-                query = "UPDATE strava_api.activities SET "
+                query = f"UPDATE ${ACTIVITIES_TABLE_NAME} SET "
                 params = []
                 for key, value in kwargs.items():
                     query += f"{key} = %s, "
@@ -98,8 +101,8 @@ class StravaActivitiesDao:
         try:
             with connection.cursor() as cursor:
                 cursor.execute(
-                    "DELETE FROM strava_api.activities WHERE activity_id = %s",
-                    (activity_id,)
+                    "DELETE FROM %s WHERE activity_id = %s",
+                    (ACTIVITIES_TABLE_NAME, activity_id)
                 )
                 connection.commit()
         except Exception as e:
