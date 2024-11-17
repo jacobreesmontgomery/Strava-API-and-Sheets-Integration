@@ -109,18 +109,18 @@ def read_csv(file_path, fieldnames, athlete, columns_to_include=None):
     print(f"END of read_csv() w/ return(s)...\n\trunData: {runData}\n")
     return runData
 
-# TODO: Fix this shiz. Not working. Quote is empty. Womp womp.
-def get_inspirational_quote():
-    url = "https://type.fit/api/quotes"
-    response = requests.get(url)
-    if response.status_code == 200:
-        quotes = response.text.splitlines()  # Split the response into lines
-        quote = random.choice(quotes)
-        author_start_index = quote.find("-") + 2  # Find the index of the author's name
-        author = quote[author_start_index:].strip()  # Extract the author's name
-        return f'"{quote[:author_start_index - 2]}" - {author}'
-    else:
-        return "Quote not available at the moment."
+# # TODO: Fix this shiz. Not working. Quote is empty. Womp womp.
+# def get_inspirational_quote():
+#     url = "https://type.fit/api/quotes"
+#     response = requests.get(url)
+#     if response.status_code == 200:
+#         quotes = response.text.splitlines()  # Split the response into lines
+#         quote = random.choice(quotes)
+#         author_start_index = quote.find("-") + 2  # Find the index of the author's name
+#         author = quote[author_start_index:].strip()  # Extract the author's name
+#         return f'"{quote[:author_start_index - 2]}" - {author}'
+#     else:
+#         return "Quote not available at the moment."
 
 def job():
     """
@@ -165,7 +165,7 @@ def job():
             athlete_name=str(athlete).split()[0],  # TODO: Make sure this successfully extracts the first name
             eachTrainingDay=eachTrainingDay, 
             recapOfWeek=recapOfWeek,
-            quote=get_inspirational_quote()
+            quote="'That’s the thing about running: your greatest runs are rarely measured by racing success. They are moments in time when running allows you to see how wonderful your life is.' — Kara Goucher" # replace with call to get_inspirational_quote() once that method is fixed
         )
         
         try:

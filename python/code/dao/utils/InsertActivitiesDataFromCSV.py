@@ -21,6 +21,8 @@ def process_csv(csv_file_path):
         reader = CSVReader(file)
         next(reader)  # skip header row
 
+        # TODO - JACOB: Debug what's going on during the get_athlete_id call via the debugger
+
         for row in reader:
             # We have to acquire the ID via this DB call because the ATHLETE_DATA file doesn't have the ID
             athlete_id = athlete_dao.get_athlete_id(athlete_name=row[0]) if row[0] and len(row[0]) > 0 else None
