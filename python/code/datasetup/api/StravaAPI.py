@@ -33,6 +33,15 @@ class StravaAPI:
         self.client = Client(access_token)
 
     def get_activities_this_week(self, athlete_id):
+        """
+        Gets the atlete's activities for the current week.
+
+        Args:
+            athlete_id: The athlete's ID
+
+        Returns:
+            List[Activity]: A list of the current week's activities
+        """
         try:
             # Calculate the start and end of the current week in UTC
             today = datetime.now()
@@ -53,19 +62,39 @@ class StravaAPI:
             print(f"Failed to retrieve this week's activities for athlete {athlete_id}.")
             return None
     
-    def get_activities(self, athlete_id):
+    def get_activities(self, athlete_id: int, start_date: str = None, end_date: str = None):
+        """
+        Gets the athlete's activities for a default, or specified, timeframe.
+
+        Args:
+            athlete_id: The athlete's ID
+            start_date: The start date, as an epoch timestamp, of the timeframe for activities (optional)
+            end_date: The end date, as an epoch timestamp, of the timeframe for activities (optional)
+
+        Returns:
+            List[Activity]: A list of activities for the specified athlete and timeframe.
+        """
         try:
-            client = self.client
-            activities = client.get_activities()
+            activities = None
+            if start_date and end_date:
+                activities = self.client.get_activities(after=start_date, before=end_date)
+            elif start_date:
+                activities = self.client.get_activities(after=start_date)
+            elif end_date:
+                activities = self.client.get_activities(before=end_date)
+            else:
+                activities = self.client.get_activities()
             return list(activities)
         except Exception as e:
             print(f"Failed to retrieve activities for athlete ID {athlete_id}: {e}")
             return None
         
     def get_athlete_data(self):
+        """
+        Gets the athlete's basic information via the /athlete endpoint.
+        """
         try:
-            client = self.client
-            athlete_data = client.get_athlete()
+            athlete_data = self.client.get_athlete()
             return dict(athlete_data)
         except Exception as e:
             print(f"An error occurred while retrieving athlete data: {e}")

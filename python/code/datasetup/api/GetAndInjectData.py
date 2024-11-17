@@ -31,6 +31,11 @@ from utilities import (
     tally_time
 )
 
+package_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'dao'))
+sys.path.insert(1, package_path)
+from StravaActivitiesDao import StravaActivitiesDao
+from DatabaseService import DatabaseService
+
 # Loading environment variables from the .env file
 load_dotenv()
 
@@ -300,10 +305,10 @@ def update_athlete_recap_data(existing_recap_data, athlete_name, new_athlete_run
 
 def handle_any_special_field_updates(activity):
     """
-        Checks if a special field has been changed in an activity: title, description, and workout type.
+    Checks if a special field has been changed in an activity: title, description, and workout type.
 
-        Args:
-            activity (dict): An athlete's activity.
+    Args:
+        activity (dict): An athlete's activity.
     """
     fieldChanged = [False, False, False]
 
@@ -336,11 +341,76 @@ def handle_any_special_field_updates(activity):
             writer = csv.DictWriter(data_file, fieldnames=ATHLETE_DATA_FIELDNAMES)
             writer.writerows(data)
 
+def format_activities(activities):
+    """
+    Format the activities into a suitable format for insertion into the MySQL database.
+    """
+    formatted_activities = []
+
+    # TODO: Fill out this method
+
+    return format_activities
+
+def get_and_insert_athlete_activities_into_db(athlete_id: int, refresh_token: str, start_date: str, end_date: str = None):
+    """
+    Retrieve all activities for a specific athlete from Strava API,
+    format them, and insert into a MySQL database.
+
+    Args:
+        athlete_id: The athlete's ID
+        refresh_token: The athlete's refresh token
+        after: Limit results to activities after this timestamp
+        before: Limit results to activities before this timestamp
+    """
+    print("\nSTART of get_and_insert_athlete_activities_into_db()...\n")
+    
+    # STEPS:
+    # 1. Get auth client and access token
+    # 2. Retrieve the athlete's activities between the after and before timeframe
+    # 3. Format the activities into a suitable format for insertion into the MySQL database
+    # 4. Insert the formatted activities into the MySQL database
+    # 5. Handle any errors that may occur during the process
+
+    # 1. Get auth client and access token
+    authorization_client = StravaAuthorization(client_id, client_secret, redirect_uri)
+    access_token = authorization_client.exchange_refresh_token(refresh_token)
+    strava_client = StravaAPI(access_token)
+    
+    # 2 and 3. Retrieve (and format) the athlete's activities between the after and before timeframe
+    activities = strava_client.get_activities(athlete_id=athlete_id, start_date=start_date)
+    formatted_activities = format_activities(activities=activities)
+    # TODO - Need to rework activity formatting for DB insertion
+
+    # 4. Insert the formatted activities into the MySQL database
+    db_service = DatabaseService()
+    activity_dao = StravaActivitiesDao(db_service)
+    for activity in activities:
+        activity_dao.upsert_activity(activity)
+
+    print("END of get_and_insert_athlete_activities_into_db()...\n")
+
+# Override to false for default behavior of this file
+GET_AND_INSERT_TO_DB_FOR_TIMEFRAME=True
+ATHLETE_INDEX = 0
+
 def main():
     """
         Drives all of the main logic.
     """
     # TODO: Simplify this, break the logic apart into helper methods. Too long!!
+
+    if GET_AND_INSERT_TO_DB_FOR_TIMEFRAME:
+        counter = 0
+        for athlete_id, refresh_token in athlete_refresh_tokens.items():
+            if counter == ATHLETE_INDEX:
+                get_and_insert_athlete_activities_into_db(
+                    athlete_id=athlete_id, 
+                    refresh_token=refresh_token, 
+                    start_date="2024-11-10", # Change to whatever
+                )
+                break
+            counter += 1
+        return
 
     # Initialize StravaAPI instances for each athlete
     strava_clients = {}
@@ -360,7 +430,6 @@ def main():
         rows_added = 0
         if activities:
             for activity in activities:
-                # TODO: Update this if conditional (or add another one) to check if we have certain fields updated (see todo list)
                 if activity[unique_column] not in unique_ids:
                     cleaned_activity = {key: emoji.demojize(str(value)) if not isinstance(value, str) else emoji.demojize(value) for key, value in activity.items()}
                     rows.append(cleaned_activity)
