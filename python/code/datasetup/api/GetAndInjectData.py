@@ -392,6 +392,7 @@ def get_and_insert_athlete_activities_into_db(athlete_id: int, refresh_token: st
 # Override to false for default behavior of this file
 GET_AND_INSERT_TO_DB_FOR_TIMEFRAME=True
 ATHLETE_INDEX = 0
+START_DATE = "2024-11-10"
 
 def main():
     """
@@ -406,7 +407,7 @@ def main():
                 get_and_insert_athlete_activities_into_db(
                     athlete_id=athlete_id, 
                     refresh_token=refresh_token, 
-                    start_date="2024-11-10", # Change to whatever
+                    start_date=START_DATE,
                 )
                 break
             counter += 1
