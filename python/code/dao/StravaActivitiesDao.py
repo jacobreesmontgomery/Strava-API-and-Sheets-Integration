@@ -1,112 +1,86 @@
-ACTIVITIES_TABLE_NAME = "strava_api.activities"
+from sqlalchemy.dialects.postgresql import insert
+from models.Activity import Activity
+import logging
 
 class StravaActivitiesDao:
+    """
+    Responsible for managing Strava activity data in the database.
+    """
     def __init__(self, db_service):
+        """
+        :param db_service: An instance of DatabaseService for session management.
+        """
         self.db_service = db_service
+        self.logger = logging.getLogger(__name__)
 
     def upsert_activity(self, activity_data):
-        print(f"Upserting activity to ${ACTIVITIES_TABLE_NAME}:\n{activity_data}")
-        connection = self.db_service.get_connection()
+        """
+        Upserts an activity record into the database.
+        :param activity_data: A dictionary containing activity details.
+        """
+        self.logger.info("Upserting activity with ID %s", activity_data.get("activity_id"))
+        session = self.db_service.get_session()
         try:
-            with connection.cursor() as cursor:
-                cursor.execute(
-                    """
-                    INSERT INTO %s (
-                        athlete_id, athlete, activity_id, run, moving_time, distance_mi, pace_min_mi,
-                        full_date, time, day, month, date, year, spm_avg, hr_avg, wkt_type,
-                        description, total_elev_gain_ft, manual, max_speed_ft_s, calories,
-                        achievement_count, kudos_count, comment_count, athlete_count, full_datetime,
-                        rpe, rating, avg_power, sleep_rating
-                    ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-                    ON CONFLICT (activity_id) 
-                    DO UPDATE SET 
-                        athlete_id = EXCLUDED.athlete_id,
-                        athlete = EXCLUDED.athlete,
-                        activity_id= EXCLUDED.activity_id,
-                        run = EXCLUDED.run,
-                        moving_time = EXCLUDED.moving_time,
-                        distance_mi = EXCLUDED.distance_mi,
-                        pace_min_mi = EXCLUDED.pace_min_mi,
-                        full_date = EXCLUDED.full_date,
-                        time = EXCLUDED.time,
-                        day = EXCLUDED.day,
-                        month = EXCLUDED.month,
-                        date = EXCLUDED.date,
-                        year = EXCLUDED.year,
-                        spm_avg = EXCLUDED.spm_avg,
-                        hr_avg = EXCLUDED.hr_avg,
-                        wkt_type = EXCLUDED.wkt_type,
-                        description = EXCLUDED.description,
-                        total_elev_gain_ft = EXCLUDED.total_elev_gain_ft,
-                        manual = EXCLUDED.manual,
-                        max_speed_ft_s = EXCLUDED.max_speed_ft_s,
-                        calories = EXCLUDED.calories,
-                        achievement_count = EXCLUDED.achievement_count,
-                        kudos_count = EXCLUDED.kudos_count,
-                        comment_count = EXCLUDED.comment_count,
-                        athlete_count = EXCLUDED.athlete_count,
-                        full_datetime = EXCLUDED.full_datetime,
-                        rpe = EXCLUDED.rpe,
-                        rating = EXCLUDED.rating,
-                        avg_power = EXCLUDED.avg_power,
-                        sleep_rating = EXCLUDED.sleep_rating
-                    """,
-                    (ACTIVITIES_TABLE_NAME, activity_data)
-                )
-                connection.commit()
+            stmt = insert(Activity).values(**activity_data).on_conflict_do_update(
+                index_elements=["activity_id"],  # The unique constraint column(s)
+                set_={key: activity_data[key] for key in activity_data if key != "activity_id"}
+            )
+            session.execute(stmt)
+            session.commit()
         except Exception as e:
-            connection.rollback()
-            print(f"Error upserting activity: {e}")
+            session.rollback()
+            self.logger.error("Error upserting activity: %s", e, exc_info=True)
+            raise
         finally:
-            self.db_service.release_connection(connection)
+            self.db_service.close_session()
 
     def get_activity(self, activity_id):
-        connection = self.db_service.get_connection()
+        """
+        Retrieves an activity by its ID.
+        :param activity_id: The ID of the activity to retrieve.
+        :return: An Activity object or None if not found.
+        """
+        self.logger.info("Fetching activity with ID %s", activity_id)
+        session = self.db_service.get_session()
         try:
-            with connection.cursor() as cursor:
-                cursor.execute(
-                    """
-                    SELECT * FROM %s
-                    WHERE activity_id = %s
-                    """,
-                    (ACTIVITIES_TABLE_NAME, activity_id)
-                )
-                return cursor.fetchone()
+            return session.query(Activity).filter_by(activity_id=activity_id).first()
         except Exception as e:
-            print(f"Error getting activity: {e}")
+            self.logger.error("Error fetching activity: %s", e, exc_info=True)
+            raise
         finally:
-            self.db_service.release_connection(connection)
+            self.db_service.close_session()
 
     def update_activity(self, activity_id, **kwargs):
-        connection = self.db_service.get_connection()
+        """
+        Updates fields of an activity with the specified ID.
+        :param activity_id: The ID of the activity to update.
+        :param kwargs: The fields and values to update.
+        """
+        self.logger.info("Updating activity with ID %s", activity_id)
+        session = self.db_service.get_session()
         try:
-            with connection.cursor() as cursor:
-                query = f"UPDATE ${ACTIVITIES_TABLE_NAME} SET "
-                params = []
-                for key, value in kwargs.items():
-                    query += f"{key} = %s, "
-                    params.append(value)
-                query = query.rstrip(', ') + " WHERE activity_id = %s"
-                params.append(activity_id)
-                cursor.execute(query, tuple(params))
-                connection.commit()
+            session.query(Activity).filter_by(activity_id=activity_id).update(kwargs)
+            session.commit()
         except Exception as e:
-            connection.rollback()
-            print(f"Error updating activity: {e}")
+            session.rollback()
+            self.logger.error("Error updating activity: %s", e, exc_info=True)
+            raise
         finally:
-            self.db_service.release_connection(connection)
+            self.db_service.close_session()
 
     def delete_activity(self, activity_id):
-        connection = self.db_service.get_connection()
+        """
+        Deletes an activity by its ID.
+        :param activity_id: The ID of the activity to delete.
+        """
+        self.logger.info("Deleting activity with ID %s", activity_id)
+        session = self.db_service.get_session()
         try:
-            with connection.cursor() as cursor:
-                cursor.execute(
-                    "DELETE FROM %s WHERE activity_id = %s",
-                    (ACTIVITIES_TABLE_NAME, activity_id)
-                )
-                connection.commit()
+            session.query(Activity).filter_by(activity_id=activity_id).delete()
+            session.commit()
         except Exception as e:
-            connection.rollback()
-            print(f"Error deleting activity: {e}")
+            session.rollback()
+            self.logger.error("Error deleting activity: %s", e, exc_info=True)
+            raise
         finally:
-            self.db_service.release_connection(connection)
+            self.db_service.close_session()

@@ -380,6 +380,7 @@ def get_and_insert_athlete_activities_into_db(athlete_id: int, refresh_token: st
     activities = strava_client.get_activities(athlete_id=athlete_id, start_date=start_date)
     formatted_activities = format_activities(activities=activities)
     # TODO - Need to rework activity formatting for DB insertion
+    return
 
     # 4. Insert the formatted activities into the MySQL database
     db_service = DatabaseService()
@@ -391,7 +392,7 @@ def get_and_insert_athlete_activities_into_db(athlete_id: int, refresh_token: st
 
 # Override to false for default behavior of this file
 GET_AND_INSERT_TO_DB_FOR_TIMEFRAME=True
-ATHLETE_INDEX = 0
+ATHLETE_INDEX = 2
 START_DATE = "2024-11-10"
 
 def main():

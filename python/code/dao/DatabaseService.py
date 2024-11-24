@@ -1,34 +1,46 @@
-from psycopg2 import pool
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker, scoped_session
 from dotenv import load_dotenv
 import os
 
 load_dotenv()
 
-db_config = {
-    'dbname': os.getenv('DB_NAME'),
-    'user': os.getenv('DB_USER'),
-    'password': os.getenv('DB_PASSWORD'),
-    'host': os.getenv('DB_HOST'),
-    'port': os.getenv('DB_PORT')
-}
+# Database configuration
+db_url = (
+    f"postgresql://{os.getenv('DB_USER')}:{os.getenv('DB_PASSWORD')}"
+    f"@{os.getenv('DB_HOST')}:{os.getenv('DB_PORT')}/{os.getenv('DB_NAME')}"
+)
 
 class DatabaseService:
+    """
+    Database service for interacting with the PostgreSQL database.
+    """
     def __init__(self):
-        self.db_config = db_config
-        self.connection_pool = pool.SimpleConnectionPool(
-            1, 10,
-            dbname=db_config['dbname'],
-            user=db_config['user'],
-            password=db_config['password'],
-            host=db_config['host'],
-            port=db_config['port']
+        # Create the SQLAlchemy engine with connection pooling
+        self.engine = create_engine(
+            db_url,
+            pool_size=10,  # Maximum connections in the pool
+            max_overflow=5,  # Additional connections allowed above pool_size
+            pool_timeout=30,  # Wait timeout for connections
+            pool_pre_ping=True  # Ensures connections are alive
         )
+        # Scoped session factory
+        self.Session = scoped_session(sessionmaker(bind=self.engine))
 
-    def get_connection(self):
-        return self.connection_pool.getconn()
+    def get_session(self):
+        """
+        Get a new database session.
+        """
+        return self.Session()
 
-    def release_connection(self, connection):
-        self.connection_pool.putconn(connection)
+    def close_session(self):
+        """
+        Remove the current session from the scoped session registry.
+        """
+        self.Session.remove()
 
-    def close_all_connections(self):
-        self.connection_pool.closeall()
+    def dispose_engine(self):
+        """
+        Dispose of the engine and all connections in the pool.
+        """
+        self.engine.dispose()

@@ -1,105 +1,133 @@
-ATHLETE_TABLE_NAME = "strava_api.athlete"
+from models.Athlete import Athlete
+from sqlalchemy.orm.exc import NoResultFound
+import logging
 
 class StravaAthleteDao:
+    """
+    Responsible for managing athlete data in the database.
+    """
     def __init__(self, db_service):
+        """
+        :param db_service: An instance of DatabaseService for session management.
+        """
         self.db_service = db_service
+        self.logger = logging.getLogger(__name__)
 
     def create_athlete(self, athlete_id, athlete_name, refresh_token, email):
-        connection = self.db_service.get_connection()
+        """
+        Creates a new athlete in the database.
+        :param athlete_id: The ID of the athlete.
+        :param athlete_name: The name of the athlete.
+        :param refresh_token: The refresh token for the athlete.
+        :param email: The email of the athlete.
+        :return: The athlete's ID after creation.
+        """
+        self.logger.info("Creating athlete with ID %s", athlete_id)
+        session = self.db_service.get_session()
         try:
-            with connection.cursor() as cursor:
-                cursor.execute(
-                    """
-                    INSERT INTO %s (athlete_id, athlete_name, refresh_token, email)
-                    VALUES (%s, %s, %s, %s)
-                    RETURNING athlete_id
-                    """,
-                    (ATHLETE_TABLE_NAME, athlete_id, athlete_name, refresh_token, email)
-                )
-                returned_id = cursor.fetchone()[0]
-                connection.commit()
-                return returned_id
+            athlete = Athlete(
+                athlete_id=athlete_id,
+                athlete_name=athlete_name,
+                refresh_token=refresh_token,
+                email=email
+            )
+            session.add(athlete)
+            session.commit()
+            return athlete.athlete_id
         except Exception as e:
-            connection.rollback()
-            print(f"Error creating athlete: {e}")
+            session.rollback()
+            self.logger.error("Error creating athlete: %s", e, exc_info=True)
+            raise
         finally:
-            self.db_service.release_connection(connection)
+            self.db_service.close_session()
 
     def get_athlete(self, athlete_id):
-        connection = self.db_service.get_connection()
+        """
+        Retrieves an athlete by their ID.
+        :param athlete_id: The ID of the athlete.
+        :return: An Athlete object or None if not found.
+        """
+        self.logger.info("Fetching athlete with ID %s", athlete_id)
+        session = self.db_service.get_session()
         try:
-            with connection.cursor() as cursor:
-                cursor.execute(
-                    """
-                    SELECT athlete_id, athlete_name, refresh_token, email
-                    FROM %s
-                    WHERE athlete_id = %s
-                    """,
-                    (ATHLETE_TABLE_NAME, athlete_id)
-                )
-                return cursor.fetchone()
+            return session.query(Athlete).filter_by(athlete_id=athlete_id).first()
+        except NoResultFound:
+            self.logger.warning("No athlete found with ID %s", athlete_id)
+            return None
         except Exception as e:
-            print(f"Error getting athlete: {e}")
+            self.logger.error("Error getting athlete: %s", e, exc_info=True)
+            raise
         finally:
-            self.db_service.release_connection(connection)
-    
+            self.db_service.close_session()
+
     def get_athlete_id(self, athlete_name):
-        print(f"Getting athlete ID for '{athlete_name}'...")
-        connection = self.db_service.get_connection()
+        """
+        Retrieves an athlete's ID by their name.
+        :param athlete_name: The name of the athlete.
+        :return: The athlete's ID or None if not found.
+        """
+        self.logger.info("Fetching athlete ID for '%s'", athlete_name)
+        session = self.db_service.get_session()
         try:
-            with connection.cursor() as cursor:
-                cursor.execute(
-                    """
-                    SELECT athlete_id
-                    FROM %s
-                    WHERE athlete_name = %s
-                    """,
-                    (ATHLETE_TABLE_NAME, athlete_name,)
-                )
-                result = cursor.fetchone()
-                print(f"Result: {result}")
-                return result[0]
+            athlete = session.query(Athlete).filter_by(athlete_name=athlete_name).first()
+            if athlete:
+                return athlete.athlete_id
+            return None
         except Exception as e:
-            print(f"Error getting athlete ID: {e}")
+            self.logger.error("Error getting athlete ID: %s", e, exc_info=True)
+            raise
         finally:
-            self.db_service.release_connection(connection)
+            self.db_service.close_session()
 
     def update_athlete(self, athlete_id, athlete_name=None, refresh_token=None, email=None):
-        connection = self.db_service.get_connection()
+        """
+        Updates an athlete's details in the database.
+        :param athlete_id: The ID of the athlete to update.
+        :param athlete_name: The new name for the athlete.
+        :param refresh_token: The new refresh token for the athlete.
+        :param email: The new email for the athlete.
+        """
+        self.logger.info("Updating athlete with ID %s", athlete_id)
+        session = self.db_service.get_session()
         try:
-            with connection.cursor() as cursor:
-                query = f"UPDATE ${ATHLETE_TABLE_NAME} SET "
-                params = []
-                if athlete_name is not None:
-                    query += "athlete_name = %s, "
-                    params.append(athlete_name)
-                if refresh_token is not None:
-                    query += "refresh_token = %s, "
-                    params.append(refresh_token)
-                if email is not None:
-                    query += "email = %s, "
-                    params.append(email)
-                query = query.rstrip(', ') + " WHERE athlete_id = %s"
-                params.append(athlete_id)
-                cursor.execute(query, tuple(params))
-                connection.commit()
+            athlete = session.query(Athlete).filter_by(athlete_id=athlete_id).first()
+            if not athlete:
+                self.logger.warning("No athlete found with ID %s", athlete_id)
+                return
+
+            if athlete_name:
+                athlete.athlete_name = athlete_name
+            if refresh_token:
+                athlete.refresh_token = refresh_token
+            if email:
+                athlete.email = email
+
+            session.commit()
         except Exception as e:
-            connection.rollback()
-            print(f"Error updating athlete: {e}")
+            session.rollback()
+            self.logger.error("Error updating athlete: %s", e, exc_info=True)
+            raise
         finally:
-            self.db_service.release_connection(connection)
+            self.db_service.close_session()
 
     def delete_athlete(self, athlete_id):
-        connection = self.db_service.get_connection()
+        """
+        Deletes an athlete from the database.
+        :param athlete_id: The ID of the athlete to delete.
+        """
+        self.logger.info("Deleting athlete with ID %s", athlete_id)
+        session = self.db_service.get_session()
         try:
-            with connection.cursor() as cursor:
-                cursor.execute(
-                    "DELETE FROM %s WHERE athlete_id = %s",
-                    (ATHLETE_TABLE_NAME, athlete_id)
-                )
-                connection.commit()
+            athlete = session.query(Athlete).filter_by(athlete_id=athlete_id).first()
+            if not athlete:
+                self.logger.warning("No athlete found with ID %s", athlete_id)
+                return
+
+            session.delete(athlete)
+            session.commit()
         except Exception as e:
-            connection.rollback()
-            print(f"Error deleting athlete: {e}")
+            session.rollback()
+            self.logger.error("Error deleting athlete: %s", e, exc_info=True)
+            raise
         finally:
-            self.db_service.release_connection(connection)
+            self.db_service.close_session()
