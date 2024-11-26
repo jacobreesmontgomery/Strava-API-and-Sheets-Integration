@@ -10,9 +10,9 @@ from sqlalchemy import (
     Text,
     ForeignKey,
 )
-from sqlalchemy.ext.declarative import declarative_base
 
-Base = declarative_base()
+# Use the Athlete model's Base
+from .Athlete import Base
 
 class Activity(Base):
     """

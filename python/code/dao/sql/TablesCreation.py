@@ -4,26 +4,19 @@ import sys
 package_path = path.abspath(path.join(path.dirname(__file__), '..'))
 sys.path.insert(0, package_path)
 
-from models.Activity import Base as BaseActivity
-from models.Athlete import Base as BaseAthlete
+# NOTE - You must import all models here that you want table generations for.
+from models.Athlete import Base, Athlete
+from models.Activity import Activity
 from DatabaseService import DatabaseService
 
 # Create the database service
 db_service = DatabaseService()
 engine = db_service.engine
 
-# Create the 'athletes' table if it doesn't already exist
+# Create the tables
 try:
-    BaseAthlete.metadata.create_all(engine)
-    print("'athletes' table created successfully!")
+    Base.metadata.create_all(engine)
+    print("Tables created successfully!")
 except Exception as e:
-    print(f"Error creating the 'athletes' table: {e}")
-    raise
-
-# Create the 'activities' table if it doesn't already exist
-try:
-    BaseActivity.metadata.create_all(engine)
-    print("'activities' table created successfully!")
-except Exception as e:
-    print(f"Error creating the 'activities' table: {e}")
+    print(f"Error creating a table: {e}")
     raise
