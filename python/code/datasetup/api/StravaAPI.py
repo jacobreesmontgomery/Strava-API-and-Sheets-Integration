@@ -76,6 +76,7 @@ class StravaAPI:
         """
         try:
             activities = None
+            # Get the basic Activity objects
             if start_date and end_date:
                 activities = self.client.get_activities(after=start_date, before=end_date)
             elif start_date:
@@ -84,7 +85,16 @@ class StravaAPI:
                 activities = self.client.get_activities(before=end_date)
             else:
                 activities = self.client.get_activities()
-            return list(activities)
+
+            # Get the Detailed Activity objects (for runs)
+            activity_ids_and_type = [(activity.id, activity.type) for activity in activities]
+            detailed_activities = list()
+            for activity_id, activity_type in activity_ids_and_type:
+                if activity_type == "Run": # Only including runs (for now)
+                    detailed_activities.append(self.client.get_activity(activity_id=activity_id))
+            
+            # Return the list of Detailed Activities
+            return detailed_activities
         except Exception as e:
             print(f"Failed to retrieve activities for athlete ID {athlete_id}: {e}")
             return None

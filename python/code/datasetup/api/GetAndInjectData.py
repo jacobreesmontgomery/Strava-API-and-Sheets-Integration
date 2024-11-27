@@ -137,6 +137,49 @@ def convert_activities_to_list_of_dicts(activities):
     print(f"\nEND of convert_activities_to_list_of_dicts() w/ return(s)...\n\tactivities_list: {activities_list}\n")
     return activities_list
 
+def convert_activities_to_list_of_dicts_postgres(activities):
+    """
+        Converts the detailed activities to a list of dicts, 
+        digestable by SQLAlchemy for the PostgreSQL database injections.
+    """
+    print(f"\nSTART of convert_activities_to_list_of_dicts_postgres() w/ arg(s)...\n\tactivities: {activities}")
+    activities_list = list()
+    for activity in activities:
+        rpe, runRating, avgPower, sleepRating = parse_description(activity.description if activity.description else "")
+        activity_dict = {
+            "activity_id": activity.id,
+            "athlete_id": athlete_names_parallel_arr[get_index_of_key(athlete_refresh_tokens, activity.athlete.id)].upper(),
+            "name": activity.name,
+            "moving_time": format_seconds(activity.moving_time), # Formatting to HH:MM:SS
+            "distance_mi": f"{round(float(activity.distance) / 1609.34, 2):.2f}", # Converting meters to miles
+            "pace_min_mi": calculate_pace(float(activity.moving_time.total_seconds()), float(activity.distance * 0.000621371)),
+            "full_date": activity.start_date_local.strftime("%m/%d/%Y"),
+            "time": activity.start_date_local.strftime("%I:%M:%S %p"),
+            "full_datetime": activity.start_date_local.strftime("%Y-%m-%d %H:%M:%S"),
+            "day": activity.start_date_local.strftime("%a").upper(),
+            "month": activity.start_date_local.strftime("%m"),
+            "date": activity.start_date_local.strftime("%d"),
+            "year": activity.start_date_local.strftime("%Y"),
+            "spm_avg": f"{round(activity.average_cadence * 2, 2):.2f}" if activity.average_cadence else "N/A",
+            "hr_avg": f"{round(activity.average_heartrate, 2):.2f}" if activity.average_heartrate else "N/A",
+            "wkt_type": activity.workout_type,
+            "description": activity.description,
+            "total_elev_gain_ft": f"{round(float(str(activity.total_elevation_gain).split()[0]) * 3.28084, 2):.2f}",
+            "manual": activity.manual,
+            "max_speed_ft_s": f"{round(float(str(activity.max_speed).split()[0]) * 3.28084, 2):.2f}",
+            "calories": round(activity.calories, 0),
+            "achievement_count": activity.achievement_count,
+            "kudos_count": activity.kudos_count,
+            "comment_count": activity.comment_count,
+            "athlete_count": activity.athlete_count,
+            "rpe": rpe,
+            "rating": runRating,
+            "avg_power": avgPower,
+            "sleep_rating": sleepRating
+        } # add more fields as needed
+        activities_list.append(activity_dict)
+    print(f"\nEND of convert_activities_to_list_of_dicts() w/ return(s)...\n\tactivities_list: {activities_list}\n")
+    return activities_list
 
 def load_existing_ids(file_path, column):
     """
@@ -341,16 +384,6 @@ def handle_any_special_field_updates(activity):
             writer = csv.DictWriter(data_file, fieldnames=ATHLETE_DATA_FIELDNAMES)
             writer.writerows(data)
 
-def format_activities(activities):
-    """
-    Format the activities into a suitable format for insertion into the MySQL database.
-    """
-    formatted_activities = []
-
-    # TODO: Fill out this method
-
-    return format_activities
-
 def get_and_insert_athlete_activities_into_db(athlete_id: int, refresh_token: str, start_date: str, end_date: str = None):
     """
     Retrieve all activities for a specific athlete from Strava API,
@@ -378,14 +411,12 @@ def get_and_insert_athlete_activities_into_db(athlete_id: int, refresh_token: st
     
     # 2 and 3. Retrieve (and format) the athlete's activities between the after and before timeframe
     activities = strava_client.get_activities(athlete_id=athlete_id, start_date=start_date)
-    formatted_activities = format_activities(activities=activities)
-    # TODO - Need to rework activity formatting for DB insertion
-    return
+    detailed_activities = convert_activities_to_list_of_dicts_postgres(activities=activities)
 
-    # 4. Insert the formatted activities into the MySQL database
+    # 4. Insert the formatted activities into the PostgreSQL database
     db_service = DatabaseService()
     activity_dao = StravaActivitiesDao(db_service)
-    for activity in activities:
+    for activity in detailed_activities:
         activity_dao.upsert_activity(activity)
 
     print("END of get_and_insert_athlete_activities_into_db()...\n")
