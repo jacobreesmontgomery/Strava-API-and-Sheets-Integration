@@ -20,8 +20,7 @@ import json
 import emoji
 import sys
 import re
-from typing import Dict, List
-
+from zoneinfo import ZoneInfo
 
 package_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'utilities'))
 sys.path.insert(0, package_path)
@@ -159,12 +158,12 @@ def parse_start_date(start_date: datetime):
     month = int(start_date.strftime("%m"))
     day = int(start_date.strftime("%d"))
     year = int(start_date.strftime("%Y"))
-    run_time = time(hour=start_date.hour, minute=start_date.minute, second=start_date.second)
+    run_time = time(hour=start_date.hour, minute=start_date.minute, second=start_date.second, tzinfo=start_date.tzinfo)
 
     print(f"\nEND of parse_start_date() w/ return(s)...\n\ttime: {time}, week_day: {week_day}, month: {month}, day: {day}, year: {year}\n")
     return run_time, week_day, month, day, year
 
-def convert_activities_to_list_of_dicts_postgres(activities: List[Activity]) -> List[Dict]:
+def convert_activities_to_list_of_dicts_postgres(activities: list[Activity]) -> list[dict]:
     """
     Converts the detailed activities to a list of dicts, 
     digestable by SQLAlchemy for the PostgreSQL database injections.
@@ -180,7 +179,7 @@ def convert_activities_to_list_of_dicts_postgres(activities: List[Activity]) -> 
     for activity in activities:
         # Initial calculations
         rpe, run_rating, avg_power, sleep_rating = parse_description(activity.description if activity.description else "")
-        run_time, week_day, month, day, year = parse_start_date(activity.start_date)
+        run_time, week_day, month, day, year = parse_start_date(activity.start_date_local)
         str_formatted_time, time_obj = format_seconds(activity.moving_time)
         str_formatted_moving_time, moving_time_obj = calculate_pace(float(activity.moving_time.total_seconds()), float(activity.distance * 0.000621371))
         

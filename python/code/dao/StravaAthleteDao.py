@@ -41,13 +41,15 @@ class StravaAthleteDao:
                     'email': email
                 }
             )
-            session.execute(stmt)
+            result = session.execute(stmt)
             session.commit()
-            return athlete_id
+            row_count = result.rowcount
+            self.logger.info(f"{row_count} rows were updated")
+            return row_count
         except Exception as e:
             session.rollback()
             self.logger.error("Error upserting athlete: %s", e, exc_info=True)
-            raise
+            return 0
         finally:
             self.db_service.close_session()
 
@@ -89,7 +91,9 @@ class StravaAthleteDao:
         try:
             athlete = session.query(Athlete).filter_by(athlete_name=athlete_name).first()
             if athlete:
+                self.logger.info(f"Acquired athlete ID of {athlete.athlete_id} for {athlete_name}")
                 return athlete.athlete_id
+            self.logger.info("No athlete ID was found.")
             return None
         except Exception as e:
             self.logger.error("Error getting athlete ID: %s", e, exc_info=True)
@@ -126,6 +130,7 @@ class StravaAthleteDao:
                 athlete.email = email
 
             session.commit()
+            self.logger.info("Athlete with ID %s updated", athlete_id)
             return True
         except Exception as e:
             session.rollback()
@@ -154,6 +159,7 @@ class StravaAthleteDao:
 
             session.delete(athlete)
             session.commit()
+            self.logger.info("Athlete with ID %s deleted", athlete_id)
             return True
         except Exception as e:
             session.rollback()

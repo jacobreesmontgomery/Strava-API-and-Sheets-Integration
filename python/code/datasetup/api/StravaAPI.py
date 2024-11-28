@@ -35,7 +35,7 @@ class StravaAPI:
         self.access_token = access_token
         self.client = Client(access_token)
 
-    def get_activities_this_week(self, athlete_id) -> List[Activity]:
+    def get_activities_this_week(self, athlete_id: int) -> list[Activity]:
         """
         Gets the atlete's activities for the current week.
 
@@ -56,7 +56,7 @@ class StravaAPI:
             
             # Get the detailed activities from the basic list above
             activity_ids_and_type = [(activity.id, activity.type) for activity in activities]
-            detailed_activities = list[Activity]
+            detailed_activities = list[Activity] = []
             for activity_id, activity_type in activity_ids_and_type:
                 if activity_type == "Run": # Only including runs
                     detailed_activities.append(self.client.get_activity(activity_id=activity_id))
@@ -69,7 +69,7 @@ class StravaAPI:
             print(f"Failed to retrieve this week's activities for athlete {athlete_id}.")
             return None
     
-    def get_activities(self, athlete_id: int, start_date: str = None, end_date: str = None) -> List[Activity]:
+    def get_activities(self, athlete_id: int, start_date: str = None, end_date: str = None) -> list[Activity]:
         """
         Gets the athlete's activities for a default, or specified, timeframe.
 
@@ -95,11 +95,11 @@ class StravaAPI:
 
             # Get the detailed activities from the basic list above
             activity_ids_and_type = [(activity.id, activity.type) for activity in activities]
-            detailed_activities = list[Activity]
+            detailed_activities: list[Activity] = []  # Type hinting and initialization
             for activity_id, activity_type in activity_ids_and_type:
                 if activity_type == "Run": # Only including runs (for now)
                     detailed_activities.append(self.client.get_activity(activity_id=activity_id))
-            
+
             # Return the list of Detailed Activities
             return detailed_activities
         except Exception as e:

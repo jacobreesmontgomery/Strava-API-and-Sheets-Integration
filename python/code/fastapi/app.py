@@ -22,8 +22,11 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # Ensure the correct path for imports
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+package_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+sys.path.insert(0, package_path)
 from datasetup.api.StravaAPI import StravaAuthorization, StravaAPI
+from code.dao.StravaAthleteDao import StravaAthleteDao
+from code.dao.DatabaseService import DatabaseService
 
 # Load environment variables
 load_dotenv()
@@ -43,6 +46,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Set up the database service and athlete db engine
+db_service = DatabaseService()
+athlete_db_engine = StravaAthleteDao(db_service=db_service)
+
 # Use creds to create a client to interact with the Google Drive API
 try:
     scope = ['https://www.googleapis.com/auth/drive']
@@ -58,6 +65,7 @@ ATHLETE_WEEK_RECAP_CSV = "C:/Users/17178/Desktop/GITHUB_PROJECTS/Strava-API-and-
 ATHLETE_DATA_CSV = "C:/Users/17178/Desktop/GITHUB_PROJECTS/Strava-API-and-Sheets-Integration/python/code/datasetup/data/main_data/ATHLETE_DATA.csv"
 
 ### HELPER METHODS ###
+# TODO - Once everything below is refactored, get rid of these helper methods
 def get_header_stats(csvFile: str) -> List[str]:
     """
         Return an array containing the columns from the first row
@@ -116,6 +124,7 @@ async def basic_stats():
     """
         Drives the rendering of the 'Basic Stats' page with data from "ATHLETE_WEEK_RECAP.csv."
     """
+    # TODO - Rework to make DB GET calls
     headerStats = get_header_stats(ATHLETE_WEEK_RECAP_CSV)
     rowData = get_row_data(ATHLETE_WEEK_RECAP_CSV)
     return {"headerStats": headerStats, "rowData": rowData}
@@ -126,6 +135,7 @@ async def database():
     """
         Drives the rendering of the 'Database' page with data from "ATHLETE_DATA.csv."
     """
+    # TODO - Rework to make DB GET calls
     headerStats = get_header_stats(ATHLETE_DATA_CSV)
     rowData = get_row_data(ATHLETE_DATA_CSV)
     return {"headerStats": headerStats, "rowData": rowData}
@@ -146,7 +156,6 @@ async def root(request: Request):
     return {"message": "Welcome to the Strava OAuth Integration"}
 
 
-# TODO - JACOB: Rework this to insert the athlete data into the strava_api.athletes table
 @app.get("/api/callback")
 async def callback(code: str):
     logger.info(f"Callback received with code: {code}")
@@ -164,37 +173,20 @@ async def callback(code: str):
         client = StravaAPI(access_token=access_token)
         athlete_data = client.get_athlete_data()
         logging.info(f"Retrieved athlete information: {athlete_data}")
-        athlete_id = str(athlete_data.id)
+        athlete_id = athlete_data.id
         athlete_name = f"{athlete_data.firstname} {athlete_data.lastname}"
-        logging.info(f"Received access token [{access_token}], refresh token [{refresh_token}], athlete ID [{athlete_id}], and name [{athlete_name}].")
+        athlete_email = athlete_data.email
 
-        # TODO - JACOB: can get rid of all of the below logic and do an upsert to the athlete table
-        # Update the .env file with the new information (if it's actually new)
-        entries_exist = False
-        ATHLETE_REFRESH_TOKENS = os.getenv("ATHLETE_REFRESH_TOKENS", "{}")
-        ATHLETE_REFRESH_TOKENS = eval(ATHLETE_REFRESH_TOKENS)
-        if athlete_id and refresh_token and not ATHLETE_REFRESH_TOKENS.get(athlete_id):
-            ATHLETE_REFRESH_TOKENS[athlete_id] = refresh_token
-            os.environ["ATHLETE_REFRESH_TOKENS"] = str(ATHLETE_REFRESH_TOKENS).replace("'", '"')
-        else:
-            logging.info(f"The entry for athlete [{athlete_id}] already exists in the .env variable ATHLETE_REFRESH_TOKENS.")
-            entries_exist = True
-
-        ATHLETE_NAMES_PARALLEL_ARR = os.getenv("ATHLETE_NAMES_PARALLEL_ARR", "[]")
-        ATHLETE_NAMES_PARALLEL_ARR = eval(ATHLETE_NAMES_PARALLEL_ARR)
-        if athlete_name and not entries_exist: # Assuming if the above doesn't exist, this won't.
-            ATHLETE_NAMES_PARALLEL_ARR.append(athlete_name)
-            os.environ["ATHLETE_NAMES_PARALLEL_ARR"] = str(ATHLETE_NAMES_PARALLEL_ARR).replace("'", '"')
-        else:
-            logging.info(f"The entry for athlete [{athlete_id}] already exists in the .env variable ATHLETE_NAMES_PARALLEL_ARR.")
-
-        if not entries_exist: 
-            logging.info(f"Calling on update_env_file()")
-            update_env_file(ATHLETE_REFRESH_TOKENS, ATHLETE_NAMES_PARALLEL_ARR)
-            logging.info(f"Updated the .env file.")
-        
-        message = "You have been successfully authenticated!"
-        message_type = "success"
+        # Upsert the athlete's data to the strava_api.athletes DB table
+        rows_affected = athlete_db_engine.upsert_athlete(athlete_id=athlete_id, athlete_name=athlete_name, refresh_token=refresh_token, email=athlete_email)
+        if rows_affected > 0:
+            message = "You have been successfully authenticated!"
+            message_type = "success"
+            logger.info("Successfully inserted the athlete's data to the strava_api.athletes DB table")
+        else: 
+            message = "Authentication failed. Please try again."
+            message_type = "error"
+            logger.error(f"Error during athlete data insertion to strava_api.athletes: {e}")
     except Exception as e:
         message = "Authentication failed."
         message_type = "error"

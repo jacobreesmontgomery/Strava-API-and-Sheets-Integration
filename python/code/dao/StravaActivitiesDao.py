@@ -14,10 +14,15 @@ class StravaActivitiesDao:
         self.db_service = db_service
         self.logger = logging.getLogger(__name__)
 
-    def upsert_activity(self, activity_data):
+    def upsert_activity(self, activity_data: dict) -> int:
         """
         Upserts an activity record into the database.
-        :param activity_data: A dictionary containing activity details.
+        
+        Args:
+            activity_data: A dictionary containing activity details.
+        
+        Returns:
+            The number of rows inserted or updated in the activities table.
         """
         self.logger.info("Upserting activity with ID %s", activity_data.get("activity_id"))
         session = self.db_service.get_session()
@@ -26,12 +31,15 @@ class StravaActivitiesDao:
                 index_elements=["activity_id"],  # The unique constraint column(s)
                 set_={key: activity_data[key] for key in activity_data if key != "activity_id"}
             )
-            session.execute(stmt)
+            result = session.execute(stmt)
             session.commit()
+            row_count = result.rowcount
+            self.logger.info(f"{row_count} rows were inserted to the activities table")
+            return row_count
         except Exception as e:
             session.rollback()
             self.logger.error("Error upserting activity: %s", e, exc_info=True)
-            raise
+            return 0
         finally:
             self.db_service.close_session()
 
