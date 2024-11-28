@@ -1,4 +1,4 @@
-from datetime import timedelta
+from datetime import timedelta, datetime, time
 import csv
 from dotenv import load_dotenv
 import os
@@ -24,19 +24,24 @@ def get_index_of_key(dictionary, key_to_find):
     return -1  # Key not found in the dictionary
 
 
-def format_seconds(seconds):
+def format_seconds(seconds: timedelta):
     """
-        Formats seconds to the format of HH:MM:SS.
+    Formats seconds to the format of HH:MM:SS and returns a tuple of the formatted string and a time object.
     """
     print(f"\nSTART of format_seconds() w/ arg(s)...\n\tseconds: {seconds}")
+    
     # Calculate hours, minutes, and remaining seconds
     hours, remainder = divmod(seconds.total_seconds(), 3600)
     minutes, seconds = divmod(remainder, 60)
     
-    # Format as HH:MM:SS
-    print(f"\nEND of format_seconds() w/ return(s)...\n\t{int(hours):02d}:{int(minutes):02d}:{int(seconds):02d}\n")
-    return f"{int(hours):02d}:{int(minutes):02d}:{int(seconds):02d}"
-
+    # Create the formatted string
+    str_formatted_time = f"{int(hours):02d}:{int(minutes):02d}:{int(seconds):02d}"
+    
+    # Create a time object
+    time_obj = time(hour=int(hours), minute=int(minutes), second=int(seconds))
+    
+    print(f"\nEND of format_seconds() w/ return(s)...\n\tformatted_time: {str_formatted_time}\n\ttime_obj: {time_obj}\n")
+    return str_formatted_time, time_obj
 
 def calculate_pace(total_seconds, distance_miles):
     """
@@ -54,8 +59,11 @@ def calculate_pace(total_seconds, distance_miles):
     pace_seconds = int(pace_minutes_per_mile * 60)
     minutes, seconds = divmod(pace_seconds, 60)
     
+    str_formatted_moving_time = f"{minutes:02d}:{seconds:02d}"
+    moving_time_obj = time(minute=minutes, second=seconds)
+
     print(f"\nEND of calculate_pace() w/ return(s)...\n\t{minutes:02d}:{seconds:02d}\n")
-    return f"{minutes:02d}:{seconds:02d}"
+    return str_formatted_moving_time, moving_time_obj
 
 
 def format_to_hhmmss(time_str):

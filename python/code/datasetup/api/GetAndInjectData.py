@@ -10,8 +10,9 @@ OVERVIEW: This file will be responsible for extracting data from my
 """
 
 # IMPORTS
-from datetime import datetime
+from datetime import datetime, time
 from StravaAPI import StravaAPI, StravaAuthorization
+from stravalib.model import Activity, Athlete
 import csv
 import os
 from dotenv import load_dotenv
@@ -19,6 +20,8 @@ import json
 import emoji
 import sys
 import re
+from typing import Dict, List
+
 
 package_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'utilities'))
 sys.path.insert(0, package_path)
@@ -73,7 +76,7 @@ def parse_description(description):
             The parsed RPE, rating, average power, and sleep rating, if present in the description.
     """
     OPTIONAL_FIELDNAMES = ["RPE", "RATING", "POWER", "SLEEP"]    
-    fields = {key: "N/A" for key in OPTIONAL_FIELDNAMES}
+    fields = {key: 0 for key in OPTIONAL_FIELDNAMES}
     print(f"fields: {fields}")
     pattern = r'(\w+):\s*(\d+)'
     matches = re.findall(pattern, description)
@@ -82,14 +85,15 @@ def parse_description(description):
         key = str(key).strip().upper()
         if key in OPTIONAL_FIELDNAMES:
             fields[key] = str(value).strip('. ')
+            fields[key] = int(fields[key]) # Converting to int
     
     rpe = fields["RPE"]
     rating = fields["RATING"]
-    avgPower = fields["POWER"]
-    sleepRating = fields["SLEEP"]
+    avg_power = fields["POWER"]
+    sleep_rating = fields["SLEEP"]
     
-    print(f"END of parse_description() w/ return(s)... \n\trpe: {rpe}, rating: {rating}, avgPower: {avgPower}, sleepRating: {sleepRating}\n")
-    return rpe, rating, avgPower, sleepRating
+    print(f"END of parse_description() w/ return(s)... \n\trpe: {rpe}, rating: {rating}, avg_power: {avg_power}, sleep_rating: {sleep_rating}\n")
+    return rpe, rating, avg_power, sleep_rating
 
 
 def convert_activities_to_list_of_dicts(activities):
@@ -100,7 +104,7 @@ def convert_activities_to_list_of_dicts(activities):
     print(f"\nSTART of convert_activities_to_list_of_dicts() w/ arg(s)...\n\tactivities: {activities}")
     activities_list = list()
     for activity in activities:
-        rpe, runRating, avgPower, sleepRating = parse_description(activity.description if activity.description else "")
+        rpe, run_rating, avg_power, sleep_rating = parse_description(activity.description if activity.description else "")
         activity_dict = {
             "ATHLETE": athlete_names_parallel_arr[get_index_of_key(athlete_refresh_tokens, activity.athlete.id)].upper(),
             "ACTIVITY ID": activity.id,
@@ -128,54 +132,88 @@ def convert_activities_to_list_of_dicts(activities):
             "ATHLETE COUNT": activity.athlete_count,
             "FULL DATETIME": activity.start_date_local.strftime("%Y-%m-%d %H:%M:%S"),
             "RPE": rpe,
-            "RATING": runRating,
-            "AVG POWER": avgPower,
-            "SLEEP RATING": sleepRating
+            "RATING": run_rating,
+            "AVG POWER": avg_power,
+            "SLEEP RATING": sleep_rating
             # Add more fields as needed
         }
         activities_list.append(activity_dict)
     print(f"\nEND of convert_activities_to_list_of_dicts() w/ return(s)...\n\tactivities_list: {activities_list}\n")
     return activities_list
 
-def convert_activities_to_list_of_dicts_postgres(activities):
+def parse_start_date(start_date: datetime):
     """
-        Converts the detailed activities to a list of dicts, 
-        digestable by SQLAlchemy for the PostgreSQL database injections.
+    Parses the start date from a datetime object and returns it in various formats.
+
+    Args:
+        start_date: datetime object
+    
+    Returns:
+        time (str): The time in HH:MM:SS format (e.g., "10:11:00")
+        week_day (str): The day of the week in uppercase (e.g., "MON")
+        month (int): The month number (1-12)
+        day (int): The day of the month (1-31)
+        year (int): The year (e.g., 2025)
+    """
+    week_day = start_date.strftime("%a").upper()
+    month = int(start_date.strftime("%m"))
+    day = int(start_date.strftime("%d"))
+    year = int(start_date.strftime("%Y"))
+    run_time = time(hour=start_date.hour, minute=start_date.minute, second=start_date.second)
+
+    print(f"\nEND of parse_start_date() w/ return(s)...\n\ttime: {time}, week_day: {week_day}, month: {month}, day: {day}, year: {year}\n")
+    return run_time, week_day, month, day, year
+
+def convert_activities_to_list_of_dicts_postgres(activities: List[Activity]) -> List[Dict]:
+    """
+    Converts the detailed activities to a list of dicts, 
+    digestable by SQLAlchemy for the PostgreSQL database injections.
+
+    Args:
+        activities: List of Activity objects.
+
+    Returns:
+        List[Dict] of Activity objects
     """
     print(f"\nSTART of convert_activities_to_list_of_dicts_postgres() w/ arg(s)...\n\tactivities: {activities}")
     activities_list = list()
     for activity in activities:
-        rpe, runRating, avgPower, sleepRating = parse_description(activity.description if activity.description else "")
+        # Initial calculations
+        rpe, run_rating, avg_power, sleep_rating = parse_description(activity.description if activity.description else "")
+        run_time, week_day, month, day, year = parse_start_date(activity.start_date)
+        str_formatted_time, time_obj = format_seconds(activity.moving_time)
+        str_formatted_moving_time, moving_time_obj = calculate_pace(float(activity.moving_time.total_seconds()), float(activity.distance * 0.000621371))
+        
+        # Establishing the activity dict
         activity_dict = {
             "activity_id": activity.id,
-            "athlete_id": athlete_names_parallel_arr[get_index_of_key(athlete_refresh_tokens, activity.athlete.id)].upper(),
+            "athlete_id": activity.athlete.id,
             "name": activity.name,
-            "moving_time": format_seconds(activity.moving_time), # Formatting to HH:MM:SS
-            "distance_mi": f"{round(float(activity.distance) / 1609.34, 2):.2f}", # Converting meters to miles
-            "pace_min_mi": calculate_pace(float(activity.moving_time.total_seconds()), float(activity.distance * 0.000621371)),
-            "full_date": activity.start_date_local.strftime("%m/%d/%Y"),
-            "time": activity.start_date_local.strftime("%I:%M:%S %p"),
-            "full_datetime": activity.start_date_local.strftime("%Y-%m-%d %H:%M:%S"),
-            "day": activity.start_date_local.strftime("%a").upper(),
-            "month": activity.start_date_local.strftime("%m"),
-            "date": activity.start_date_local.strftime("%d"),
-            "year": activity.start_date_local.strftime("%Y"),
-            "spm_avg": f"{round(activity.average_cadence * 2, 2):.2f}" if activity.average_cadence else "N/A",
-            "hr_avg": f"{round(activity.average_heartrate, 2):.2f}" if activity.average_heartrate else "N/A",
+            "moving_time": time_obj,
+            "distance_mi": round(float(activity.distance) / 1609.34, 2), # Converting meters to miles
+            "pace_min_mi": moving_time_obj,
+            "full_datetime": activity.start_date,
+            "time": run_time,
+            "week_day": week_day,
+            "month": month,
+            "day": day,
+            "year": year,
+            "spm_avg": round(activity.average_cadence * 2, 2) if activity.average_cadence else 0.0,
+            "hr_avg": round(activity.average_heartrate, 2) if activity.average_heartrate else 0.0,
             "wkt_type": activity.workout_type,
             "description": activity.description,
-            "total_elev_gain_ft": f"{round(float(str(activity.total_elevation_gain).split()[0]) * 3.28084, 2):.2f}",
+            "total_elev_gain_ft": round(float(str(activity.total_elevation_gain).split()[0]) * 3.28084, 2),
             "manual": activity.manual,
-            "max_speed_ft_s": f"{round(float(str(activity.max_speed).split()[0]) * 3.28084, 2):.2f}",
+            "max_speed_ft_s": round(float(str(activity.max_speed).split()[0]) * 3.28084, 2),
             "calories": round(activity.calories, 0),
             "achievement_count": activity.achievement_count,
             "kudos_count": activity.kudos_count,
             "comment_count": activity.comment_count,
             "athlete_count": activity.athlete_count,
             "rpe": rpe,
-            "rating": runRating,
-            "avg_power": avgPower,
-            "sleep_rating": sleepRating
+            "rating": run_rating,
+            "avg_power": avg_power,
+            "sleep_rating": sleep_rating
         } # add more fields as needed
         activities_list.append(activity_dict)
     print(f"\nEND of convert_activities_to_list_of_dicts() w/ return(s)...\n\tactivities_list: {activities_list}\n")
@@ -397,23 +435,16 @@ def get_and_insert_athlete_activities_into_db(athlete_id: int, refresh_token: st
     """
     print("\nSTART of get_and_insert_athlete_activities_into_db()...\n")
     
-    # STEPS:
-    # 1. Get auth client and access token
-    # 2. Retrieve the athlete's activities between the after and before timeframe
-    # 3. Format the activities into a suitable format for insertion into the MySQL database
-    # 4. Insert the formatted activities into the MySQL database
-    # 5. Handle any errors that may occur during the process
-
-    # 1. Get auth client and access token
-    authorization_client = StravaAuthorization(client_id, client_secret, redirect_uri)
-    access_token = authorization_client.exchange_refresh_token(refresh_token)
-    strava_client = StravaAPI(access_token)
+    # Get auth client and access token
+    authorization_client = StravaAuthorization(client_id=client_id, client_secret=client_secret, redirect_uri=redirect_uri)
+    access_token = authorization_client.exchange_refresh_token(refresh_token=refresh_token)
+    strava_client = StravaAPI(access_token=access_token)
     
-    # 2 and 3. Retrieve (and format) the athlete's activities between the after and before timeframe
+    # Retrieve (and format) the athlete's activities between the after and before timeframe
     activities = strava_client.get_activities(athlete_id=athlete_id, start_date=start_date)
     detailed_activities = convert_activities_to_list_of_dicts_postgres(activities=activities)
 
-    # 4. Insert the formatted activities into the PostgreSQL database
+    # Insert the formatted activities into the PostgreSQL database
     db_service = DatabaseService()
     activity_dao = StravaActivitiesDao(db_service)
     for activity in detailed_activities:
@@ -424,14 +455,13 @@ def get_and_insert_athlete_activities_into_db(athlete_id: int, refresh_token: st
 # Override to false for default behavior of this file
 GET_AND_INSERT_TO_DB_FOR_TIMEFRAME=True
 ATHLETE_INDEX = 2
-START_DATE = "2024-11-10"
+START_DATE = "2024-11-01"
 
+# TODO - JACOB: Add type definitions throughout this file
 def main():
     """
         Drives all of the main logic.
     """
-    # TODO: Simplify this, break the logic apart into helper methods. Too long!!
-
     if GET_AND_INSERT_TO_DB_FOR_TIMEFRAME:
         counter = 0
         for athlete_id, refresh_token in athlete_refresh_tokens.items():
@@ -445,6 +475,7 @@ def main():
             counter += 1
         return
 
+    # TODO: Once done the above, remove any unnecessary logic below and clean things up
     # Initialize StravaAPI instances for each athlete
     strava_clients = {}
     for athlete_id, refresh_token in athlete_refresh_tokens.items():

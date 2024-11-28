@@ -1,7 +1,9 @@
 from stravalib.client import Client
 from stravalib.exc import RateLimitExceeded
+from stravalib.model import Activity, Athlete
 from datetime import datetime, timedelta
 from stravalib.client import Client
+from typing import List, Dict
 
 class StravaAuthorization:
     """
@@ -13,10 +15,10 @@ class StravaAuthorization:
         self.redirect_uri = redirect_uri
         self.client = Client()
 
-    def get_authorization_url(self):
+    def get_authorization_url(self) -> str:
         return self.client.authorization_url(client_id=self.client_id, redirect_uri=self.redirect_uri)
     
-    def exchange_refresh_token(self, refresh_token):
+    def exchange_refresh_token(self, refresh_token: str) -> str:
         token_response = self.client.refresh_access_token(client_id=self.client_id, client_secret=self.client_secret, refresh_token=refresh_token)
         return token_response['access_token']
     
@@ -24,6 +26,7 @@ class StravaAuthorization:
         token_response = self.client.exchange_code_for_token(client_id=self.client_id, client_secret=self.client_secret, code=code)
         return token_response
 
+# TODO - JACOB: Add type definitions using StravaAPI object types
 class StravaAPI:
     """
         Responsible for making calls to the Strava API for activity data.
@@ -32,7 +35,7 @@ class StravaAPI:
         self.access_token = access_token
         self.client = Client(access_token)
 
-    def get_activities_this_week(self, athlete_id):
+    def get_activities_this_week(self, athlete_id) -> List[Activity]:
         """
         Gets the atlete's activities for the current week.
 
@@ -47,13 +50,17 @@ class StravaAPI:
             today = datetime.now()
             start_of_week = (today - timedelta(days=today.weekday())).replace(hour=0, minute=0, second=0, microsecond=0)
             end_of_week = (start_of_week + timedelta(days=6)).replace(hour=23, minute=59, second=59, microsecond=999999)
+            
             # Retrieve activities within the current week
             activities = self.client.get_activities(after=start_of_week, before=end_of_week)
+            
+            # Get the detailed activities from the basic list above
             activity_ids_and_type = [(activity.id, activity.type) for activity in activities]
-            detailed_activities = list()
+            detailed_activities = list[Activity]
             for activity_id, activity_type in activity_ids_and_type:
                 if activity_type == "Run": # Only including runs
                     detailed_activities.append(self.client.get_activity(activity_id=activity_id))
+
             return detailed_activities
         except RateLimitExceeded:
             print("Strava API rate limit exceeded. Please try again later.")
@@ -62,7 +69,7 @@ class StravaAPI:
             print(f"Failed to retrieve this week's activities for athlete {athlete_id}.")
             return None
     
-    def get_activities(self, athlete_id: int, start_date: str = None, end_date: str = None):
+    def get_activities(self, athlete_id: int, start_date: str = None, end_date: str = None) -> List[Activity]:
         """
         Gets the athlete's activities for a default, or specified, timeframe.
 
@@ -86,9 +93,9 @@ class StravaAPI:
             else:
                 activities = self.client.get_activities()
 
-            # Get the Detailed Activity objects (for runs)
+            # Get the detailed activities from the basic list above
             activity_ids_and_type = [(activity.id, activity.type) for activity in activities]
-            detailed_activities = list()
+            detailed_activities = list[Activity]
             for activity_id, activity_type in activity_ids_and_type:
                 if activity_type == "Run": # Only including runs (for now)
                     detailed_activities.append(self.client.get_activity(activity_id=activity_id))
@@ -99,13 +106,13 @@ class StravaAPI:
             print(f"Failed to retrieve activities for athlete ID {athlete_id}: {e}")
             return None
         
-    def get_athlete_data(self):
+    def get_athlete_data(self) -> Athlete:
         """
         Gets the athlete's basic information via the /athlete endpoint.
         """
         try:
             athlete_data = self.client.get_athlete()
-            return dict(athlete_data)
+            return athlete_data
         except Exception as e:
             print(f"An error occurred while retrieving athlete data: {e}")
             return None

@@ -9,6 +9,7 @@ from sqlalchemy import (
     Boolean,
     Text,
     ForeignKey,
+    BigInteger,
 )
 
 # Use the Athlete model's Base
@@ -22,8 +23,8 @@ class Activity(Base):
     __table_args__ = {"schema": "strava_api"}  # To use the `strava_api` schema
 
     # Primary and foreign keys
-    activity_id = Column(Integer, primary_key=True, autoincrement=False)
-    athlete_id = Column(Integer, ForeignKey("strava_api.athletes.athlete_id"), nullable=False)
+    activity_id = Column(BigInteger, primary_key=True, autoincrement=False)
+    athlete_id = Column(BigInteger, ForeignKey("strava_api.athletes.athlete_id"), nullable=False)
 
     # Activity metadata
     name = Column(String, nullable=False)
@@ -32,18 +33,17 @@ class Activity(Base):
     pace_min_mi = Column(Time, nullable=True) # HH:MM:SS
 
     # Date and time fields
-    full_date = Column(Date, nullable=False)
-    time = Column(Time, nullable=False) # HH:MM:SS am/pm (12-hour clock)
-    full_datetime = Column(DateTime, nullable=True)
-    day = Column(String, nullable=False)
-    month = Column(String, nullable=False)
-    date = Column(Integer, nullable=False)
-    year = Column(Integer, nullable=False)
+    full_datetime = Column(DateTime, nullable=True) # MM/DD/YY HH:MM:SS 
+    time = Column(Time, nullable=False) # HH:MM:SS
+    week_day = Column(String, nullable=False) # MON-SUN
+    month = Column(Integer, nullable=False) # 1-12
+    day = Column(Integer, nullable=False) # 1-31
+    year = Column(Integer, nullable=False) # e.g. 2024
 
     # Additional activity metrics
-    spm_avg = Column(Float, nullable=True)  # Steps per minute
-    hr_avg = Column(Float, nullable=True)  # Heart rate average
-    wkt_type = Column(Integer, nullable=True)  # Workout type
+    spm_avg = Column(Float, nullable=True)
+    hr_avg = Column(Float, nullable=True)
+    wkt_type = Column(Integer, nullable=True) 
     description = Column(Text, nullable=True)
     total_elev_gain_ft = Column(Float, nullable=True)
     manual = Column(Boolean, nullable=False)
@@ -57,10 +57,10 @@ class Activity(Base):
     athlete_count = Column(Integer, nullable=True)
 
     # User ratings and performance
-    rpe = Column(Integer, nullable=True)  # Rating of Perceived Exertion
-    rating = Column(Integer, nullable=True)  # User-provided rating
-    avg_power = Column(Integer, nullable=True)  # Average power
-    sleep_rating = Column(Integer, nullable=True)  # Sleep quality rating
+    rpe = Column(Integer, nullable=True)  # 1-10
+    rating = Column(Integer, nullable=True)  # 1-10
+    avg_power = Column(Integer, nullable=True) # e.g., 305
+    sleep_rating = Column(Integer, nullable=True) # 1-10
 
     def __repr__(self):
         return (

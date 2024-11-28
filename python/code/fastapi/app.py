@@ -146,6 +146,7 @@ async def root(request: Request):
     return {"message": "Welcome to the Strava OAuth Integration"}
 
 
+# TODO - JACOB: Rework this to insert the athlete data into the strava_api.athletes table
 @app.get("/api/callback")
 async def callback(code: str):
     logger.info(f"Callback received with code: {code}")
@@ -163,10 +164,11 @@ async def callback(code: str):
         client = StravaAPI(access_token=access_token)
         athlete_data = client.get_athlete_data()
         logging.info(f"Retrieved athlete information: {athlete_data}")
-        athlete_id = str(athlete_data['id'])
-        athlete_name = athlete_data['firstname'] + ' ' + athlete_data['lastname']
+        athlete_id = str(athlete_data.id)
+        athlete_name = f"{athlete_data.firstname} {athlete_data.lastname}"
         logging.info(f"Received access token [{access_token}], refresh token [{refresh_token}], athlete ID [{athlete_id}], and name [{athlete_name}].")
 
+        # TODO - JACOB: can get rid of all of the below logic and do an upsert to the athlete table
         # Update the .env file with the new information (if it's actually new)
         entries_exist = False
         ATHLETE_REFRESH_TOKENS = os.getenv("ATHLETE_REFRESH_TOKENS", "{}")

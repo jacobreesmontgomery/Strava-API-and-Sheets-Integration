@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, BigInteger, String
 from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
@@ -11,7 +11,7 @@ class Athlete(Base):
     __table_args__ = {"schema": "strava_api"}  # Schema defined as `strava_api`
 
     # Primary key
-    athlete_id = Column(Integer, primary_key=True, autoincrement=False)
+    athlete_id = Column(BigInteger, primary_key=True, autoincrement=False)
 
     # Athlete details
     athlete_name = Column(String, nullable=False)

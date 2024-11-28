@@ -1,12 +1,13 @@
 from sqlalchemy.dialects.postgresql import insert
 from models.Activity import Activity
+from DatabaseService import DatabaseService
 import logging
 
 class StravaActivitiesDao:
     """
     Responsible for managing Strava activity data in the database.
     """
-    def __init__(self, db_service):
+    def __init__(self, db_service: DatabaseService):
         """
         :param db_service: An instance of DatabaseService for session management.
         """
@@ -34,11 +35,15 @@ class StravaActivitiesDao:
         finally:
             self.db_service.close_session()
 
-    def get_activity(self, activity_id):
+    def get_activity(self, activity_id: int) -> Activity:
         """
         Retrieves an activity by its ID.
-        :param activity_id: The ID of the activity to retrieve.
-        :return: An Activity object or None if not found.
+        
+        Args:
+            activity_id: The activity ID.
+        
+        Returns:
+            An Activity object.
         """
         self.logger.info("Fetching activity with ID %s", activity_id)
         session = self.db_service.get_session()
@@ -50,37 +55,48 @@ class StravaActivitiesDao:
         finally:
             self.db_service.close_session()
 
-    def update_activity(self, activity_id, **kwargs):
+    def update_activity(self, activity_id: int, **kwargs) -> bool:
         """
         Updates fields of an activity with the specified ID.
-        :param activity_id: The ID of the activity to update.
-        :param kwargs: The fields and values to update.
+        
+        Args:
+            activity_id: The ID of the activity to update.
+        
+        Returns:
+            A boolean indicating whether or not the activity was updated.
         """
         self.logger.info("Updating activity with ID %s", activity_id)
         session = self.db_service.get_session()
         try:
             session.query(Activity).filter_by(activity_id=activity_id).update(kwargs)
             session.commit()
+            return True
         except Exception as e:
             session.rollback()
             self.logger.error("Error updating activity: %s", e, exc_info=True)
-            raise
+            return False
         finally:
             self.db_service.close_session()
 
-    def delete_activity(self, activity_id):
+    def delete_activity(self, activity_id: int) -> bool:
         """
         Deletes an activity by its ID.
-        :param activity_id: The ID of the activity to delete.
+        
+        Args:
+            activity_id: The ID of the activity to delete.
+
+        Returns:
+            A boolean indicating whether the activity was deleted or not.
         """
         self.logger.info("Deleting activity with ID %s", activity_id)
         session = self.db_service.get_session()
         try:
             session.query(Activity).filter_by(activity_id=activity_id).delete()
             session.commit()
+            return True
         except Exception as e:
             session.rollback()
             self.logger.error("Error deleting activity: %s", e, exc_info=True)
-            raise
+            return False
         finally:
             self.db_service.close_session()
