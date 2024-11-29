@@ -1,7 +1,7 @@
 from sqlalchemy.dialects.postgresql import insert
 from models.Activity import Activity
 from DatabaseService import DatabaseService
-import logging
+from logging import getLogger
 
 class StravaActivitiesDao:
     """
@@ -12,7 +12,7 @@ class StravaActivitiesDao:
         :param db_service: An instance of DatabaseService for session management.
         """
         self.db_service = db_service
-        self.logger = logging.getLogger(__name__)
+        self.logger = getLogger(__name__)
 
     def upsert_activity(self, activity_data: dict) -> int:
         """

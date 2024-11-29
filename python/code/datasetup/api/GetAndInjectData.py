@@ -421,7 +421,7 @@ def handle_any_special_field_updates(activity):
             writer = csv.DictWriter(data_file, fieldnames=ATHLETE_DATA_FIELDNAMES)
             writer.writerows(data)
 
-def get_and_insert_athlete_activities_into_db(athlete_id: int, refresh_token: str, start_date: str, end_date: str = None):
+def get_and_insert_athlete_activities_into_db(athlete_id: int, refresh_token: str, start_date: str = None, end_date: str = None):
     """
     Retrieve all activities for a specific athlete from Strava API,
     format them, and insert into a MySQL database.
@@ -440,7 +440,9 @@ def get_and_insert_athlete_activities_into_db(athlete_id: int, refresh_token: st
     strava_client = StravaAPI(access_token=access_token)
     
     # Retrieve (and format) the athlete's activities between the after and before timeframe
-    activities = strava_client.get_activities(athlete_id=athlete_id, start_date=start_date)
+    activities = strava_client.get_activities(athlete_id=athlete_id, start_date=start_date, end_date=end_date)
+    if not activities: 
+        return # No activities to insert
     detailed_activities = convert_activities_to_list_of_dicts_postgres(activities=activities)
 
     # Insert the formatted activities into the PostgreSQL database
@@ -454,9 +456,9 @@ def get_and_insert_athlete_activities_into_db(athlete_id: int, refresh_token: st
 # Override to false for default behavior of this file
 GET_AND_INSERT_TO_DB_FOR_TIMEFRAME=True
 ATHLETE_INDEX = 2
-START_DATE = "2024-11-01"
+START_DATE = "2024-06-01"
+END_DATE = None
 
-# TODO - JACOB: Add type definitions throughout this file
 def main():
     """
         Drives all of the main logic.
@@ -469,6 +471,7 @@ def main():
                     athlete_id=athlete_id, 
                     refresh_token=refresh_token, 
                     start_date=START_DATE,
+                    end_date=END_DATE
                 )
                 break
             counter += 1

@@ -8,18 +8,15 @@ OVERVIEW: This file will drive the front-end webpage.
 from fastapi import FastAPI, Request
 from fastapi.responses import RedirectResponse
 from fastapi.middleware.cors import CORSMiddleware
-import gspread
-from oauth2client.service_account import ServiceAccountCredentials
 import csv
-from typing import List
 import os
 import sys
-import logging
+from logging import basicConfig, INFO, getLogger
 from dotenv import load_dotenv
 
 # Setup logging
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
+basicConfig(level=INFO)
+logger = getLogger(__name__)
 
 # Ensure the correct path for imports
 package_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
@@ -50,23 +47,12 @@ app.add_middleware(
 db_service = DatabaseService()
 athlete_db_engine = StravaAthleteDao(db_service=db_service)
 
-# Use creds to create a client to interact with the Google Drive API
-try:
-    scope = ['https://www.googleapis.com/auth/drive']
-    creds = ServiceAccountCredentials.from_json_keyfile_name("C:/Users/17178/Documents/Coding Stuff/client_secret.json", scope)
-    client = gspread.authorize(creds)
-    sheet = client.open("Goons Activities - Strava API")
-except Exception as e:
-    logger.error(f"Failed to authorize Google Sheets client: {e}")
-    raise
-
-
 ATHLETE_WEEK_RECAP_CSV = "C:/Users/17178/Desktop/GITHUB_PROJECTS/Strava-API-and-Sheets-Integration/python/code/datasetup/data/recap/ATHLETE_WEEK_RECAP.csv"
 ATHLETE_DATA_CSV = "C:/Users/17178/Desktop/GITHUB_PROJECTS/Strava-API-and-Sheets-Integration/python/code/datasetup/data/main_data/ATHLETE_DATA.csv"
 
 ### HELPER METHODS ###
 # TODO - Once everything below is refactored, get rid of these helper methods
-def get_header_stats(csvFile: str) -> List[str]:
+def get_header_stats(csvFile: str) -> list[str]:
     """
         Return an array containing the columns from the first row
         of the csvFile file.
@@ -82,7 +68,7 @@ def get_header_stats(csvFile: str) -> List[str]:
     return headerStats
 
 
-def get_row_data(csvFile: str) -> List[List[str]]:
+def get_row_data(csvFile: str) -> list[list[str]]:
     rowData = []
     try:
         with open(csvFile) as csvfile:
@@ -93,6 +79,7 @@ def get_row_data(csvFile: str) -> List[List[str]]:
     except Exception as e:
         logger.error(f"Error reading CSV file {csvFile}: {e}")
     return rowData
+
 
 def update_env_file(athlete_refresh_tokens, athlete_names):
     env_file_path = "C:/Users/17178/Desktop/GITHUB_PROJECTS/Strava-API-and-Sheets-Integration/python/.env"
@@ -165,14 +152,17 @@ async def callback(code: str):
         
         # Acquire a refresh token
         token_response = auth.exchange_authorization_code(code)
-        logging.info(f"Exchanged authorization code for token: {token_response}")
+        logger.info(f"Exchanged authorization code for token: {token_response}")
         access_token = token_response['access_token']
         refresh_token = token_response['refresh_token']
 
         # Acquire athlete information with the access token
         client = StravaAPI(access_token=access_token)
         athlete_data = client.get_athlete_data()
-        logging.info(f"Retrieved athlete information: {athlete_data}")
+        if not athlete_data:
+            logger.error("Failed to retrieve athlete information")
+            return {"message": "Failed to retrieve athlete information"}
+        logger.info(f"Retrieved athlete information: {athlete_data}")
         athlete_id = athlete_data.id
         athlete_name = f"{athlete_data.firstname} {athlete_data.lastname}"
         athlete_email = athlete_data.email

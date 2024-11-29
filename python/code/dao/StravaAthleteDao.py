@@ -2,7 +2,7 @@ from models.Athlete import Athlete
 from DatabaseService import DatabaseService
 from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.dialects.postgresql import insert
-import logging
+from logging import getLogger
 
 class StravaAthleteDao:
     """
@@ -10,7 +10,7 @@ class StravaAthleteDao:
     """
     def __init__(self, db_service: DatabaseService):
         self.db_service = db_service
-        self.logger = logging.getLogger(__name__)
+        self.logger = getLogger(__name__)
 
     def upsert_athlete(self, athlete_id: int, athlete_name: str, refresh_token: str, email: str) -> int:
         """
