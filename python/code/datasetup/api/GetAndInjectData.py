@@ -20,19 +20,15 @@ import json
 import emoji
 import sys
 import re
-from logging import getLogger, INFO, basicConfig
 
-from utilities.simpleLogger import simpleLogger
+import os
+import sys
+
+package_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'utilities'))
+sys.path.insert(0, package_path)
+
+from simpleLogger import simpleLogger
 logger = simpleLogger(log_level="INFO", class_name=__name__).logger
-
-# basicConfig(
-#     level=INFO,
-#     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-#     datefmt="%Y-%m-%d %H:%M:%S",
-#     filename="app.log",
-#     filemode="a"
-# )
-# logger = getLogger(__name__)
 
 package_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'utilities'))
 sys.path.insert(0, package_path)
@@ -470,8 +466,8 @@ def get_and_insert_athlete_activities_into_db(athlete_id: int, refresh_token: st
 # Override to false for default behavior of this file
 GET_AND_INSERT_TO_DB_FOR_TIMEFRAME=True
 ATHLETE_INDEX = 2
-START_DATE = "2023-06-01"
-END_DATE = "2024-01-01"
+START_DATE = "2024-11-24"
+END_DATE = None
 
 def main():
     """

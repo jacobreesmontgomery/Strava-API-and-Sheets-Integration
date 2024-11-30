@@ -11,7 +11,6 @@ from fastapi.middleware.cors import CORSMiddleware
 import csv
 import os
 import sys
-from logging import basicConfig, INFO, getLogger
 from dotenv import load_dotenv
 
 from utilities.simpleLogger import simpleLogger

@@ -1,9 +1,14 @@
 from sqlalchemy.dialects.postgresql import insert
 from models.Activity import Activity
 from DatabaseService import DatabaseService
-from logging import getLogger, INFO, basicConfig
 
-from ..utilities.simpleLogger import simpleLogger
+import os
+import sys
+
+package_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'utilities'))
+sys.path.insert(0, package_path)
+
+from simpleLogger import simpleLogger
 
 class StravaActivitiesDao:
     """
@@ -34,7 +39,7 @@ class StravaActivitiesDao:
         Returns:
             The number of rows inserted or updated in the activities table.
         """
-        self.logger.info("Upserting activity with ID %s", activity_data.get("activity_id"))
+        self.logger.debug("Upserting activity with ID %s", activity_data.get("activity_id"))
         session = self.db_service.get_session()
         try:
             stmt = insert(Activity).values(**activity_data).on_conflict_do_update(
@@ -44,7 +49,8 @@ class StravaActivitiesDao:
             result = session.execute(stmt)
             session.commit()
             row_count = result.rowcount
-            self.logger.info(f"{row_count} rows were inserted to the activities table")
+            if row_count > 0:
+                self.logger.debug(f"Activity successfully upserted.")
             return row_count
         except Exception as e:
             session.rollback()

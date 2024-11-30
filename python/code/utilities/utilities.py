@@ -1,9 +1,11 @@
-from datetime import timedelta, datetime, time
+from datetime import timedelta, time
 import csv
 from dotenv import load_dotenv
 import os
 import json
 
+from simpleLogger import simpleLogger
+logger = simpleLogger(log_level="INFO", class_name=__name__).logger
 
 load_dotenv()
 RECAP_FIELDNAMES = json.loads(os.getenv("RECAP_FIELDNAMES"))
@@ -13,14 +15,14 @@ def get_index_of_key(dictionary, key_to_find):
     """
         TODO: Add description.
     """
-    print(f"START of get_index_of_key() w/ arg(s)...\n\tdictionary: {dictionary}\n\tkey_to_find: {key_to_find}")
+    logger.debug(f"START of get_index_of_key() w/ arg(s)...\n\tdictionary: {dictionary}\n\tkey_to_find: {key_to_find}")
     index = 0
     for key in dictionary:
         if int(key) == int(key_to_find):
-            print(f"END of get_index_of_key() w/ return(s)...\n\tindex: {index}\n")
+            logger.debug(f"END of get_index_of_key() w/ return(s)...\n\tindex: {index}\n")
             return index
         index += 1
-    print(f"END of get_index_of_key() w/ return(s)...\n\tindex: -1\n")
+    logger.debug(f"END of get_index_of_key() w/ return(s)...\n\tindex: -1\n")
     return -1  # Key not found in the dictionary
 
 
@@ -28,7 +30,7 @@ def format_seconds(seconds: timedelta):
     """
     Formats seconds to the format of HH:MM:SS and returns a tuple of the formatted string and a time object.
     """
-    print(f"\nSTART of format_seconds() w/ arg(s)...\n\tseconds: {seconds}")
+    logger.debug(f"\nSTART of format_seconds() w/ arg(s)...\n\tseconds: {seconds}")
     
     # Calculate hours, minutes, and remaining seconds
     hours, remainder = divmod(seconds.total_seconds(), 3600)
@@ -40,7 +42,7 @@ def format_seconds(seconds: timedelta):
     # Create a time object
     time_obj = time(hour=int(hours), minute=int(minutes), second=int(seconds))
     
-    print(f"\nEND of format_seconds() w/ return(s)...\n\tformatted_time: {str_formatted_time}\n\ttime_obj: {time_obj}\n")
+    logger.debug(f"\nEND of format_seconds() w/ return(s)...\n\tformatted_time: {str_formatted_time}\n\ttime_obj: {time_obj}\n")
     return str_formatted_time, time_obj
 
 def calculate_pace(total_seconds, distance_miles):
@@ -48,7 +50,7 @@ def calculate_pace(total_seconds, distance_miles):
         Calculates pace (MM:SS) using the total seconds and
         distance of the run (mi). 
     """
-    print(f"\nSTART of calculate_pace() w/ arg(s)...\n\ttotal_seconds: {total_seconds}\n\tdistance_miles: {distance_miles}")
+    logger.debug(f"\nSTART of calculate_pace() w/ arg(s)...\n\ttotal_seconds: {total_seconds}\n\tdistance_miles: {distance_miles}")
     # Convert total seconds to minutes
     total_minutes = total_seconds / 60
     
@@ -62,7 +64,7 @@ def calculate_pace(total_seconds, distance_miles):
     str_formatted_moving_time = f"{minutes:02d}:{seconds:02d}"
     moving_time_obj = time(minute=minutes, second=seconds)
 
-    print(f"\nEND of calculate_pace() w/ return(s)...\n\t{minutes:02d}:{seconds:02d}\n")
+    logger.debug(f"\nEND of calculate_pace() w/ return(s)...\n\t{minutes:02d}:{seconds:02d}\n")
     return str_formatted_moving_time, moving_time_obj
 
 
@@ -70,7 +72,7 @@ def format_to_hhmmss(time_str):
     """
         Format a string to HH:MM:SS.
     """
-    print(f"\nSTART of format_to_hhmmss() w/ arg(s)...\n\ttime_str: {time_str}")
+    logger.debug(f"\nSTART of format_to_hhmmss() w/ arg(s)...\n\ttime_str: {time_str}")
     # Split the time string by colon
     parts = time_str.split(':')
     
@@ -84,7 +86,7 @@ def format_to_hhmmss(time_str):
     
     # Join the parts back together with colons
     formatted_time = f"{hours}:{minutes}:{seconds}"
-    print(f"END of format_to_hhmmss() w/ return(s)...\n\tformatted_time: {formatted_time}\n")
+    logger.debug(f"END of format_to_hhmmss() w/ return(s)...\n\tformatted_time: {formatted_time}\n")
     return formatted_time
 
 
@@ -128,14 +130,14 @@ def tally_time(run_times):
     """
         Tallies up all of the incoming run's times.
     """   
-    print(f"\nSTART of tally_time() w/ argument(s): \n\trun_times: {run_times}") 
+    logger.debug(f"\nSTART of tally_time() w/ argument(s): \n\trun_times: {run_times}") 
     total_duration = timedelta(hours=0, minutes=0, seconds=0)
     for time in run_times:
         time = format_to_hhmmss(time_str=time)
         if len(time) != 8 or time[2] != ':' or time[5] != ':':
             raise ValueError(f"Incorrect time format: {time}")
         total_duration = total_duration + timedelta(hours=int(time[:2]), minutes=int(time[3:5]), seconds=int(time[6:]))
-    print(f"END of tally_time() w/ return(s)... \n\ttotal_duration: {total_duration}\n\tstr(total_duration): {str(total_duration)}\n")
+    logger.debug(f"END of tally_time() w/ return(s)... \n\ttotal_duration: {total_duration}\n\tstr(total_duration): {str(total_duration)}\n")
     return total_duration, str(total_duration)
 
 
@@ -143,10 +145,10 @@ def read_csv(file_path):
     """
         Read all rows from a CSV file.
     """
-    print(f"\nSTART of read_csv() w/ arg(s)...\n\tfile_path: {file_path}")
+    logger.debug(f"\nSTART of read_csv() w/ arg(s)...\n\tfile_path: {file_path}")
     rows = []
     with open(file_path, mode='r', newline='') as file:
         reader = csv.DictReader(file, fieldnames=RECAP_FIELDNAMES, delimiter=',')
         rows = list(reader)
-    print(f"END of read_csv() w/ return(s)...\n\trows: {rows}\n")
+    logger.debug(f"END of read_csv() w/ return(s)...\n\trows: {rows}\n")
     return rows

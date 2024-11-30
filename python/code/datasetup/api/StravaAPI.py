@@ -4,9 +4,14 @@ from stravalib.model import Activity, Athlete
 from datetime import datetime, timedelta
 from stravalib.client import Client
 from tenacity import retry, wait_exponential, stop_after_attempt, retry_if_exception_type, RetryError
-from logging import getLogger, INFO, basicConfig
 
-from utilities.simpleLogger import simpleLogger
+import os
+import sys
+
+package_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'utilities'))
+sys.path.insert(0, package_path)
+
+from simpleLogger import simpleLogger
 
 class StravaAuthorization:
     """
@@ -67,8 +72,7 @@ class StravaAPI:
             A list of activities for the authenticated athlete.
         """
         try:
-            activities = self.client.get_activities(after=start_date, before=end_date)
-            self.logger.info(f"Acquired {len(activities)} basic activities in the window of {start_date} to {end_date}.")
+            return self.client.get_activities(after=start_date, before=end_date)
         except RateLimitExceeded as e:
             self.logger.error(f"Strava API rate limit exceeded: {e}")
             return None

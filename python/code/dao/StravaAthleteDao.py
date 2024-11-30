@@ -2,9 +2,14 @@ from models.Athlete import Athlete
 from DatabaseService import DatabaseService
 from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.dialects.postgresql import insert
-from logging import getLogger, INFO, basicConfig
 
-from ..utilities.simpleLogger import simpleLogger
+import os
+import sys
+
+package_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'utilities'))
+sys.path.insert(0, package_path)
+
+from simpleLogger import simpleLogger
 
 class StravaAthleteDao:
     """

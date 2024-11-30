@@ -1,4 +1,4 @@
-from logging import basicConfig, getLogger, INFO, FileHandler, StreamHandler
+from logging import getLogger, StreamHandler
 from colorlog import ColoredFormatter
 
 class simpleLogger:
