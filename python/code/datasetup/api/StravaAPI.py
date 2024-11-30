@@ -4,7 +4,9 @@ from stravalib.model import Activity, Athlete
 from datetime import datetime, timedelta
 from stravalib.client import Client
 from tenacity import retry, wait_exponential, stop_after_attempt, retry_if_exception_type, RetryError
-from logging import getLogger
+from logging import getLogger, INFO, basicConfig
+
+from utilities.simpleLogger import simpleLogger
 
 class StravaAuthorization:
     """
@@ -42,7 +44,15 @@ class StravaAPI:
     def __init__(self, access_token):
         self.access_token = access_token
         self.client = Client(access_token)
-        self.logger = getLogger(__name__)
+        # basicConfig(
+        #     level=INFO,
+        #     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+        #     datefmt="%Y-%m-%d %H:%M:%S",
+        #     filename="app.log",
+        #     filemode="a"
+        # )
+        # self.logger = getLogger(__name__)
+        self.logger = simpleLogger(log_level="INFO", class_name=__name__).logger
 
     @retry(
         stop=stop_after_attempt(5), 
@@ -57,7 +67,8 @@ class StravaAPI:
             A list of activities for the authenticated athlete.
         """
         try:
-            return self.client.get_activities(after=start_date, before=end_date)
+            activities = self.client.get_activities(after=start_date, before=end_date)
+            self.logger.info(f"Acquired {len(activities)} basic activities in the window of {start_date} to {end_date}.")
         except RateLimitExceeded as e:
             self.logger.error(f"Strava API rate limit exceeded: {e}")
             return None
@@ -111,8 +122,14 @@ class StravaAPI:
             if activity_type == "Run": # Only including runs (for now)
                 detailed_activity = self.fetch_detailed_activity(activity_id=activity_id)
                 if not detailed_activity:
+                    self.logger.info(f"""
+                        No detailed activity was acquired for activity [{activity_id}] 
+                        due to a rate limit or retry error. Returning the 
+                        current list of {len(detailed_activities)} detailed activities.
+                    """)
                     return detailed_activities # Return what we've got (we've hit the rate limit)
                 detailed_activities.append(detailed_activity)
+        self.logger.info(f"Returning {len(detailed_activities)} detailed activities.")
         return detailed_activities
 
     def get_activities_this_week(self) -> list[Activity]:

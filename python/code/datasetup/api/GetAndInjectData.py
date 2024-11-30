@@ -12,7 +12,7 @@ OVERVIEW: This file will be responsible for extracting data from my
 # IMPORTS
 from datetime import datetime, time
 from StravaAPI import StravaAPI, StravaAuthorization
-from stravalib.model import Activity, Athlete
+from stravalib.model import Activity
 import csv
 import os
 from dotenv import load_dotenv
@@ -20,7 +20,19 @@ import json
 import emoji
 import sys
 import re
-from zoneinfo import ZoneInfo
+from logging import getLogger, INFO, basicConfig
+
+from utilities.simpleLogger import simpleLogger
+logger = simpleLogger(log_level="INFO", class_name=__name__).logger
+
+# basicConfig(
+#     level=INFO,
+#     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+#     datefmt="%Y-%m-%d %H:%M:%S",
+#     filename="app.log",
+#     filemode="a"
+# )
+# logger = getLogger(__name__)
 
 package_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'utilities'))
 sys.path.insert(0, package_path)
@@ -76,7 +88,7 @@ def parse_description(description):
     """
     OPTIONAL_FIELDNAMES = ["RPE", "RATING", "POWER", "SLEEP"]    
     fields = {key: 0 for key in OPTIONAL_FIELDNAMES}
-    print(f"fields: {fields}")
+    logger.debug(f"fields: {fields}")
     pattern = r'(\w+):\s*(\d+)'
     matches = re.findall(pattern, description)
     
@@ -91,7 +103,7 @@ def parse_description(description):
     avg_power = fields["POWER"]
     sleep_rating = fields["SLEEP"]
     
-    print(f"END of parse_description() w/ return(s)... \n\trpe: {rpe}, rating: {rating}, avg_power: {avg_power}, sleep_rating: {sleep_rating}\n")
+    logger.debug(f"END of parse_description() w/ return(s)... \n\trpe: {rpe}, rating: {rating}, avg_power: {avg_power}, sleep_rating: {sleep_rating}\n")
     return rpe, rating, avg_power, sleep_rating
 
 
@@ -100,7 +112,7 @@ def convert_activities_to_list_of_dicts(activities):
         Converts the incoming activities to a list with 
         the desired columns and values.
     """
-    print(f"\nSTART of convert_activities_to_list_of_dicts() w/ arg(s)...\n\tactivities: {activities}")
+    logger.debug(f"\nSTART of convert_activities_to_list_of_dicts() w/ arg(s)...\n\tactivities: {activities}")
     activities_list = list()
     for activity in activities:
         rpe, run_rating, avg_power, sleep_rating = parse_description(activity.description if activity.description else "")
@@ -137,7 +149,7 @@ def convert_activities_to_list_of_dicts(activities):
             # Add more fields as needed
         }
         activities_list.append(activity_dict)
-    print(f"\nEND of convert_activities_to_list_of_dicts() w/ return(s)...\n\tactivities_list: {activities_list}\n")
+    logger.debug(f"\nEND of convert_activities_to_list_of_dicts() w/ return(s)...\n\tactivities_list: {activities_list}\n")
     return activities_list
 
 def parse_start_date(start_date: datetime):
@@ -160,7 +172,7 @@ def parse_start_date(start_date: datetime):
     year = int(start_date.strftime("%Y"))
     run_time = time(hour=start_date.hour, minute=start_date.minute, second=start_date.second, tzinfo=start_date.tzinfo)
 
-    print(f"\nEND of parse_start_date() w/ return(s)...\n\ttime: {time}, week_day: {week_day}, month: {month}, day: {day}, year: {year}\n")
+    logger.debug(f"\nEND of parse_start_date() w/ return(s)...\n\ttime: {time}, week_day: {week_day}, month: {month}, day: {day}, year: {year}\n")
     return run_time, week_day, month, day, year
 
 def convert_activities_to_list_of_dicts_postgres(activities: list[Activity]) -> list[dict]:
@@ -174,7 +186,7 @@ def convert_activities_to_list_of_dicts_postgres(activities: list[Activity]) -> 
     Returns:
         List[Dict] of Activity objects
     """
-    print(f"\nSTART of convert_activities_to_list_of_dicts_postgres() w/ arg(s)...\n\tactivities: {activities}")
+    logger.debug(f"\nSTART of convert_activities_to_list_of_dicts_postgres() w/ arg(s)...\n\tactivities: {activities}")
     activities_list = list()
     for activity in activities:
         # Initial calculations
@@ -215,20 +227,20 @@ def convert_activities_to_list_of_dicts_postgres(activities: list[Activity]) -> 
             "sleep_rating": sleep_rating
         } # add more fields as needed
         activities_list.append(activity_dict)
-    print(f"\nEND of convert_activities_to_list_of_dicts() w/ return(s)...\n\tactivities_list: {activities_list}\n")
+    logger.debug(f"\nEND of convert_activities_to_list_of_dicts() w/ return(s)...\n\tactivities_list: {activities_list}\n")
     return activities_list
 
 def load_existing_ids(file_path, column):
     """
         Loads the existing unique IDs from the given data file.
     """
-    print(f"\nSTART of load_existing_ids() w/ arg(s)...\n\tfile_path: {file_path}\n\tcolumn: {column}\n")
+    logger.debug(f"\nSTART of load_existing_ids() w/ arg(s)...\n\tfile_path: {file_path}\n\tcolumn: {column}\n")
     existing_ids = set()
     with open(file_path, mode='r') as file:
         reader = csv.DictReader(file)
         for activity in reader:
             existing_ids.add(int(activity[column]))
-    print(f"\nEND of load_existing_ids() w/ return(s)...\n\texisting_ids: {existing_ids}\n")
+    logger.debug(f"\nEND of load_existing_ids() w/ return(s)...\n\texisting_ids: {existing_ids}\n")
     return existing_ids
 
 
@@ -240,19 +252,19 @@ def get_longest_run_no_existing_data(new_athlete_runs):
         NOTE: This is used in the context of their not being existing data
         for the given athlete in the recap file.
     """
-    print(f"\nSTART of get_longest_run_no_existing_data()\n\tnew_athlete_runs: {new_athlete_runs}")
+    logger.debug(f"\nSTART of get_longest_run_no_existing_data()\n\tnew_athlete_runs: {new_athlete_runs}")
     longest_run = float(new_athlete_runs[0]["DISTANCE (MI)"])
     longest_run_date = new_athlete_runs[0]["FULL DATE"]
     for new_run in new_athlete_runs[1:]:
         try:
             new_run_distance = float(new_run["DISTANCE (MI)"])
         except ValueError as e:
-            print(f"Error: {e}")  # Output: Error: could not convert string to float: 'abc'
+            logger.error(f"Error: {e}")  # Output: Error: could not convert string to float: 'abc'
 
         if new_run_distance > longest_run:
             longest_run = new_run_distance
             longest_run_date = new_run["FULL DATE"]
-    print(f"END of get_longest_run_no_existing_data()\n\tlongest_run: {longest_run}\n\tlongest_run_date: {longest_run_date}\n")
+    logger.debug(f"END of get_longest_run_no_existing_data()\n\tlongest_run: {longest_run}\n\tlongest_run_date: {longest_run_date}\n")
     return longest_run, longest_run_date
 
 
@@ -264,20 +276,20 @@ def get_longest_run(new_athlete_runs, existing_recap_data):
         NOTE: This is used in the context of their being existing data
         for the given athlete in the recap file.
     """
-    print(f"\nSTART of get_longest_run()\n\tnew_athlete_runs: {new_athlete_runs}\n\texisting_recap_data: {existing_recap_data}")
+    logger.debug(f"\nSTART of get_longest_run()\n\tnew_athlete_runs: {new_athlete_runs}\n\texisting_recap_data: {existing_recap_data}")
     longest_run = float(existing_recap_data["LONGEST RUN"])
     longest_run_date = existing_recap_data["LONGEST RUN DATE"]
-    print(f"longest_run: {longest_run}\nlongest_run_date: {longest_run_date}")
+    logger.debug(f"longest_run: {longest_run}\nlongest_run_date: {longest_run_date}")
     for new_run in new_athlete_runs[1:]:
         try:
             new_run_distance = float(new_run["DISTANCE (MI)"])
         except ValueError as e:
-            print(f"Error: {e}")  # Output: Error: could not convert string to float: 'abc'
+            logger.error(f"Error: {e}")  # Output: Error: could not convert string to float: 'abc'
         
         if new_run_distance > longest_run:
             longest_run = new_run_distance
             longest_run_date = new_run["FULL DATE"]
-    print(f"END of get_longest_run()\n\tlongest_run: {longest_run}\n\tlongest_run_date: {longest_run_date}\n")
+    logger.debug(f"END of get_longest_run()\n\tlongest_run: {longest_run}\n\tlongest_run_date: {longest_run_date}\n")
     return longest_run, longest_run_date
 
 
@@ -285,9 +297,9 @@ def query_new_runs(rows, athlete_name):
     """
         Queries for new runs for the given athlete.
     """
-    print(f"\nSTART of query_new_runs() w/ arg(s)...\n\trows: {rows}\n\tathlete_name: {athlete_name}")
+    logger.debug(f"\nSTART of query_new_runs() w/ arg(s)...\n\trows: {rows}\n\tathlete_name: {athlete_name}")
     new_athlete_runs = [activity for activity in rows if str(activity["ATHLETE"].upper()) == athlete_name.upper()]
-    print(f"END of query_new_runs() w/ return(s)...\n\tnew_athlete_runs: {new_athlete_runs}\n")
+    logger.debug(f"END of query_new_runs() w/ return(s)...\n\tnew_athlete_runs: {new_athlete_runs}\n")
     return new_athlete_runs
 
 
@@ -295,22 +307,22 @@ def write_athlete_data(new_athlete_runs, athlete_name):
     """
         Writes the incoming runs to the athlete's weekly stats file.
     """
-    print(f"\nSTART of write_athlete_data() w/ arg(s)...\n\tnew_athlete_runs: {new_athlete_runs}")
+    logger.debug(f"\nSTART of write_athlete_data() w/ arg(s)...\n\tnew_athlete_runs: {new_athlete_runs}")
     athlete_week_file = rf"C:\Users\17178\Desktop\GITHUB_PROJECTS\Strava-API-and-Sheets-Integration\python\code\datasetup\data\weekly_stats\{athlete_name.upper()}_WEEK_STATS.csv"
     with open(athlete_week_file, 'a+', newline='') as athlete_stat_file:
         writer = csv.DictWriter(athlete_stat_file, fieldnames=ATHLETE_DATA_FIELDNAMES, delimiter=',')
         if not os.path.exists(athlete_week_file) or os.stat(athlete_week_file).st_size == 0:
             writer.writeheader()
         writer.writerows(new_athlete_runs) # Writing the new runs to the athlete's CSV file
-        print(f"Added {len(new_athlete_runs)} rows to CSV file {athlete_week_file}.")
-    print(f"END of write_athlete_data()\n")
+        logger.debug(f"Added {len(new_athlete_runs)} rows to CSV file {athlete_week_file}.")
+    logger.debug(f"END of write_athlete_data()\n")
 
 
 def query_existing_recap_data(athlete_name):
     """
         Queries for existing recap data.
     """
-    print(f"\nSTART of query_existing_recap_data() w/ arg(s)...\n\tathlete_name: {athlete_name}")
+    logger.debug(f"\nSTART of query_existing_recap_data() w/ arg(s)...\n\tathlete_name: {athlete_name}")
     existing_recap_data = dict()
     with open(recap_filename, 'r+', newline='') as recap_file: 
         # Writing headers if they don't exist
@@ -330,7 +342,7 @@ def query_existing_recap_data(athlete_name):
             if str(recap_data_row["ATHLETE"]).upper() == athlete_name.upper():
                 existing_recap_data.update(recap_data_row)
                 return existing_recap_data
-    print(f"END of query_existing_recap_data() w/ return(s)...\n\texisting_recap_data: {existing_recap_data}\n")
+    logger.debug(f"END of query_existing_recap_data() w/ return(s)...\n\texisting_recap_data: {existing_recap_data}\n")
     return existing_recap_data
 
 
@@ -338,11 +350,11 @@ def update_athlete_recap_data(existing_recap_data, athlete_name, new_athlete_run
     """
         Updates the given athlete's recap data.
     """
-    print(f"\nSTART of update_athlete_recap_data() w/ arg(s)...\n\texisting_recap_data: {existing_recap_data}\n\tathlete_name: {athlete_name}\n\tnew_athlete_runs: {new_athlete_runs}")
+    logger.debug(f"\nSTART of update_athlete_recap_data() w/ arg(s)...\n\texisting_recap_data: {existing_recap_data}\n\tathlete_name: {athlete_name}\n\tnew_athlete_runs: {new_athlete_runs}")
 
     # TODO: Consolidate below if else, lots of code reuse
     if not existing_recap_data:
-        print(f"There is no existing recap data for athlete {athlete_name}. Adding their data...")
+        logger.debug(f"There is no existing recap data for athlete {athlete_name}. Adding their data...")
         # Adding the new data
         existing_recap_data["ATHLETE"] = athlete_name.upper()
         key_to_find = "DISTANCE (MI)"
@@ -360,9 +372,9 @@ def update_athlete_recap_data(existing_recap_data, athlete_name, new_athlete_run
         existing_recap_data["LONGEST RUN"] = longest_run
         existing_recap_data["LONGEST RUN DATE"] = longest_run_date
     else:    
-        print(f"Existing recap data was found for athlete {athlete_name}. Updating their data...")
+        logger.debug(f"Existing recap data was found for athlete {athlete_name}. Updating their data...")
         for col in RECAP_FIELDNAMES:
-            print(f"{col}: {existing_recap_data[col]}")
+            logger.debug(f"{col}: {existing_recap_data[col]}")
         # Modifying the existing data
         key_to_find = "DISTANCE (MI)"
         run_distances = [float(d[key_to_find]) for d in new_athlete_runs if key_to_find in d]
@@ -380,7 +392,7 @@ def update_athlete_recap_data(existing_recap_data, athlete_name, new_athlete_run
         existing_recap_data["LONGEST RUN"] = longest_run
         existing_recap_data["LONGEST RUN DATE"] = longest_run_date
     
-    print(f"END of update_athlete_recap_data() w/ return(s)...\n\texisting_recap_data: {existing_recap_data}\n")    
+    logger.debug(f"END of update_athlete_recap_data() w/ return(s)...\n\texisting_recap_data: {existing_recap_data}\n")    
     return existing_recap_data
 
 def handle_any_special_field_updates(activity):
@@ -397,7 +409,7 @@ def handle_any_special_field_updates(activity):
         reader = csv.DictReader(data_file, fieldnames=ATHLETE_DATA_FIELDNAMES, delimiter=',')
         data = list(reader)
 
-    print(f"This activity already exists in the athlete data file: {activity}")
+    logger.debug(f"This activity already exists in the athlete data file: {activity}")
 
     # Update the matching row's special fields if they've changed 
     for row in data:
@@ -416,7 +428,7 @@ def handle_any_special_field_updates(activity):
     # Write the updated data back to the CSV file if any fields have changed
     if any(fieldChanged):
         changedFields = [field for field, changed in zip(["TITLE", "DESCRIPTION", "WKT TYPE"], fieldChanged) if changed]
-        print(f"The following fields have changed: {', '.join(changedFields)}")
+        logger.debug(f"The following fields have changed: {', '.join(changedFields)}")
         with open(athlete_data_file, 'w', newline='') as data_file:
             writer = csv.DictWriter(data_file, fieldnames=ATHLETE_DATA_FIELDNAMES)
             writer.writerows(data)
@@ -432,7 +444,7 @@ def get_and_insert_athlete_activities_into_db(athlete_id: int, refresh_token: st
         after: Limit results to activities after this timestamp
         before: Limit results to activities before this timestamp
     """
-    print("\nSTART of get_and_insert_athlete_activities_into_db()...\n")
+    logger.debug("\nSTART of get_and_insert_athlete_activities_into_db()...\n")
     
     # Get auth client and access token
     authorization_client = StravaAuthorization(client_id=client_id, client_secret=client_secret, redirect_uri=redirect_uri)
@@ -442,6 +454,7 @@ def get_and_insert_athlete_activities_into_db(athlete_id: int, refresh_token: st
     # Retrieve (and format) the athlete's activities between the after and before timeframe
     activities = strava_client.get_activities(athlete_id=athlete_id, start_date=start_date, end_date=end_date)
     if not activities: 
+        logger.debug(f"No activities were found for athlete {athlete_id}.")
         return # No activities to insert
     detailed_activities = convert_activities_to_list_of_dicts_postgres(activities=activities)
 
@@ -450,14 +463,15 @@ def get_and_insert_athlete_activities_into_db(athlete_id: int, refresh_token: st
     activity_dao = StravaActivitiesDao(db_service)
     for activity in detailed_activities:
         activity_dao.upsert_activity(activity)
+    logger.info(f"Upserted {len(detailed_activities)} activities into strava_api.activities.")
 
-    print("END of get_and_insert_athlete_activities_into_db()...\n")
+    logger.debug("END of get_and_insert_athlete_activities_into_db()...\n")
 
 # Override to false for default behavior of this file
 GET_AND_INSERT_TO_DB_FOR_TIMEFRAME=True
 ATHLETE_INDEX = 2
-START_DATE = "2024-06-01"
-END_DATE = None
+START_DATE = "2023-06-01"
+END_DATE = "2024-01-01"
 
 def main():
     """
@@ -506,8 +520,8 @@ def main():
                     cleaned_activity = {key: emoji.demojize(str(value)) if not isinstance(value, str) else emoji.demojize(value) for key, value in activity.items()}
                     handle_any_special_field_updates(activity=cleaned_activity)
         else:
-            print(f"No activities were retrieved for athlete {athlete_names_parallel_arr[athlete_count]}.")
-        print(f"{rows_added} new rows were found for athlete {athlete_names_parallel_arr[athlete_count]}.")
+            logger.debug(f"No activities were retrieved for athlete {athlete_names_parallel_arr[athlete_count]}.")
+        logger.debug(f"{rows_added} new rows were found for athlete {athlete_names_parallel_arr[athlete_count]}.")
         athlete_count += 1 # Ready for the next athlete
     
     # Sorting all new rows by the "FULL DATETIME" field
@@ -519,7 +533,7 @@ def main():
         if not os.path.exists(athlete_data_file) or os.stat(athlete_data_file).st_size == 0:
             writer.writeheader()
         writer.writerows(rows)
-        print(f"{len(rows)} rows were added to {athlete_data_file}.")
+        logger.debug(f"{len(rows)} rows were added to {athlete_data_file}.")
 
     # Update weekly stat and recap files
     recap_rows = list()
@@ -550,9 +564,9 @@ def main():
         if not os.path.exists(recap_filename) or os.stat(recap_filename).st_size == 0:
             writer.writeheader()
         try:
-            print(f"Before writing rows: {rows}")
+            logger.debug(f"Before writing rows: {rows}")
             writer.writerows(recap_rows)
         except Exception as e:
-            print(f"Error occurred while writing rows to the recap file: {e}")
+            logger.error(f"Error occurred while writing rows to the recap file: {e}")
 
 main() # Runs every Sunday at 7:30 PM Eastern Standard Time

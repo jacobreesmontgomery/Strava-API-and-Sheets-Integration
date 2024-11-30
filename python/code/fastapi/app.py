@@ -14,9 +14,18 @@ import sys
 from logging import basicConfig, INFO, getLogger
 from dotenv import load_dotenv
 
+from utilities.simpleLogger import simpleLogger
+logger = simpleLogger(log_level="INFO", class_name=__name__).logger
+
 # Setup logging
-basicConfig(level=INFO)
-logger = getLogger(__name__)
+# basicConfig(
+#     level=INFO,
+#     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+#     datefmt="%Y-%m-%d %H:%M:%S",
+#     filename="app.log",
+#     filemode="a"
+# )
+# logger = getLogger(__name__)
 
 # Ensure the correct path for imports
 package_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
