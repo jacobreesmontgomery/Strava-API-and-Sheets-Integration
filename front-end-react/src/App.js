@@ -13,7 +13,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/basic-stats" element={<BasicStats />} />
+        <Route path="/basic_stats" element={<BasicStats />} />
         <Route path="/database" element={<Database />} />
         <Route path="/auth-result" element={<AuthResult />} />
       </Routes>

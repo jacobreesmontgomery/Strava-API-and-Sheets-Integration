@@ -9,7 +9,7 @@ const BasicStats = () => {
   const [filters, setFilters] = useState<string[]>([]);
 
   useEffect(() => {
-    axios.get('http://localhost:5001/api/basic-stats')  
+    axios.get('http://localhost:5001/api/basic_stats')  
       .then(response => {
         setHeaderStats(response.data.headerStats);
         setRowData(response.data.rowData);

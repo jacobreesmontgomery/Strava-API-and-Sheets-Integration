@@ -29,8 +29,10 @@ class Activity(Base):
     # Activity metadata
     name = Column(String, nullable=False)
     moving_time = Column(Time, nullable=False) # HH:MM:SS
+    moving_time_s = Column(Integer, nullable=False) # Moving time in seconds
     distance_mi = Column(Float, nullable=False)
     pace_min_mi = Column(Time, nullable=True) # HH:MM:SS
+    avg_speed_ft_s = Column(Float(precision=2), nullable=False) # Average speed in ft/s
 
     # Date and time fields
     full_datetime = Column(DateTime, nullable=True) # MM/DD/YY HH:MM:SS 

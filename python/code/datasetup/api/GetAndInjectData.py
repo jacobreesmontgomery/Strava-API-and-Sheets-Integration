@@ -197,8 +197,10 @@ def convert_activities_to_list_of_dicts_postgres(activities: list[Activity]) -> 
             "athlete_id": activity.athlete.id,
             "name": activity.name,
             "moving_time": time_obj,
+            "moving_time_s": activity.moving_time.total_seconds(),
             "distance_mi": round(float(activity.distance) / 1609.34, 2), # Converting meters to miles
             "pace_min_mi": moving_time_obj,
+            "avg_speed_ft_s": round(float(str(activity.average_speed).split()[0]) * 3.28084, 2),
             "full_datetime": activity.start_date,
             "time": run_time,
             "week_day": week_day,
@@ -465,9 +467,9 @@ def get_and_insert_athlete_activities_into_db(athlete_id: int, refresh_token: st
 
 # Override to false for default behavior of this file
 GET_AND_INSERT_TO_DB_FOR_TIMEFRAME=True
-ATHLETE_INDEX = 2
-START_DATE = "2024-11-24"
-END_DATE = None
+ATHLETE_INDEX = 0
+START_DATE = "2023-01-01"
+END_DATE = "2024-01-01"
 
 def main():
     """

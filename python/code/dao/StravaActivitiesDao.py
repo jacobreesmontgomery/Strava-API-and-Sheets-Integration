@@ -1,4 +1,5 @@
 from sqlalchemy.dialects.postgresql import insert
+from sqlalchemy.sql import func
 from models.Activity import Activity
 from DatabaseService import DatabaseService
 
@@ -19,14 +20,6 @@ class StravaActivitiesDao:
         :param db_service: An instance of DatabaseService for session management.
         """
         self.db_service = db_service
-        # basicConfig(
-        #     level=INFO,
-        #     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-        #     datefmt="%Y-%m-%d %H:%M:%S",
-        #     filename="app.log",
-        #     filemode="a"
-        # )
-        # self.logger = getLogger(__name__)
         self.logger = simpleLogger(log_level="INFO", class_name=__name__).logger
 
     def upsert_activity(self, activity_data: dict) -> int:
@@ -124,3 +117,30 @@ class StravaActivitiesDao:
             return False
         finally:
             self.db_service.close_session()
+    
+    # TODO - JACOB: Continue working on this. Think through it more and write up SQL query, then convert to SQLAlchemy query.
+    def get_basic_stats(self):
+        """
+        Gets the basic stats, representing the current week's training, for each authenticated athlete.
+
+        Basic stats include:
+        - Tallied mileage
+        - Tallied moving time
+        - # of runs
+        - Average mileage per run
+        - Average moving time per run
+        - Average pace (in minutes per mile) per run
+        - Longest run
+        - Date of the longest run 
+
+        Returns:
+            A grouping of basic recap stats.
+        """
+        self.logger.info("Fetching basic stats for all authenticated athletes")
+        session = self.db_service.get_session()
+        try:
+            # TODO: Figure out how to work with the time-based metrics
+            return # temporary return
+        except Exception as e:
+            self.logger.error(f"Error fetching basic stats: {e}")
+            raise

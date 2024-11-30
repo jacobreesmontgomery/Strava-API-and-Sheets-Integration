@@ -17,9 +17,9 @@ app.use('/files', express.static(directory));
 
 const backendUrl = 'http://localhost:5000';
 // Route to handle requests and forward to FastAPI backend
-app.get('/api/basic-stats', async (req, res) => {
+app.get('/api/basic_stats', async (req, res) => {
     try {
-        const response = await axios.get(`${backendUrl}/api/basic-stats`);
+        const response = await axios.get(`${backendUrl}/api/basic_stats`);
         res.json(response.data);
     } catch (error) {
         res.status(error.response ? error.response.status : 500).json({

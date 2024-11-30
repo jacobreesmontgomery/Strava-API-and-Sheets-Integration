@@ -16,21 +16,12 @@ from dotenv import load_dotenv
 from utilities.simpleLogger import simpleLogger
 logger = simpleLogger(log_level="INFO", class_name=__name__).logger
 
-# Setup logging
-# basicConfig(
-#     level=INFO,
-#     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-#     datefmt="%Y-%m-%d %H:%M:%S",
-#     filename="app.log",
-#     filemode="a"
-# )
-# logger = getLogger(__name__)
-
 # Ensure the correct path for imports
 package_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.insert(0, package_path)
 from datasetup.api.StravaAPI import StravaAuthorization, StravaAPI
 from code.dao.StravaAthleteDao import StravaAthleteDao
+from code.dao.StravaActivitiesDao import StravaActivitiesDao
 from code.dao.DatabaseService import DatabaseService
 
 # Load environment variables
@@ -54,12 +45,12 @@ app.add_middleware(
 # Set up the database service and athlete db engine
 db_service = DatabaseService()
 athlete_db_engine = StravaAthleteDao(db_service=db_service)
+activities_db_engine = StravaActivitiesDao(db_service=db_service)
 
 ATHLETE_WEEK_RECAP_CSV = "C:/Users/17178/Desktop/GITHUB_PROJECTS/Strava-API-and-Sheets-Integration/python/code/datasetup/data/recap/ATHLETE_WEEK_RECAP.csv"
 ATHLETE_DATA_CSV = "C:/Users/17178/Desktop/GITHUB_PROJECTS/Strava-API-and-Sheets-Integration/python/code/datasetup/data/main_data/ATHLETE_DATA.csv"
 
 ### HELPER METHODS ###
-# TODO - Once everything below is refactored, get rid of these helper methods
 def get_header_stats(csvFile: str) -> list[str]:
     """
         Return an array containing the columns from the first row
@@ -114,10 +105,10 @@ def update_env_file(athlete_refresh_tokens, athlete_names):
 
 
 ### ENDPOINTS ###
-@app.get("/api/basic-stats")
+@app.get("/api/basic_stats")
 async def basic_stats():
     """
-        Drives the rendering of the 'Basic Stats' page with data from "ATHLETE_WEEK_RECAP.csv."
+        Drives the rendering of the 'Basic Stats' page with data from the 'strava_api.activities' DB table.
     """
     # TODO - Rework to make DB GET calls
     headerStats = get_header_stats(ATHLETE_WEEK_RECAP_CSV)
@@ -128,7 +119,7 @@ async def basic_stats():
 @app.get("/api/database")
 async def database():
     """
-        Drives the rendering of the 'Database' page with data from "ATHLETE_DATA.csv."
+        Drives the rendering of the 'Database' page with data from the 'strava_api.activities' DB table.
     """
     # TODO - Rework to make DB GET calls
     headerStats = get_header_stats(ATHLETE_DATA_CSV)
