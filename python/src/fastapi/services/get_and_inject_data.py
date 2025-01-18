@@ -20,7 +20,7 @@ import os
 import sys
 
 package_path = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), "..", "utilities")
+    os.path.join(os.path.dirname(__file__), "..", "..", "utilities")
 )
 sys.path.insert(0, package_path)
 
@@ -29,7 +29,7 @@ from simple_logger import SimpleLogger
 logger = SimpleLogger(log_level="INFO", class_name=__name__).logger
 
 package_path = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), "..", "..", "utilities")
+    os.path.join(os.path.dirname(__file__), "..", "..", "..", "utilities")
 )
 sys.path.insert(0, package_path)
 

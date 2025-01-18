@@ -20,7 +20,7 @@ logger = SimpleLogger(log_level="INFO", class_name=__name__).logger
 # Ensure the correct path for imports
 package_path = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 sys.path.insert(0, package_path)
-from datasetup.api.strava_api import StravaAuthorization, StravaAPI
+from src.fastapi.services.strava_api import StravaAuthorization, StravaAPI
 from src.dao.strava_athlete_dao import StravaAthleteDao
 from src.dao.strava_activities_dao import StravaActivitiesDao
 from python.src.dao.services.database_service import DatabaseService
