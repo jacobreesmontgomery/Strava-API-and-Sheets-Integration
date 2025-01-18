@@ -4,9 +4,9 @@ from dotenv import load_dotenv
 import os
 import json
 
-from simpleLogger import simpleLogger
+from simple_logger import SimpleLogger
 
-logger = simpleLogger(log_level="INFO", class_name=__name__).logger
+logger = SimpleLogger(log_level="INFO", class_name=__name__).logger
 
 load_dotenv()
 RECAP_FIELDNAMES = json.loads(os.getenv("RECAP_FIELDNAMES"))

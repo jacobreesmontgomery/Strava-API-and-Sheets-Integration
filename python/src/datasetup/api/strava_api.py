@@ -19,7 +19,7 @@ package_path = os.path.abspath(
 )
 sys.path.insert(0, package_path)
 
-from simpleLogger import simpleLogger
+from simple_logger import SimpleLogger
 
 
 class StravaAuthorization:
@@ -69,15 +69,7 @@ class StravaAPI:
     def __init__(self, access_token):
         self.access_token = access_token
         self.client = Client(access_token)
-        # basicConfig(
-        #     level=INFO,
-        #     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-        #     datefmt="%Y-%m-%d %H:%M:%S",
-        #     filename="app.log",
-        #     filemode="a"
-        # )
-        # self.logger = getLogger(__name__)
-        self.logger = simpleLogger(log_level="INFO", class_name=__name__).logger
+        self.logger = SimpleLogger(log_level="INFO", class_name=__name__).logger
 
     @retry(
         stop=stop_after_attempt(5),

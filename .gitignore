@@ -2,4 +2,4 @@
 data
 credentials.json
 token.json
-python/code/datasetup/api/__pycache__/
+**/__pycache__/

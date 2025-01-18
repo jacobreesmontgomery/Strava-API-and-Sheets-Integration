@@ -1,13 +1,13 @@
 from os import path
 import sys
 
-package_path = path.abspath(path.join(path.dirname(__file__), '..'))
+package_path = path.abspath(path.join(path.dirname(__file__), ".."))
 sys.path.insert(0, package_path)
 
 # NOTE - You must import all models here that you want table generations for.
-from models.Athlete import Base, Athlete
-from models.Activity import Activity
-from DatabaseService import DatabaseService
+from models.athlete import Base, Athlete
+from models.activity import Activity
+from python.src.dao.services.database_service import DatabaseService
 
 # Create the database service
 db_service = DatabaseService()

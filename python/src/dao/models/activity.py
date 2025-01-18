@@ -13,7 +13,7 @@ from sqlalchemy import (
 )
 
 # Use the Athlete model's Base
-from .Athlete import Base
+from .athlete import Base
 
 
 class Activity(Base):

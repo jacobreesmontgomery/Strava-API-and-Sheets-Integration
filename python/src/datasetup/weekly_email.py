@@ -22,6 +22,8 @@ RECAP_FIELDNAMES = json.loads(os.getenv("RECAP_FIELDNAMES"))
 
 SCOPES = ["https://www.googleapis.com/auth/gmail.modify"]
 
+# TODO - JACOB: Refactor to pull from the PostgreSQL database tables
+
 
 def establish_creds():
     creds = None

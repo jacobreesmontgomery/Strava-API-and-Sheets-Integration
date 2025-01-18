@@ -13,17 +13,17 @@ import os
 import sys
 from dotenv import load_dotenv
 
-from utilities.simpleLogger import simpleLogger
+from utilities.simple_logger import SimpleLogger
 
-logger = simpleLogger(log_level="INFO", class_name=__name__).logger
+logger = SimpleLogger(log_level="INFO", class_name=__name__).logger
 
 # Ensure the correct path for imports
 package_path = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 sys.path.insert(0, package_path)
-from datasetup.api.StravaAPI import StravaAuthorization, StravaAPI
-from code.dao.StravaAthleteDao import StravaAthleteDao
-from code.dao.StravaActivitiesDao import StravaActivitiesDao
-from code.dao.DatabaseService import DatabaseService
+from datasetup.api.strava_api import StravaAuthorization, StravaAPI
+from code.dao.strava_athlete_dao import StravaAthleteDao
+from code.dao.strava_activities_dao import StravaActivitiesDao
+from python.src.dao.services.database_service import DatabaseService
 
 # Load environment variables
 load_dotenv()
