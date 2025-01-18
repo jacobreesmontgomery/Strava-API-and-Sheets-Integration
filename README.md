@@ -35,7 +35,7 @@ In a traditional chatbot interface, the user will be able to ask questions about
 Follow these steps to get everything up and running:
 
 1. Ensure you're using the virtual environment: `.venv\Scripts\Activate.ps1`.
-2. In one terminal, navigate to the front-end-react directory and run `npm start`.
+2. In one terminal, navigate to the react directory and run `npm start`.
 3. In another terminal, navigate to the Node server, `server.js`, and run `npm start`.
 4. In a third terminal, navigate to the FastAPI backend, `app.py`, and run one of two commands:
    - Reload on code changes: `uvicorn app:app --reload`
