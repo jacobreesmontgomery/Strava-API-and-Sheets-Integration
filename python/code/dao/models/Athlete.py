@@ -3,10 +3,12 @@ from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
 
+
 class Athlete(Base):
     """
     Represents a single Strava athlete corresponding to the 'athlete' database table.
     """
+
     __tablename__ = "athletes"
     __table_args__ = {"schema": "strava_api"}  # Schema defined as `strava_api`
 

@@ -6,15 +6,19 @@ from sqlalchemy.dialects.postgresql import insert
 import os
 import sys
 
-package_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'utilities'))
+package_path = os.path.abspath(
+    os.path.join(os.path.dirname(__file__), "..", "..", "utilities")
+)
 sys.path.insert(0, package_path)
 
 from simpleLogger import simpleLogger
+
 
 class StravaAthleteDao:
     """
     Responsible for managing athlete data in the database.
     """
+
     def __init__(self, db_service: DatabaseService):
         self.db_service = db_service
         # basicConfig(
@@ -27,10 +31,12 @@ class StravaAthleteDao:
         # self.logger = getLogger(__name__)
         self.logger = simpleLogger(log_level="INFO", class_name=__name__).logger
 
-    def upsert_athlete(self, athlete_id: int, athlete_name: str, refresh_token: str, email: str) -> int:
+    def upsert_athlete(
+        self, athlete_id: int, athlete_name: str, refresh_token: str, email: str
+    ) -> int:
         """
         Inserts or updates an athlete in the database (upsert).
-        
+
         Args:
             athlete_id: The athlete's ID.
             athlete_name: The name of the athlete.
@@ -43,18 +49,24 @@ class StravaAthleteDao:
         self.logger.info("Upserting athlete with ID %s", athlete_id)
         session = self.db_service.get_session()
         try:
-            stmt = insert(Athlete).values(
-                athlete_id=athlete_id,
-                athlete_name=athlete_name,
-                refresh_token=refresh_token,
-                email=email
-            ).on_conflict_do_update(
-                index_elements=['athlete_id'],  # Conflict target (e.g., primary key)
-                set_={
-                    'athlete_name': athlete_name,
-                    'refresh_token': refresh_token,
-                    'email': email
-                }
+            stmt = (
+                insert(Athlete)
+                .values(
+                    athlete_id=athlete_id,
+                    athlete_name=athlete_name,
+                    refresh_token=refresh_token,
+                    email=email,
+                )
+                .on_conflict_do_update(
+                    index_elements=[
+                        "athlete_id"
+                    ],  # Conflict target (e.g., primary key)
+                    set_={
+                        "athlete_name": athlete_name,
+                        "refresh_token": refresh_token,
+                        "email": email,
+                    },
+                )
             )
             result = session.execute(stmt)
             session.commit()
@@ -71,7 +83,7 @@ class StravaAthleteDao:
     def get_athlete(self, athlete_id: int) -> Athlete:
         """
         Retrieves an athlete by their ID.
-        
+
         Args:
             athlete_id: The athlete's ID.
 
@@ -94,19 +106,23 @@ class StravaAthleteDao:
     def get_athlete_id(self, athlete_name: str) -> int:
         """
         Retrieves an athlete's ID by their name.
-        
+
         Args:
             athlete_name: The name of the athlete.
-        
+
         Returns:
             An int representing the athlete's ID (or None if not found).
         """
         self.logger.info("Fetching athlete ID for '%s'", athlete_name)
         session = self.db_service.get_session()
         try:
-            athlete = session.query(Athlete).filter_by(athlete_name=athlete_name).first()
+            athlete = (
+                session.query(Athlete).filter_by(athlete_name=athlete_name).first()
+            )
             if athlete:
-                self.logger.info(f"Acquired athlete ID of {athlete.athlete_id} for {athlete_name}")
+                self.logger.info(
+                    f"Acquired athlete ID of {athlete.athlete_id} for {athlete_name}"
+                )
                 return athlete.athlete_id
             self.logger.info("No athlete ID was found.")
             return None
@@ -116,16 +132,22 @@ class StravaAthleteDao:
         finally:
             self.db_service.close_session()
 
-    def update_athlete(self, athlete_id: int, athlete_name: str = None, refresh_token: str = None, email: str = None) -> bool:
+    def update_athlete(
+        self,
+        athlete_id: int,
+        athlete_name: str = None,
+        refresh_token: str = None,
+        email: str = None,
+    ) -> bool:
         """
         Updates an athlete's details in the database.
-        
+
         Args:
             athlete_id: The athlete's ID.
             athlete_name: The new name for the athlete.
             refresh_token: The new refresh token for the athlete.
             email: The new email for the athlete.
-        
+
         Returns:
             A boolean indicating whether or not the athlete's details were updated.
         """
@@ -157,10 +179,10 @@ class StravaAthleteDao:
     def delete_athlete(self, athlete_id: int) -> bool:
         """
         Deletes an athlete from the database.
-        
+
         Args:
             athlete_id: The athlete's ID.
-        
+
         Returns:
             A boolean indicating whether or not the athlete was deleted.
         """

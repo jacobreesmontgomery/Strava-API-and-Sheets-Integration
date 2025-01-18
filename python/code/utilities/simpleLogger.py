@@ -1,6 +1,7 @@
 from logging import getLogger, StreamHandler
 from colorlog import ColoredFormatter
 
+
 class simpleLogger:
     def __init__(self, log_level: str = "INFO", class_name: str = "app.py"):
         """
@@ -21,7 +22,7 @@ class simpleLogger:
                     "WARNING": "yellow",
                     "ERROR": "red",
                     "CRITICAL": "bold_red",
-                }
+                },
             )
             handler.setFormatter(formatter)
             self.logger.addHandler(handler)

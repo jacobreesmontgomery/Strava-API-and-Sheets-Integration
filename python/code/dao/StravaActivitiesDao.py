@@ -6,15 +6,19 @@ from DatabaseService import DatabaseService
 import os
 import sys
 
-package_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'utilities'))
+package_path = os.path.abspath(
+    os.path.join(os.path.dirname(__file__), "..", "..", "utilities")
+)
 sys.path.insert(0, package_path)
 
 from simpleLogger import simpleLogger
+
 
 class StravaActivitiesDao:
     """
     Responsible for managing Strava activity data in the database.
     """
+
     def __init__(self, db_service: DatabaseService):
         """
         :param db_service: An instance of DatabaseService for session management.
@@ -25,19 +29,29 @@ class StravaActivitiesDao:
     def upsert_activity(self, activity_data: dict) -> int:
         """
         Upserts an activity record into the database.
-        
+
         Args:
             activity_data: A dictionary containing activity details.
-        
+
         Returns:
             The number of rows inserted or updated in the activities table.
         """
-        self.logger.debug("Upserting activity with ID %s", activity_data.get("activity_id"))
+        self.logger.debug(
+            "Upserting activity with ID %s", activity_data.get("activity_id")
+        )
         session = self.db_service.get_session()
         try:
-            stmt = insert(Activity).values(**activity_data).on_conflict_do_update(
-                index_elements=["activity_id"],  # The unique constraint column(s)
-                set_={key: activity_data[key] for key in activity_data if key != "activity_id"}
+            stmt = (
+                insert(Activity)
+                .values(**activity_data)
+                .on_conflict_do_update(
+                    index_elements=["activity_id"],  # The unique constraint column(s)
+                    set_={
+                        key: activity_data[key]
+                        for key in activity_data
+                        if key != "activity_id"
+                    },
+                )
             )
             result = session.execute(stmt)
             session.commit()
@@ -55,10 +69,10 @@ class StravaActivitiesDao:
     def get_activity(self, activity_id: int) -> Activity:
         """
         Retrieves an activity by its ID.
-        
+
         Args:
             activity_id: The activity ID.
-        
+
         Returns:
             An Activity object.
         """
@@ -75,10 +89,10 @@ class StravaActivitiesDao:
     def update_activity(self, activity_id: int, **kwargs) -> bool:
         """
         Updates fields of an activity with the specified ID.
-        
+
         Args:
             activity_id: The ID of the activity to update.
-        
+
         Returns:
             A boolean indicating whether or not the activity was updated.
         """
@@ -98,7 +112,7 @@ class StravaActivitiesDao:
     def delete_activity(self, activity_id: int) -> bool:
         """
         Deletes an activity by its ID.
-        
+
         Args:
             activity_id: The ID of the activity to delete.
 
@@ -117,7 +131,7 @@ class StravaActivitiesDao:
             return False
         finally:
             self.db_service.close_session()
-    
+
     # TODO - JACOB: Continue working on this. Think through it more and write up SQL query, then convert to SQLAlchemy query.
     def get_basic_stats(self):
         """
@@ -131,7 +145,7 @@ class StravaActivitiesDao:
         - Average moving time per run
         - Average pace (in minutes per mile) per run
         - Longest run
-        - Date of the longest run 
+        - Date of the longest run
 
         Returns:
             A grouping of basic recap stats.
@@ -140,7 +154,7 @@ class StravaActivitiesDao:
         session = self.db_service.get_session()
         try:
             # TODO: Figure out how to work with the time-based metrics
-            return # temporary return
+            return  # temporary return
         except Exception as e:
             self.logger.error(f"Error fetching basic stats: {e}")
             raise
