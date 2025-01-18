@@ -1,5 +1,5 @@
 from models.athlete import Athlete
-from python.src.dao.services.database_service import DatabaseService
+from services.database_service import DatabaseService
 from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.dialects.postgresql import insert
 

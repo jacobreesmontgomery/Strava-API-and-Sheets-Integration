@@ -1,7 +1,7 @@
 from sqlalchemy.dialects.postgresql import insert
 from sqlalchemy.sql import func
-from models.activity import Activity
-from python.src.dao.services.database_service import DatabaseService
+from .models.activity import Activity
+from .services.database_service import DatabaseService
 
 import os
 import sys

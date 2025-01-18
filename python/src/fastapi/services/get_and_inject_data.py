@@ -41,12 +41,10 @@ from utilities import (
     tally_time,
 )
 
-package_path = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), "..", "..", "dao")
-)
+package_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 sys.path.insert(1, package_path)
-from strava_activities_dao import StravaActivitiesDao
-from database_service import DatabaseService
+from dao.strava_activities_dao import StravaActivitiesDao
+from dao.services.database_service import DatabaseService
 
 # Loading environment variables from the .env file
 load_dotenv()
@@ -335,7 +333,7 @@ class DataExtractionAndInjection:
 
 # Override to false for default behavior of this file
 GET_AND_INSERT_TO_DB_FOR_TIMEFRAME = True
-ATHLETE_INDEX = 6
+ATHLETE_INDEX = 1
 START_DATE = "2024-01-01"
 END_DATE = "2024-06-01"
 
