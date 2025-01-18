@@ -1,8 +1,5 @@
 .env
-todo
-weekly_stats
-recap
-main_data
+data
 credentials.json
 token.json
 python/code/datasetup/api/__pycache__/
