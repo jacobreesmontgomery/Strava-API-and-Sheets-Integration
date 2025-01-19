@@ -3,10 +3,9 @@ from fastapi.responses import RedirectResponse
 from dotenv import load_dotenv
 from os import environ
 
-from services.strava_api import StravaAuthorization, StravaAPI
-from dao.strava_activities_dao import StravaActivitiesDao
-from dao.strava_athlete_dao import StravaAthleteDao
-from dao.services.database_service import DatabaseService
+from fast_api import StravaAuthorization, StravaAPI
+from dao import StravaActivitiesDao, StravaAthleteDao
+from dao import DatabaseService
 
 new_athlete_router = APIRouter()
 

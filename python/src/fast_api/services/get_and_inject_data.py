@@ -33,13 +33,9 @@ package_path = os.path.abspath(
 )
 sys.path.insert(0, package_path)
 
-from utilities import (
-    get_index_of_key,
-    format_seconds,
-    calculate_pace,
-    divide_time_str_by_number,
-    tally_time,
-)
+from utilities import Utilities
+
+utilities_service = Utilities()
 
 package_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 sys.path.insert(1, package_path)
@@ -158,10 +154,14 @@ class DataExtractionAndInjection:
             run_time, week_day, month, day, year = self.parse_start_date(
                 activity.start_date_local
             )
-            str_formatted_time, time_obj = format_seconds(activity.moving_time)
-            str_formatted_moving_time, moving_time_obj = calculate_pace(
-                float(activity.moving_time.total_seconds()),
-                float(activity.distance * 0.000621371),
+            str_formatted_time, time_obj = utilities_service.format_seconds(
+                activity.moving_time
+            )
+            str_formatted_moving_time, moving_time_obj = (
+                utilities_service.calculate_pace(
+                    float(activity.moving_time.total_seconds()),
+                    float(activity.distance * 0.000621371),
+                )
             )
 
             # Establishing the activity dict

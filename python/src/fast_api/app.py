@@ -7,9 +7,8 @@ OVERVIEW: This file will drive the front-end webpage.
 # IMPORTS
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from apis.activities_api import activities_router
-from apis.new_athletes_api import new_athlete_router
-import os
+from fast_api import activities_router
+from os import environ
 from dotenv import load_dotenv
 
 from utilities.simple_logger import SimpleLogger
@@ -18,10 +17,10 @@ logger = SimpleLogger(log_level="INFO", class_name=__name__).logger
 
 # Load environment variables
 load_dotenv()
-CLIENT_ID = os.environ.get("CLIENT_ID")
-CLIENT_SECRET = os.environ.get("CLIENT_SECRET")
-REDIRECT_URI = os.environ.get("REDIRECT_URI")
-AUTH_EXCHANGE_LINK = os.environ.get("AUTH_EXCHANGE_LINK")
+CLIENT_ID = environ.get("CLIENT_ID")
+CLIENT_SECRET = environ.get("CLIENT_SECRET")
+REDIRECT_URI = environ.get("REDIRECT_URI")
+AUTH_EXCHANGE_LINK = environ.get("AUTH_EXCHANGE_LINK")
 
 app = FastAPI(
     title="API Documentation",
@@ -36,12 +35,6 @@ app.include_router(
     router=activities_router,
     prefix="/api/v1",
     tags=["Activities"],
-)
-
-app.include_router(
-    router=new_athlete_router,
-    prefix="/api/v1",
-    tags=["New Authlete Authorization"],
 )
 
 # Enable CORS
