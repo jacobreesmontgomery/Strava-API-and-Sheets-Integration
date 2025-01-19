@@ -19,7 +19,7 @@ const Button = styled.a`
 
 function AuthButton() {
     return (
-        <Button href="http://localhost:5001/api/strava_auth">
+        <Button href="http://localhost:5001/api/new-athlete/strava-auth">
             Authenticate with my app
         </Button>
     );

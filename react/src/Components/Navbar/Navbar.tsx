@@ -36,8 +36,8 @@ function Navbar() {
             <NavbarTitle>Strava API</NavbarTitle>
             <NavbarLinks>
                 <NavbarLink href="/">Home</NavbarLink>
-                <NavbarLink href="/basic_stats">Basic Stats</NavbarLink>
-                <NavbarLink href="/database">Database</NavbarLink>
+                <NavbarLink href="/basic-stats">Basic Stats</NavbarLink>
+                <NavbarLink href="/detailed-stats">Database</NavbarLink>
             </NavbarLinks>
         </NavbarContainer>
     )

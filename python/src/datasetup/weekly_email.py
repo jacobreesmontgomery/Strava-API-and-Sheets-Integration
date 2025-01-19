@@ -20,7 +20,7 @@ ATHLETE_EMAILS_PARALLEL_ARR = json.loads(os.getenv("ATHLETE_EMAILS_PARALLEL_ARR"
 ATHLETE_DATA_FIELDNAMES = json.loads(os.getenv("ATHLETE_DATA_FIELDNAMES"))
 RECAP_FIELDNAMES = json.loads(os.getenv("RECAP_FIELDNAMES"))
 
-SCOPES = ["https://www.googleapis.com/auth/gmail.modify"]
+SCOPES = ["https://www.googleapis.com/new-athlete/gmail.modify"]
 
 # TODO - JACOB: Refactor to pull from the PostgreSQL database tables
 

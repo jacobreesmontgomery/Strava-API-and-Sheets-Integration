@@ -3,12 +3,12 @@ from fastapi.responses import RedirectResponse
 from dotenv import load_dotenv
 from os import environ
 
-from src.fastapi.services.strava_api import StravaAuthorization, StravaAPI
-from dao.services.database_service import DatabaseService
+from services.strava_api import StravaAuthorization, StravaAPI
 from dao.strava_activities_dao import StravaActivitiesDao
 from dao.strava_athlete_dao import StravaAthleteDao
+from dao.services.database_service import DatabaseService
 
-auth_api = APIRouter()
+new_athlete_router = APIRouter()
 
 # VARIABLES
 load_dotenv()
@@ -23,23 +23,23 @@ athlete_db_engine = StravaAthleteDao(db_service=db_service)
 activities_db_engine = StravaActivitiesDao(db_service=db_service)
 
 
-class AuthAPI:
+class NewAthletesAPI:
     """
-    Handles all activities API requests.
+    Handles authorization of new athletes.
     """
 
-    @auth_api.get("/auth/redirect")
+    @new_athlete_router.get("/new-athlete/redirect")
     async def redirect(self, request: Request):
         return RedirectResponse(AUTH_EXCHANGE_LINK)
 
-    @auth_api.get("/")
+    @new_athlete_router.get("/new-athlete")
     async def root(self, request: Request):
         code = request.query_params.get("code")
         if code:
             return await self.callback(code=code)
         return {"message": "Welcome to the Strava OAuth Integration"}
 
-    @auth_api.get("/auth/callback")
+    @new_athlete_router.get("/new-athlete/callback")
     async def callback(self, request: Request, code: str):
         try:
             # Complete authorization
@@ -76,5 +76,5 @@ class AuthAPI:
             message = "Authentication failed."
             message_type = "error"
 
-        redirect_url = f"http://localhost:3000/auth-result?message={message}&message_type={message_type}"
+        redirect_url = f"http://localhost:3000/new-athlete-result?message={message}&message_type={message_type}"
         return RedirectResponse(redirect_url)
